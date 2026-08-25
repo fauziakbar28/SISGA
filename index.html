@@ -11,12 +11,6 @@
   .header { background:linear-gradient(135deg,#1e3a8a,#3b82f6); color:white; padding:15px 20px; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
   .header h1 { font-size:18px; display:flex; align-items:center; gap:8px; }
   .header .sub { font-size:11px; opacity:0.9; margin-top:2px; }
-  .header .top-row { display:flex; justify-content:space-between; align-items:center; }
-  .mode-switch { display:flex; gap:5px; background:rgba(255,255,255,0.15); padding:4px; border-radius:10px; }
-  .mode-switch button { background:none; border:none; color:white; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:11px; font-weight:600; }
-  .mode-switch button.active { background:white; color:#1e3a8a; }
-  body.mode-siswa .header { background:linear-gradient(135deg,#059669,#10b981); }
-  
   .container { padding:15px; max-width:1000px; margin:0 auto; }
   .page { display:none; }
   .page.active { display:block; animation:fadeIn 0.3s; }
@@ -48,6 +42,7 @@
   .btn-primary { background:#1e40af; color:white; }
   .btn-success { background:#10b981; color:white; }
   .btn-danger { background:#ef4444; color:white; }
+  .btn-warning { background:#f59e0b; color:white; }
   .btn-secondary { background:#64748b; color:white; }
   .btn-sm { padding:5px 10px; font-size:11px; }
   .btn-block { width:100%; justify-content:center; }
@@ -79,6 +74,7 @@
   .badge-info { background:#dbeafe; color:#1e40af; }
   .badge-success { background:#d1fae5; color:#065f46; }
   .badge-danger { background:#fee2e2; color:#991b1b; }
+  .badge-warning { background:#fef3c7; color:#92400e; }
   
   .absen-row { display:flex; align-items:center; gap:8px; padding:8px; border-bottom:1px solid #e2e8f0; }
   .absen-row .nama { flex:1; font-weight:600; font-size:12px; }
@@ -89,13 +85,6 @@
   .absen-btn.I.active { background:#3b82f6; color:white; border-color:#3b82f6; }
   .absen-btn.A.active { background:#ef4444; color:white; border-color:#ef4444; }
   
-  .tugas-card { background:white; border-radius:10px; padding:14px; margin-bottom:10px; border-left:4px solid #1e40af; box-shadow:0 2px 5px rgba(0,0,0,0.05); }
-  .tugas-card.expired { border-left-color:#94a3b8; opacity:0.7; }
-  .status-badge { display:inline-block; padding:3px 8px; border-radius:8px; font-size:10px; font-weight:700; }
-  .status-aktif { background:#d1fae5; color:#065f46; }
-  .status-submitted { background:#dbeafe; color:#1e40af; }
-  .status-expired { background:#fee2e2; color:#991b1b; }
-  
   .empty { text-align:center; padding:30px; color:#64748b; }
   .empty .material-icons { font-size:40px; opacity:0.3; margin-bottom:8px; display:block; }
   table { width:100%; border-collapse:collapse; font-size:12px; }
@@ -103,33 +92,38 @@
   td { padding:8px; border-top:1px solid #e2e8f0; }
   
   .info-box { background:#eff6ff; border-left:4px solid #1e40af; padding:10px; border-radius:6px; font-size:12px; margin-bottom:10px; }
+  .success-box { background:#d1fae5; border-left:4px solid #10b981; padding:10px; border-radius:6px; font-size:12px; margin-bottom:10px; }
+  .warning-box { background:#fef3c7; border-left:4px solid #f59e0b; padding:10px; border-radius:6px; font-size:12px; margin-bottom:10px; }
   .back-btn { background:#e2e8f0; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-size:12px; font-weight:600; margin-bottom:10px; display:inline-flex; align-items:center; gap:5px; }
   
   .upload-area { border:2px dashed #e2e8f0; border-radius:10px; padding:20px; text-align:center; cursor:pointer; background:#f8fafc; }
   .upload-area:hover { border-color:#1e40af; background:#eff6ff; }
   .upload-area.has-file { border-color:#10b981; background:#f0fdf4; }
   .preview-img { max-width:100%; max-height:200px; border-radius:8px; margin-top:10px; }
-
+  
+  .link-box { background:#f1f5f9; padding:10px; border-radius:8px; word-break:break-all; font-size:11px; font-family:monospace; margin:8px 0; border:1px solid #e2e8f0; }
+  .kode-bukti { background:linear-gradient(135deg,#1e40af,#3b82f6); color:white; padding:15px; border-radius:10px; text-align:center; font-size:24px; font-weight:800; letter-spacing:3px; margin:10px 0; font-family:monospace; }
+  
   @media (max-width:600px) { .stats-row { grid-template-columns:repeat(2,1fr); } .menu-grid { grid-template-columns:repeat(2,1fr); } }
   @media (min-width:768px) { .menu-grid { grid-template-columns:repeat(3,1fr); } }
+  
+  /* Halaman Siswa */
+  .siswa-page .header { background:linear-gradient(135deg,#059669,#10b981); }
+  .bukti-card { background:white; border-radius:12px; padding:20px; box-shadow:0 4px 15px rgba(0,0,0,0.1); border:3px solid #10b981; }
+  .bukti-card h2 { color:#059669; margin-bottom:15px; text-align:center; }
+  .bukti-info { background:#f0fdf4; padding:12px; border-radius:8px; margin:8px 0; }
+  .bukti-info .lbl { font-size:11px; color:#64748b; font-weight:600; }
+  .bukti-info .val { font-size:14px; font-weight:700; color:#1e293b; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="top-row">
-    <div>
-      <h1><span class="material-icons">school</span> SISGA</h1>
-      <div class="sub">SMKN 2 Dompu - Online Version</div>
-    </div>
-    <div class="mode-switch">
-      <button id="btnGuru" class="active" onclick="setMode('guru')">👨‍🏫 Guru</button>
-      <button id="btnSiswa" onclick="setMode('siswa')">👨‍🎓 Siswa</button>
-    </div>
-  </div>
+  <h1><span class="material-icons">school</span> SISGA</h1>
+  <div class="sub">SMKN 2 Dompu - <span id="headerMode">Mode Guru</span></div>
 </div>
 
-<div class="container">
+<div class="container" id="appContainer">
   <!-- DASHBOARD GURU -->
   <div class="page active" id="g-dash">
     <div class="stats-row">
@@ -142,25 +136,22 @@
     <div class="menu-grid">
       <div class="menu-card" onclick="showPage('g-data')"><div class="icon ic-blue"><span class="material-icons">database</span></div><div class="label">Data Master</div><div class="desc">Kelas, Siswa, Mapel</div></div>
       <div class="menu-card" onclick="showPage('g-absen')"><div class="icon ic-green"><span class="material-icons">fact_check</span></div><div class="label">Absensi</div><div class="desc">Catat kehadiran</div></div>
-      <div class="menu-card" onclick="showPage('g-tugas')"><div class="icon ic-orange"><span class="material-icons">assignment</span></div><div class="label">Tugas</div><div class="desc">Buat & nilai tugas</div></div>
+      <div class="menu-card" onclick="showPage('g-tugas')"><div class="icon ic-orange"><span class="material-icons">assignment</span></div><div class="label">Tugas</div><div class="desc">Buat & share link</div></div>
       <div class="menu-card" onclick="showPage('g-kuis')"><div class="icon ic-purple"><span class="material-icons">quiz</span></div><div class="label">Kuis/Ujian</div><div class="desc">Buat soal PG</div></div>
       <div class="menu-card" onclick="showPage('g-rekap')"><div class="icon ic-red"><span class="material-icons">assessment</span></div><div class="label">Rekap Nilai</div><div class="desc">Nilai total siswa</div></div>
       <div class="menu-card" onclick="showPage('g-setting')"><div class="icon ic-teal"><span class="material-icons">settings</span></div><div class="label">Pengaturan</div><div class="desc">Backup & KKM</div></div>
     </div>
     <div class="card">
-      <div class="card-title"><span class="material-icons">info</span> Panduan Cepat</div>
-      <div style="font-size:12px;color:#64748b;line-height:1.7">
-        <b>1️⃣ Data Master:</b> Buat Kelas → Tambah Siswa → Buat Mapel (pilih banyak kelas).<br>
-        <b>2️ Buat Tugas:</b> Isi judul & deskripsi. Siswa akan upload foto jawaban langsung di aplikasi ini.<br>
-        <b>3️⃣ Nilai:</b> Klik icon grading di daftar tugas untuk melihat foto jawaban & memberi nilai.<br>
-        <b>⚠️ Penting:</b> Data tersimpan di browser. Klik menu <b>Pengaturan → Export JSON</b> secara berkala untuk backup!
+      <div class="card-title"><span class="material-icons">info</span> Cara Kerja Aplikasi</div>
+      <div style="font-size:12px;color:#64748b;line-height:1.8">
+        <b>1️⃣ Setup:</b> Data Master → Buat Kelas → Import Siswa → Buat Mapel<br>
+        <b>2️⃣ Buat Tugas:</b> Menu Tugas → Buat → Copy Link → Share ke siswa via WhatsApp<br>
+        <b>3️⃣ Siswa Mengerjakan:</b> Buka link → Isi data → Upload foto → Dapat <b>Bukti Submission</b><br>
+        <b>4️ Siswa Kirim Bukti:</b> Screenshot bukti → Kirim ke guru via WhatsApp<br>
+        <b>5️⃣ Guru Nilai:</b> Terima screenshot → Lihat foto jawaban → Input nilai di aplikasi<br>
+        <br>
+        <b>⚠️ Penting:</b> Data tersimpan di browser. <b>Export JSON</b> secara berkala untuk backup!
       </div>
-    </div>
-    <div class="card">
-      <div class="card-title"><span class="material-icons">link</span> Link Portal Siswa</div>
-      <div class="info-box">Bagikan link ini ke siswa agar mereka bisa mengumpulkan tugas:</div>
-      <div id="linkSiswaBox" style="background:#f1f5f9;padding:10px;border-radius:8px;word-break:break-all;font-size:12px;margin-bottom:10px"></div>
-      <button class="btn btn-sm btn-primary" onclick="copyLinkSiswa()">📋 Copy Link Siswa</button>
     </div>
   </div>
 
@@ -176,12 +167,12 @@
       <div class="card-title"><span class="material-icons">people</span> Siswa</div>
       <select class="form-control" id="fKelas" onchange="renderSiswa()"><option value="">-- Filter Kelas --</option></select>
       <button class="btn btn-sm btn-primary" onclick="showSiswa()" style="margin-top:6px">+ Tambah Siswa</button>
-      <button class="btn btn-sm btn-secondary" onclick="showImportSiswa()" style="margin-top:6px">📋 Import Massal</button>
+      <button class="btn btn-sm btn-secondary" onclick="showImportSiswa()" style="margin-top:6px"> Import Massal</button>
       <div id="listSiswa" style="margin-top:8px"></div>
     </div>
     <div class="card">
       <div class="card-title"><span class="material-icons">menu_book</span> Mata Pelajaran</div>
-      <div class="info-box">💡 Satu mapel bisa diajarkan di <b>beberapa kelas sekaligus</b>. Centang semua kelas yang Anda ajar.</div>
+      <div class="info-box">💡 Satu mapel bisa diajarkan di <b>beberapa kelas sekaligus</b>.</div>
       <button class="btn btn-sm btn-primary" onclick="showMapel()">+ Tambah Mapel</button>
       <div id="listMapel" style="margin-top:8px"></div>
     </div>
@@ -204,7 +195,9 @@
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">assignment</span> Tugas</div>
-      <div class="info-box">📸 Siswa akan mengupload foto jawaban <b>langsung di aplikasi ini</b> (tidak perlu Google Form).</div>
+      <div class="info-box">
+         <b>Alur Baru:</b> Buat tugas → Copy link → Share ke siswa → Siswa kerjakan → Siswa kirim bukti submission via WhatsApp → Anda nilai berdasarkan bukti yang diterima.
+      </div>
       <select class="form-control" id="tMapel" onchange="loadTugas()"></select>
       <button class="btn btn-sm btn-primary" onclick="showTugas()" style="margin-top:6px">+ Buat Tugas</button>
       <div id="listTugas" style="margin-top:8px"></div>
@@ -243,28 +236,24 @@
       <button class="btn btn-block btn-primary" onclick="savePengaturan()">💾 Simpan Pengaturan</button>
     </div>
     <div class="card">
-      <div class="card-title"><span class="material-icons">cloud</span> Backup & Restore Data</div>
-      <div class="info-box">⚠️ Data tersimpan di browser masing-masing. <b>Export JSON secara berkala!</b></div>
-      <button class="btn btn-sm btn-primary" onclick="exportData()" style="margin-right:5px"> Export JSON (Backup)</button>
+      <div class="card-title"><span class="material-icons">cloud</span> Backup & Restore</div>
+      <div class="info-box">⚠️ Data tersimpan di browser. <b>Export JSON</b> secara berkala!</div>
+      <button class="btn btn-sm btn-primary" onclick="exportData()" style="margin-right:5px">📥 Export JSON</button>
       <button class="btn btn-sm btn-success" onclick="document.getElementById('importFile').click()">📤 Import JSON</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
-      <button class="btn btn-sm btn-danger" onclick="resetData()" style="margin-left:5px">🗑️ Reset Semua</button>
+      <button class="btn btn-sm btn-danger" onclick="resetData()" style="margin-left:5px">🗑️ Reset</button>
     </div>
   </div>
+</div>
 
-  <!-- PORTAL SISWA -->
-  <div class="page" id="s-portal">
-    <div id="portalBox">
-      <div class="card">
-        <div class="card-title"><span class="material-icons">login</span> Identitas Siswa</div>
-        <div class="info-box">Pilih kelas dan nama Anda untuk melihat tugas dan mengupload jawaban.</div>
-        <div class="form-group"><label>Pilih Kelas</label>
-          <select class="form-control" id="psKelas" onchange="loadSiswaPortal()"><option value="">-- Pilih Kelas --</option></select></div>
-        <div class="form-group"><label>Pilih Nama</label>
-          <select class="form-control" id="psNama" onchange="onSiswaSelected()"><option value="">-- Pilih kelas dulu --</option></select></div>
-      </div>
-      <div id="psTugas"></div>
+<!-- HALAMAN SISWA (muncul saat buka link tugas) -->
+<div id="siswaContainer" style="display:none">
+  <div class="siswa-page">
+    <div class="header">
+      <h1><span class="material-icons">school</span> SISGA - Portal Tugas</h1>
+      <div class="sub">SMKN 2 Dompu - Kerjakan Tugas</div>
     </div>
+    <div class="container" id="siswaContent"></div>
   </div>
 </div>
 
@@ -272,28 +261,20 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const DB_KEY = 'SISGA_SMKN2DOMPU_ONLINE';
+const DB_KEY = 'SISGA_SMKN2DOMPU_V4';
 let db = { kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], pengaturan:{kkm:75, bobotTugas:30, bobotKuis:30} };
 
 function loadDB() { try { const s = localStorage.getItem(DB_KEY); if (s) db = JSON.parse(s); } catch(e) {} }
-function saveDB() { try { localStorage.setItem(DB_KEY, JSON.stringify(db)); } catch(e) { toast('Storage penuh! Hapus gambar lama.', 'error'); } }
+function saveDB() { try { localStorage.setItem(DB_KEY, JSON.stringify(db)); } catch(e) { toast('Storage penuh!', 'error'); } }
 function genId(p) { return p + Date.now() + Math.random().toString(36).substr(2,5); }
+function genKode() { return Math.random().toString(36).substr(2,4).toUpperCase() + Math.random().toString(36).substr(2,4).toUpperCase(); }
 function today() { return new Date().toISOString().split('T')[0]; }
 function esc(s) { if (s===null||s===undefined) return ''; return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function now() { const d = new Date(); return d.toLocaleString('id-ID'); }
 
-let currentMode = 'guru';
-function setMode(m) {
-  currentMode = m;
-  document.getElementById('btnGuru').classList.toggle('active', m==='guru');
-  document.getElementById('btnSiswa').classList.toggle('active', m==='siswa');
-  document.body.classList.toggle('mode-siswa', m==='siswa');
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  if (m === 'guru') { document.getElementById('g-dash').classList.add('active'); loadDashboard(); } 
-  else { document.getElementById('s-portal').classList.add('active'); showPortal(); }
-}
-
+// ============ NAVIGASI GURU ============
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#appContainer .page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if (id === 'g-dash') loadDashboard();
   else if (id === 'g-data') loadData();
@@ -309,21 +290,15 @@ function showModal(html) { document.getElementById('modalBox').innerHTML = html;
 function closeModal() { document.getElementById('modalBg').classList.remove('active'); }
 document.getElementById('modalBg').onclick = e => { if (e.target.id === 'modalBg') closeModal(); };
 
+// ============ DASHBOARD ============
 function loadDashboard() {
   document.getElementById('stMapel').textContent = db.mapel.length;
   document.getElementById('stSiswa').textContent = db.siswa.length;
   document.getElementById('stTugas').textContent = db.tugas.length;
   document.getElementById('stKuis').textContent = db.kuis.length;
-  const url = window.location.origin + window.location.pathname + '?mode=siswa';
-  document.getElementById('linkSiswaBox').textContent = url;
 }
 
-function copyLinkSiswa() {
-  const url = window.location.origin + window.location.pathname + '?mode=siswa';
-  navigator.clipboard.writeText(url).then(() => toast('Link disalin!', 'success'));
-}
-
-// DATA MASTER
+// ============ DATA MASTER ============
 function loadData() {
   const fk = document.getElementById('fKelas');
   fk.innerHTML = '<option value="">-- Filter Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)}</option>`).join('');
@@ -420,7 +395,7 @@ function saveMapel() {
 }
 function delMapel(id) { if (!confirm('Hapus?')) return; db.mapel = db.mapel.filter(m => m.id !== id); saveDB(); toast('Dihapus', 'success'); loadData(); }
 
-// ABSEN
+// ============ ABSEN ============
 let absenState = {};
 function initAbsen() {
   document.getElementById('aMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
@@ -446,9 +421,9 @@ function saveAbsen() {
   saveDB(); toast(`Absensi tersimpan (${Object.keys(absenState).length} siswa)`, 'success');
 }
 
-// TUGAS
+// ============ TUGAS (ALUR BARU) ============
 function initTugas() {
-  document.getElementById('tMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
+  document.getElementById('tMapel').innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
   loadTugas();
 }
 function loadTugas() {
@@ -457,8 +432,20 @@ function loadTugas() {
   const el = document.getElementById('listTugas');
   if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="material-icons">assignment</span><div>Belum ada tugas</div></div>'; return; }
   el.innerHTML = list.map(t => {
-    const jmlSubmit = db.nilaiTugas.filter(n => n.tugasId === t.id && n.jawabanUrl).length;
-    return `<div class="list-item" style="flex-direction:column;align-items:stretch"><div style="display:flex;justify-content:space-between;width:100%"><div class="info"><div class="title">${esc(t.judul)}</div><div class="desc">📅 ${esc(t.deadline||'-')} • Bobot: ${esc(t.bobot)}% • 📥 ${jmlSubmit} submit</div></div><div class="actions"><button class="btn-icon" onclick="showNilaiTugas('${t.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#10b981">grading</span></button><button class="btn-icon" onclick="delTugas('${t.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button></div></div></div>`;
+    const jmlNilai = db.nilaiTugas.filter(n => n.tugasId === t.id).length;
+    return `<div class="list-item" style="flex-direction:column;align-items:stretch">
+      <div style="display:flex;justify-content:space-between;width:100%">
+        <div class="info">
+          <div class="title">${esc(t.judul)}</div>
+          <div class="desc">📅 ${esc(t.deadline||'-')} • Bobot: ${esc(t.bobot)}% • 📝 ${jmlNilai} dinilai</div>
+        </div>
+        <div class="actions">
+          <button class="btn-icon" onclick="generateLinkTugas('${t.id}')" title="Copy Link"><span class="material-icons" style="font-size:16px;color:#3b82f6">link</span></button>
+          <button class="btn-icon" onclick="showNilaiTugas('${t.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#10b981">grading</span></button>
+          <button class="btn-icon" onclick="delTugas('${t.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button>
+        </div>
+      </div>
+    </div>`;
   }).join('');
 }
 function showTugas() {
@@ -479,19 +466,67 @@ function saveTugas() {
 }
 function delTugas(id) { if (!confirm('Hapus?')) return; db.tugas = db.tugas.filter(t => t.id !== id); db.nilaiTugas = db.nilaiTugas.filter(n => n.tugasId !== id); saveDB(); toast('Dihapus', 'success'); loadTugas(); }
 
+function generateLinkTugas(tugasId) {
+  const t = db.tugas.find(x => x.id === tugasId);
+  if (!t) return;
+  const m = db.mapel.find(x => x.id === t.mapelId);
+  const data = { id:t.id, judul:t.judul, deskripsi:t.deskripsi, deadline:t.deadline, bobot:t.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'' };
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  const link = window.location.origin + window.location.pathname + '?tugas=' + encoded;
+  
+  showModal(`<div class="modal-title"> Link Tugas</div>
+    <div class="success-box">✅ Link berhasil dibuat! Copy dan share ke siswa via WhatsApp.</div>
+    <div class="form-group"><label>Nama Tugas</label><div style="font-weight:700">${esc(t.judul)}</div></div>
+    <div class="form-group"><label>Link Tugas (Copy ini)</label>
+      <div class="link-box" id="linkBox">${link}</div>
+    </div>
+    <div class="form-group"><label>Pesan WhatsApp (Copy ini)</label>
+      <div class="link-box" style="white-space:pre-wrap">Assalamualaikum anak-anak,
+
+Silakan kerjakan tugas berikut:
+
+📚 *${esc(t.judul)}*
+📅 Deadline: ${esc(t.deadline||'Tidak ada')}
+
+ Link: ${link}
+
+Cara mengerjakan:
+1. Buka link di atas
+2. Isi NIS, Nama, Kelas
+3. Upload foto jawaban
+4. Klik "Kirim Tugas"
+5. Screenshot halaman bukti
+6. Kirim screenshot ini ke Bapak/Ibu Guru
+
+Selamat mengerjakan! 📝</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-block btn-primary" onclick="copyLinkTugas()"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
+      <button class="btn btn-block btn-success" onclick="copyPesanWA()"><span class="material-icons" style="font-size:14px">share</span> Copy Pesan WA</button>
+    </div>
+    <button class="btn btn-block btn-secondary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
+  
+  window._currentLink = link;
+  window._currentPesan = `Assalamualaikum anak-anak,\n\nSilakan kerjakan tugas berikut:\n\n📚 *${t.judul}*\n📅 Deadline: ${t.deadline||'Tidak ada'}\n\n🔗 Link: ${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Upload foto jawaban\n4. Klik "Kirim Tugas"\n5. Screenshot halaman bukti\n6. Kirim screenshot ini ke Bapak/Ibu Guru\n\nSelamat mengerjakan! 📝`;
+}
+function copyLinkTugas() { navigator.clipboard.writeText(window._currentLink).then(() => toast('Link disalin!', 'success')); }
+function copyPesanWA() { navigator.clipboard.writeText(window._currentPesan).then(() => toast('Pesan disalin!', 'success')); }
+
 function showNilaiTugas(tugasId) {
   const tugas = db.tugas.find(t => t.id === tugasId);
   const mapel = db.mapel.find(m => m.id === tugas.mapelId);
   const siswaList = db.siswa.filter(s => mapel.kelasIds.includes(s.kelasId));
   const nm = {}; db.nilaiTugas.filter(n => n.tugasId === tugasId).forEach(n => nm[n.siswaNis] = n);
+  
   showModal(`<div class="modal-title">Penilaian: ${esc(tugas.judul)}</div>
+    <div class="warning-box"> Input nilai berdasarkan <b>screenshot bukti submission</b> yang dikirim siswa via WhatsApp. Cocokkan NIS & Nama sebelum memberi nilai.</div>
     <div style="max-height:55vh;overflow-y:auto">${siswaList.map(s => {
       const n = nm[s.nis];
-      return `<div style="background:#f8fafc;padding:10px;border-radius:8px;margin-bottom:8px;border-left:3px solid ${n&&n.jawabanUrl?'#10b981':'#e2e8f0'}">
-        <div style="font-weight:700;font-size:12px">${esc(s.nama)} <span style="font-size:10px;color:#64748b">(${esc(s.nis)})</span> ${n&&n.jawabanUrl?'<span class="badge badge-success">✓ Submit</span>':''}</div>
-        ${n && n.jawabanUrl ? `<div style="margin:8px 0"><img src="${esc(n.jawabanUrl)}" style="max-width:100%;max-height:200px;border-radius:6px;cursor:pointer" onclick="window.open(this.src)"></div>` : '<div style="font-size:11px;color:#94a3b8;margin:8px 0">Belum upload jawaban</div>'}
-        ${n && n.feedback ? `<div style="background:#fef3c7;padding:5px;border-radius:4px;font-size:11px;margin-bottom:5px">💬 ${esc(n.feedback)}</div>` : ''}
-        <div style="display:flex;gap:5px"><input type="number" class="form-control" style="flex:1" id="nt_${s.nis}" value="${n?n.nilai:''}" placeholder="Nilai" min="0" max="100"><button class="btn btn-sm btn-success" onclick="saveNilaiTugas('${tugasId}','${s.nis}')"><span class="material-icons" style="font-size:14px">save</span></button></div>
+      return `<div style="background:#f8fafc;padding:10px;border-radius:8px;margin-bottom:8px;border-left:3px solid ${n?'#10b981':'#e2e8f0'}">
+        <div style="font-weight:700;font-size:12px">${esc(s.nama)} <span style="font-size:10px;color:#64748b">(${esc(s.nis)})</span> ${n?'<span class="badge badge-success">✓ Dinilai</span>':''}</div>
+        ${n ? `<div style="font-size:11px;color:#64748b;margin:4px 0">Kode: ${esc(n.kodeBukti||'-')} • ${esc(n.tglSubmit||'')}</div>
+        ${n.feedback ? `<div style="background:#fef3c7;padding:5px;border-radius:4px;font-size:11px;margin-bottom:5px">💬 ${esc(n.feedback)}</div>` : ''}` : '<div style="font-size:11px;color:#94a3b8;margin:4px 0">Belum dinilai</div>'}
+        <div style="display:flex;gap:5px;margin-top:5px"><input type="number" class="form-control" style="flex:1" id="nt_${s.nis}" value="${n?n.nilai:''}" placeholder="Nilai" min="0" max="100"><button class="btn btn-sm btn-success" onclick="saveNilaiTugas('${tugasId}','${s.nis}')"><span class="material-icons" style="font-size:14px">save</span></button></div>
         <textarea class="form-control" style="margin-top:5px;font-size:11px" id="fb_${s.nis}" placeholder="Feedback...">${n?esc(n.feedback||''):''}</textarea>
       </div>`;
     }).join('')}</div><button class="btn btn-block btn-primary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
@@ -500,11 +535,11 @@ function saveNilaiTugas(tugasId, nis) {
   const nilai = document.getElementById('nt_'+nis).value, fb = document.getElementById('fb_'+nis).value;
   const idx = db.nilaiTugas.findIndex(n => n.tugasId === tugasId && n.siswaNis === nis);
   if (idx >= 0) { db.nilaiTugas[idx].nilai = nilai; db.nilaiTugas[idx].feedback = fb; } 
-  else { db.nilaiTugas.push({id:genId('NT'), tugasId, siswaNis:nis, nilai, feedback:fb, tglSubmit:today(), jawabanUrl:''}); }
+  else { db.nilaiTugas.push({id:genId('NT'), tugasId, siswaNis:nis, nilai, feedback:fb, tglSubmit:today(), kodeBukti:'-', jawabanUrl:''}); }
   saveDB(); toast('Nilai tersimpan', 'success');
 }
 
-// KUIS
+// ============ KUIS ============
 let kuisSoal = [];
 function initKuis() {
   document.getElementById('kMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
@@ -515,7 +550,7 @@ function loadKuis() {
   const list = db.kuis.filter(k => !mapelId || k.mapelId === mapelId);
   const el = document.getElementById('listKuis');
   if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="material-icons">quiz</span><div>Belum ada kuis</div></div>'; return; }
-  el.innerHTML = list.map(k => `<div class="list-item"><div class="info"><div class="title">${esc(k.judul)} <span class="badge badge-info">${k.soal.length} soal</span></div><div class="desc">⏱️ ${esc(k.durasi)} mnt • Bobot: ${esc(k.bobot)}%</div></div><div class="actions"><button class="btn-icon" onclick="showHasilKuis('${k.id}')"><span class="material-icons" style="font-size:16px;color:#10b981">grading</span></button><button class="btn-icon" onclick="delKuis('${k.id}')"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button></div></div>`).join('');
+  el.innerHTML = list.map(k => `<div class="list-item"><div class="info"><div class="title">${esc(k.judul)} <span class="badge badge-info">${k.soal.length} soal</span></div><div class="desc">️ ${esc(k.durasi)} mnt • Bobot: ${esc(k.bobot)}%</div></div><div class="actions"><button class="btn-icon" onclick="showHasilKuis('${k.id}')"><span class="material-icons" style="font-size:16px;color:#10b981">grading</span></button><button class="btn-icon" onclick="delKuis('${k.id}')"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button></div></div>`).join('');
 }
 function showKuis() {
   if (db.mapel.length === 0) return toast('Buat mapel dulu', 'error');
@@ -554,7 +589,7 @@ function saveNilaiKuis(kuisId, nis) {
   saveDB(); toast('Nilai tersimpan', 'success');
 }
 
-// REKAP
+// ============ REKAP ============
 function initRekap() {
   document.getElementById('rMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
   loadRekap();
@@ -580,61 +615,48 @@ function loadRekap() {
   el.innerHTML = `<div class="stats-row" style="margin-bottom:10px"><div class="stat-box"><div class="val" style="color:#10b981">${lulus}</div><div class="lbl">LULUS</div></div><div class="stat-box"><div class="val" style="color:#ef4444">${remed}</div><div class="lbl">REMEDI</div></div><div class="stat-box"><div class="val">${avg.toFixed(1)}</div><div class="lbl">RATA-RATA</div></div><div class="stat-box"><div class="val">${db.pengaturan.kkm}</div><div class="lbl">KKM</div></div></div><div style="overflow-x:auto"><table><thead><tr><th>Nama</th><th>Tugas</th><th>Kuis</th><th>Akhir</th><th>Status</th></tr></thead><tbody>${rekap.map(s => `<tr><td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td><td>${s.avgTugas}</td><td>${s.avgKuis}</td><td><b>${s.nilaiAkhir}</b></td><td><span class="badge ${s.status==='LULUS'?'badge-success':'badge-danger'}">${s.status}</span></td></tr>`).join('')}</tbody></table></div>`;
 }
 
-// SETTING
+// ============ SETTING ============
 function loadSetting() { document.getElementById('setKkm').value = db.pengaturan.kkm; document.getElementById('setBobotTugas').value = db.pengaturan.bobotTugas; document.getElementById('setBobotKuis').value = db.pengaturan.bobotKuis; }
 function savePengaturan() { db.pengaturan.kkm = document.getElementById('setKkm').value; db.pengaturan.bobotTugas = document.getElementById('setBobotTugas').value; db.pengaturan.bobotKuis = document.getElementById('setBobotKuis').value; saveDB(); toast('Pengaturan tersimpan', 'success'); }
 function exportData() { const data = JSON.stringify(db, null, 2); const blob = new Blob([data], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'SISGA-Backup-' + today() + '.json'; a.click(); URL.revokeObjectURL(url); toast('Data diexport', 'success'); }
 function importData(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { try { if (!confirm('Import akan MENIMPA data saat ini. Lanjutkan?')) return; db = JSON.parse(ev.target.result); saveDB(); toast('Data diimport', 'success'); showPage('g-dash'); } catch(err) { toast('File tidak valid', 'error'); } }; reader.readAsText(file); }
 function resetData() { if (!confirm('Yakin hapus SEMUA data?')) return; if (!confirm('Data tidak bisa dikembalikan!')) return; localStorage.removeItem(DB_KEY); db = { kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], pengaturan:{kkm:75,bobotTugas:30,bobotKuis:30} }; toast('Data direset', 'success'); showPage('g-dash'); }
 
-// PORTAL SISWA
-let siswaSession = {};
-function showPortal() {
-  document.getElementById('psKelas').innerHTML = '<option value="">-- Pilih Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
-  document.getElementById('psNama').innerHTML = '<option value="">-- Pilih kelas dulu --</option>';
-  document.getElementById('psTugas').innerHTML = '';
-}
-function loadSiswaPortal() {
-  const kelasId = document.getElementById('psKelas').value;
-  const namaSelect = document.getElementById('psNama');
-  document.getElementById('psTugas').innerHTML = '';
-  if (!kelasId) { namaSelect.innerHTML = '<option value="">-- Pilih kelas dulu --</option>'; return; }
-  const list = db.siswa.filter(s => s.kelasId === kelasId);
-  if (list.length === 0) { namaSelect.innerHTML = '<option value="">-- Tidak ada siswa --</option>'; return; }
-  namaSelect.innerHTML = '<option value="">-- Pilih Nama --</option>' + list.map(s => `<option value="${s.nis}" data-nama="${esc(s.nama)}">${esc(s.nama)}</option>`).join('');
-}
-function onSiswaSelected() {
-  const kelasId = document.getElementById('psKelas').value, sel = document.getElementById('psNama'), nis = sel.value;
-  if (!nis) { document.getElementById('psTugas').innerHTML = ''; return; }
-  siswaSession = { kelasId, nis, nama: sel.options[sel.selectedIndex]?.dataset.nama || '' };
-  loadTugasPortal();
-}
-function loadTugasPortal() {
-  const el = document.getElementById('psTugas');
-  const mapelIds = db.mapel.filter(m => m.kelasIds.includes(siswaSession.kelasId)).map(m => m.id);
-  const tgl = today();
-  const tugasList = db.tugas.filter(t => mapelIds.includes(t.mapelId)).map(t => { const m = db.mapel.find(x => x.id === t.mapelId); return {...t, mapelNama:m?.nama, mapelKode:m?.kode, aktif: !t.deadline || t.deadline >= tgl}; }).sort((a,b) => { if (a.aktif !== b.aktif) return a.aktif ? -1 : 1; return (a.deadline||'9999').localeCompare(b.deadline||'9999'); });
-  
-  if (tugasList.length === 0) { el.innerHTML = '<div class="card"><div class="empty"><span class="material-icons">inbox</span><div>Belum ada tugas untuk kelasmu</div></div></div>'; return; }
-  
-  const submitted = db.nilaiTugas.filter(n => n.siswaNis === siswaSession.nis).map(n => n.tugasId);
-  el.innerHTML = `<div class="card" style="background:linear-gradient(135deg,#059669,#10b981);color:white"><div style="font-size:14px">Halo, <b>${esc(siswaSession.nama)}</b> 👋</div><div style="font-size:11px;opacity:0.9;margin-top:3px">Kelas: ${esc(siswaSession.kelasId)} • NIS: ${esc(siswaSession.nis)}</div></div><div class="card"><div class="card-title"><span class="material-icons">assignment</span> Daftar Tugas (${tugasList.length})</div>${tugasList.map(t => {
-    const isSubmitted = submitted.includes(t.id);
-    const badge = !t.aktif ? '<span class="status-badge status-expired">✗ Deadline Lewat</span>' : isSubmitted ? '<span class="status-badge status-submitted">✓ Sudah Dikumpulkan</span>' : '<span class="status-badge status-aktif">● Aktif</span>';
-    return `<div class="tugas-card ${!t.aktif?'expired':''}"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px"><span class="badge badge-info">${esc(t.mapelKode||t.mapelNama)}</span>${badge}</div><h3 style="margin:6px 0 4px;font-size:14px">${esc(t.judul)}</h3><div style="font-size:11px;color:#64748b">📅 Deadline: ${esc(t.deadline||'Tidak ada')} • Bobot: ${esc(t.bobot)}%</div>${t.deskripsi ? `<div style="font-size:12px;margin-top:6px;color:#475569;line-height:1.5">${esc(t.deskripsi)}</div>` : ''}<button class="btn btn-sm btn-primary" style="margin-top:8px" onclick="showDetailTugas('${t.id}')"><span class="material-icons" style="font-size:14px">visibility</span> Lihat & Kerjakan</button>${isSubmitted ? `<div style="margin-top:6px;font-size:10px;color:#10b981">✓ Terkumpul pada ${esc(db.nilaiTugas.find(n=>n.tugasId===t.id)?.tglSubmit||'')}</div>` : ''}</div>`;
-  }).join('')}</div>`;
-}
+// ============ HALAMAN SISWA (KERJAKAN TUGAS) ============
+let currentTugas = null;
+let currentFoto = null;
 
-function showDetailTugas(tugasId) {
-  const el = document.getElementById('psTugas');
-  const t = db.tugas.find(x => x.id === tugasId);
-  if (!t) return;
-  const jwb = db.nilaiTugas.find(n => n.tugasId === tugasId && n.siswaNis === siswaSession.nis);
+function showSiswaPage() {
+  document.getElementById('appContainer').style.display = 'none';
+  document.getElementById('siswaContainer').style.display = 'block';
+  document.getElementById('headerMode').textContent = 'Portal Siswa';
   
-  el.innerHTML = `<button class="back-btn" onclick="loadTugasPortal()"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
-    <div class="card"><div class="card-title"><span class="material-icons">assignment</span> ${esc(t.judul)}</div><div style="font-size:11px;color:#64748b;margin-bottom:10px"> ${esc(t.deadline||'-')} • Bobot: ${esc(t.bobot)}%</div>${t.deskripsi ? `<div style="background:#f8fafc;padding:12px;border-radius:8px;line-height:1.6;font-size:13px;white-space:pre-wrap">${esc(t.deskripsi)}</div>` : ''}${jwb && jwb.feedback ? `<div style="margin-top:12px;background:#fef3c7;padding:10px;border-radius:8px;border-left:4px solid #f59e0b"><div style="font-weight:700;font-size:12px">💬 Feedback Guru:</div><div style="font-size:12px;margin-top:4px">${esc(jwb.feedback)}</div>${jwb.nilai ? `<div style="margin-top:4px;font-weight:700">Nilai: ${jwb.nilai}</div>` : ''}</div>` : ''}</div>
-    <div class="card"><div class="card-title"><span class="material-icons">upload_file</span> Kumpulkan Jawaban</div>
-      <div class="form-group"><label>Upload Foto Jawaban (Maks 2MB)</label>
+  if (!currentTugas) {
+    document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link tugas tidak valid atau sudah kadaluarsa.</div></div></div>`;
+    return;
+  }
+  
+  const t = currentTugas;
+  const isExpired = t.deadline && t.deadline < today();
+  
+  document.getElementById('siswaContent').innerHTML = `
+    <div class="card">
+      <div class="card-title"><span class="material-icons">assignment</span> Detail Tugas</div>
+      <div style="margin-bottom:10px"><span class="badge badge-info">${esc(t.mapelKode||t.mapelNama)}</span></div>
+      <h2 style="font-size:18px;margin-bottom:8px">${esc(t.judul)}</h2>
+      <div style="font-size:12px;color:#64748b;margin-bottom:12px"> Deadline: ${esc(t.deadline||'Tidak ada')} • Bobot: ${esc(t.bobot)}% ${isExpired?'<span class="badge badge-danger">LEWAT</span>':''}</div>
+      ${t.deskripsi ? `<div style="background:#f8fafc;padding:12px;border-radius:8px;line-height:1.6;font-size:13px;white-space:pre-wrap">${esc(t.deskripsi)}</div>` : ''}
+    </div>
+    ${isExpired ? '<div class="warning-box">⚠️ Deadline tugas sudah lewat. Hubungi guru Anda.</div>' : `
+    <div class="card">
+      <div class="card-title"><span class="material-icons">person</span> Data Siswa</div>
+      <div class="form-group"><label>NIS</label><input class="form-control" id="sNis" placeholder="Masukkan NIS Anda"></div>
+      <div class="form-group"><label>Nama Lengkap</label><input class="form-control" id="sNama" placeholder="Masukkan nama lengkap"></div>
+      <div class="form-group"><label>Kelas</label><input class="form-control" id="sKelas" placeholder="Contoh: X TKJ 1"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="material-icons">upload_file</span> Upload Jawaban</div>
+      <div class="form-group"><label>Foto Jawaban (Maks 2MB)</label>
         <div class="upload-area" id="upArea" onclick="document.getElementById('upFile').click()">
           <span class="material-icons" style="font-size:35px;color:#64748b">camera_alt</span>
           <div style="font-size:12px;color:#64748b;margin-top:5px">Klik untuk ambil/upload foto</div>
@@ -642,16 +664,10 @@ function showDetailTugas(tugasId) {
           <img id="upPreview" class="preview-img" style="display:none">
         </div>
       </div>
-      <div class="form-group"><label>Catatan (Opsional)</label><textarea class="form-control" id="jwbTeks" placeholder="Catatan untuk guru..." rows="2">${jwb?esc(jwb.jawabanTeks||''):''}</textarea></div>
-      <button class="btn btn-block btn-success" onclick="submitJawaban('${tugasId}')"><span class="material-icons">send</span> Kumpulkan Tugas</button>
-    </div>`;
-  
-  window._jwbImg = null;
-  if (jwb && jwb.jawabanUrl) {
-    const p = document.getElementById('upPreview');
-    p.src = jwb.jawabanUrl; p.style.display = 'block';
-    document.getElementById('upArea').classList.add('has-file');
-  }
+      <div class="form-group"><label>Catatan (Opsional)</label><textarea class="form-control" id="sCatatan" placeholder="Catatan untuk guru..." rows="2"></textarea></div>
+      <button class="btn btn-block btn-success" onclick="submitTugasSiswa()"><span class="material-icons">send</span> Kirim Tugas</button>
+    </div>`}
+  `;
 }
 
 function compressImage(file, callback) {
@@ -664,8 +680,7 @@ function compressImage(file, callback) {
       const scale = Math.min(1, maxWidth / img.width);
       canvas.width = img.width * scale;
       canvas.height = img.height * scale;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
       callback(canvas.toDataURL('image/jpeg', 0.7));
     };
     img.src = e.target.result;
@@ -677,28 +692,107 @@ function previewJawaban(input) {
   const file = input.files[0]; if (!file) return;
   if (file.size > 2000000) { toast('File terlalu besar! Maksimal 2MB', 'error'); input.value = ''; return; }
   compressImage(file, function(base64) {
-    window._jwbImg = base64;
+    currentFoto = base64;
     const p = document.getElementById('upPreview');
     p.src = base64; p.style.display = 'block';
     document.getElementById('upArea').classList.add('has-file');
   });
 }
 
-function submitJawaban(tugasId) {
-  if (!window._jwbImg) return toast('Upload foto jawaban dulu!', 'error');
-  const teks = document.getElementById('jwbTeks').value;
-  const idx = db.nilaiTugas.findIndex(n => n.tugasId === tugasId && n.siswaNis === siswaSession.nis);
-  const data = { id: idx >= 0 ? db.nilaiTugas[idx].id : genId('NT'), tugasId, siswaNis: siswaSession.nis, nilai: idx >= 0 ? db.nilaiTugas[idx].nilai : '', feedback: idx >= 0 ? db.nilaiTugas[idx].feedback : '', tglSubmit: today(), jawabanTeks: teks, jawabanUrl: window._jwbImg };
-  if (idx >= 0) db.nilaiTugas[idx] = data; else db.nilaiTugas.push(data);
-  saveDB(); toast('Tugas berhasil dikumpulkan!', 'success');
-  setTimeout(() => loadTugasPortal(), 1000);
+function submitTugasSiswa() {
+  const nis = document.getElementById('sNis').value.trim();
+  const nama = document.getElementById('sNama').value.trim();
+  const kelas = document.getElementById('sKelas').value.trim();
+  const catatan = document.getElementById('sCatatan').value.trim();
+  
+  if (!nis || !nama || !kelas) return toast('Lengkapi NIS, Nama, dan Kelas', 'error');
+  if (!currentFoto) return toast('Upload foto jawaban dulu!', 'error');
+  
+  const kodeBukti = genKode();
+  const tglSubmit = now();
+  
+  // Simpan submission di localStorage siswa (untuk referensi)
+  const submission = { kodeBukti, nis, nama, kelas, tugasId:currentTugas.id, tugasJudul:currentTugas.judul, tglSubmit, catatan, fotoUrl:currentFoto };
+  try { localStorage.setItem('sisga_submission_' + kodeBukti, JSON.stringify(submission)); } catch(e) {}
+  
+  // Tampilkan halaman bukti
+  showBuktiPage(submission);
 }
 
-// START - DETEKSI MODE DARI URL
+function showBuktiPage(sub) {
+  document.getElementById('siswaContent').innerHTML = `
+    <div class="bukti-card">
+      <h2>✅ TUGAS BERHASIL DIKUMPULKAN!</h2>
+      <div class="success-box" style="text-align:center">
+        <b>📸 LANGKAH PENTING:</b><br>
+        Screenshot halaman ini dan kirim ke guru Anda via WhatsApp!
+      </div>
+      
+      <div class="bukti-info">
+        <div class="lbl">Nama Siswa</div>
+        <div class="val">${esc(sub.nama)}</div>
+      </div>
+      <div class="bukti-info">
+        <div class="lbl">NIS</div>
+        <div class="val">${esc(sub.nis)}</div>
+      </div>
+      <div class="bukti-info">
+        <div class="lbl">Kelas</div>
+        <div class="val">${esc(sub.kelas)}</div>
+      </div>
+      <div class="bukti-info">
+        <div class="lbl">Nama Tugas</div>
+        <div class="val">${esc(sub.tugasJudul)}</div>
+      </div>
+      <div class="bukti-info">
+        <div class="lbl">Waktu Submit</div>
+        <div class="val">${esc(sub.tglSubmit)}</div>
+      </div>
+      ${sub.catatan ? `<div class="bukti-info"><div class="lbl">Catatan</div><div class="val">${esc(sub.catatan)}</div></div>` : ''}
+      
+      <div style="margin:15px 0">
+        <div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">KODE BUKTI SUBMISSION</div>
+        <div class="kode-bukti">${sub.kodeBukti}</div>
+        <div style="font-size:11px;color:#64748b;text-align:center">Simpan kode ini sebagai bukti submission</div>
+      </div>
+      
+      <div style="margin:15px 0">
+        <div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">FOTO JAWABAN</div>
+        <img src="${sub.fotoUrl}" style="width:100%;border-radius:8px;border:2px solid #e2e8f0">
+      </div>
+      
+      <div class="warning-box" style="margin-top:15px">
+        <b>📱 Instruksi:</b><br>
+        1. Screenshot halaman ini<br>
+        2. Kirim screenshot ke guru via WhatsApp<br>
+        3. Tunggu konfirmasi & nilai dari guru<br><br>
+        <b>⚠️ Penting:</b> Tanpa screenshot ini, guru tidak dapat melihat jawaban Anda!
+      </div>
+      
+      <button class="btn btn-block btn-primary" onclick="window.print()" style="margin-top:10px"><span class="material-icons" style="font-size:14px">print</span> Cetak / Simpan PDF</button>
+    </div>
+  `;
+  
+  // Scroll ke atas
+  window.scrollTo(0, 0);
+}
+
+// ============ DETEKSI MODE SAAT LOAD ============
 loadDB();
 const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('mode') === 'siswa') {
-  setMode('siswa');
+const tugasEncoded = urlParams.get('tugas');
+
+if (tugasEncoded) {
+  try {
+    currentTugas = JSON.parse(decodeURIComponent(escape(atob(tugasEncoded))));
+    document.getElementById('headerMode').textContent = 'Portal Tugas';
+    showSiswaPage();
+  } catch(e) {
+    console.error(e);
+    document.getElementById('siswaContainer').style.display = 'block';
+    document.getElementById('appContainer').style.display = 'none';
+    document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link tidak valid.</div></div></div>`;
+  }
 } else {
   loadDashboard();
 }
