@@ -402,32 +402,114 @@ function saveMapel() {
 }
 function delMapel(id) { if (!confirm('Hapus?')) return; db.mapel = db.mapel.filter(m => m.id !== id); saveDB(); toast('Dihapus', 'success'); loadData(); }
 
-// ============ ABSEN ============
+// ============ ABSEN (DENGAN FILTER KELAS) ============
 let absenState = {};
+
 function initAbsen() {
-  document.getElementById('aMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
-  document.getElementById('aTgl').value = today(); loadAbsen();
-}
-function loadAbsen() {
-  const mapelId = document.getElementById('aMapel').value, tgl = document.getElementById('aTgl').value, el = document.getElementById('absenBox');
-  if (!mapelId || !tgl) { el.innerHTML = ''; return; }
-  const mapel = db.mapel.find(m => m.id === mapelId);
-  const siswaList = db.siswa.filter(s => mapel.kelasIds.includes(s.kelasId));
-  absenState = {}; db.absen.filter(a => a.mapelId === mapelId && a.tanggal === tgl).forEach(a => absenState[a.siswaNis] = a.status);
-  if (siswaList.length === 0) { el.innerHTML = '<div class="empty"><div>Tidak ada siswa</div></div>'; return; }
-  const byKelas = {}; siswaList.forEach(s => { if (!byKelas[s.kelasId]) byKelas[s.kelasId] = []; byKelas[s.kelasId].push(s); });
-  const km = {}; db.kelas.forEach(k => km[k.id] = k.nama);
-  el.innerHTML = Object.entries(byKelas).map(([kelasId, siswa]) => `<div style="background:#f8fafc;padding:8px;border-radius:8px;margin-bottom:8px"><div style="font-weight:700;font-size:12px;margin-bottom:6px;color:#1e40af">📚 ${esc(km[kelasId])} (${siswa.length})</div>${siswa.map(s => { const cur = absenState[s.nis] || 'H'; return `<div class="absen-row"><div class="nama">${esc(s.nama)}<div style="font-size:10px;color:#64748b">${esc(s.nis)}</div></div><div class="absen-btns">${['H','S','I','A'].map(st => `<button class="absen-btn ${st} ${cur===st?'active':''}" onclick="setAbsen('${s.nis}','${st}',this)">${st}</button>`).join('')}</div></div>`; }).join('')}</div>`).join('');
-}
-function setAbsen(nis, status, btn) { absenState[nis] = status; btn.parentElement.querySelectorAll('.absen-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
-function saveAbsen() {
-  const mapelId = document.getElementById('aMapel').value, tgl = document.getElementById('aTgl').value;
-  if (!mapelId || !tgl) return toast('Pilih mapel & tanggal', 'error');
-  db.absen = db.absen.filter(a => !(a.mapelId === mapelId && a.tanggal === tgl));
-  Object.entries(absenState).forEach(([nis, status]) => { db.absen.push({id:genId('A'), siswaNis:nis, mapelId, tanggal:tgl, status}); });
-  saveDB(); toast(`Absensi tersimpan (${Object.keys(absenState).length} siswa)`, 'success');
+  // Populate filter kelas
+  const selKelas = document.getElementById('aKelas');
+  selKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>' + 
+    db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
+  
+  // Reset mapel
+  document.getElementById('aMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>';
+  document.getElementById('aTgl').value = today();
+  document.getElementById('absenBox').innerHTML = '';
 }
 
+function onAbsenKelasChange() {
+  const kelasId = document.getElementById('aKelas').value;
+  const selMapel = document.getElementById('aMapel');
+  
+  if (!kelasId) {
+    selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>';
+    document.getElementById('absenBox').innerHTML = '';
+    return;
+  }
+  
+  // Tampilkan hanya mapel yang diajarkan di kelas ini
+  const mapelKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId));
+  selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>' + 
+    mapelKelas.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
+  
+  document.getElementById('absenBox').innerHTML = '';
+}
+
+function loadAbsen() {
+  const kelasId = document.getElementById('aKelas').value;
+  const mapelId = document.getElementById('aMapel').value;
+  const tgl = document.getElementById('aTgl').value;
+  const el = document.getElementById('absenBox');
+  
+  if (!kelasId || !mapelId || !tgl) { 
+    el.innerHTML = '<div class="info-box">ℹ️ Pilih Kelas, Mapel, dan Tanggal untuk mulai absensi.</div>';
+    return; 
+  }
+  
+  const mapel = db.mapel.find(m => m.id === mapelId);
+  
+  // Validasi: pastikan mapel diajarkan di kelas ini
+  if (!mapel.kelasIds.includes(kelasId)) {
+    el.innerHTML = '<div class="warning-box">⚠️ Mapel ini tidak diajarkan di kelas yang dipilih.</div>';
+    return;
+  }
+  
+  // Ambil siswa HANYA dari kelas yang dipilih
+  const siswaList = db.siswa.filter(s => s.kelasId === kelasId);
+  
+  absenState = {}; 
+  db.absen.filter(a => a.mapelId === mapelId && a.tanggal === tgl && a.kelasId === kelasId)
+    .forEach(a => absenState[a.siswaNis] = a.status);
+  
+  if (siswaList.length === 0) { 
+    el.innerHTML = '<div class="empty"><div>Tidak ada siswa di kelas ini</div></div>'; 
+    return; 
+  }
+  
+  const km = {}; db.kelas.forEach(k => km[k.id] = k.nama);
+  
+  el.innerHTML = `
+    <div class="info-box" style="margin-bottom:10px">
+       <b>${esc(km[kelasId])}</b> • ${esc(mapel.nama)} • ${esc(tgl)}<br>
+      👥 Total: ${siswaList.length} siswa
+    </div>
+    ${siswaList.map(s => { 
+      const cur = absenState[s.nis] || 'H'; 
+      return `<div class="absen-row">
+        <div class="nama">${esc(s.nama)}<div style="font-size:10px;color:#64748b">${esc(s.nis)}</div></div>
+        <div class="absen-btns">
+          ${['H','S','I','A'].map(st => `<button class="absen-btn ${st} ${cur===st?'active':''}" onclick="setAbsen('${s.nis}','${st}',this)">${st}</button>`).join('')}
+        </div>
+      </div>`; 
+    }).join('')}
+  `;
+}
+
+function setAbsen(nis, status, btn) { 
+  absenState[nis] = status; 
+  btn.parentElement.querySelectorAll('.absen-btn').forEach(b => b.classList.remove('active')); 
+  btn.classList.add('active'); 
+}
+
+function saveAbsen() {
+  const kelasId = document.getElementById('aKelas').value;
+  const mapelId = document.getElementById('aMapel').value;
+  const tgl = document.getElementById('aTgl').value;
+  
+  if (!kelasId || !mapelId || !tgl) return toast('Lengkapi Kelas, Mapel & Tanggal', 'error');
+  if (Object.keys(absenState).length === 0) return toast('Tidak ada data', 'error');
+  
+  // Hapus data lama untuk kombinasi ini
+  db.absen = db.absen.filter(a => !(a.mapelId === mapelId && a.tanggal === tgl && a.kelasId === kelasId));
+  
+  // Tambah data baru (dengan field kelasId)
+  Object.entries(absenState).forEach(([nis, status]) => { 
+    db.absen.push({id:genId('A'), siswaNis:nis, mapelId, kelasId, tanggal:tgl, status}); 
+  });
+  
+  saveDB(); 
+  toast(`Absensi tersimpan (${Object.keys(absenState).length} siswa)`, 'success');
+}
 // ============ TUGAS (ALUR BARU) ============
 function initTugas() {
   document.getElementById('tMapel').innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
