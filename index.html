@@ -190,7 +190,7 @@
     </div>
   </div>
 
-  <!-- TUGAS -->
+    <!-- TUGAS -->
   <div class="page" id="g-tugas">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
@@ -198,8 +198,15 @@
       <div class="info-box">
          <b>Alur Baru:</b> Buat tugas → Copy link → Share ke siswa → Siswa kerjakan → Siswa kirim bukti submission via WhatsApp → Anda nilai berdasarkan bukti yang diterima.
       </div>
-      <select class="form-control" id="tMapel" onchange="loadTugas()"></select>
-      <button class="btn btn-sm btn-primary" onclick="showTugas()" style="margin-top:6px">+ Buat Tugas</button>
+      <div class="form-group"><label>Filter Kelas</label>
+        <select class="form-control" id="tKelas" onchange="onTugasKelasChange()">
+          <option value="">-- Semua Kelas --</option>
+        </select></div>
+      <div class="form-group"><label>Filter Mapel</label>
+        <select class="form-control" id="tMapel" onchange="loadTugas()">
+          <option value="">-- Semua Mapel --</option>
+        </select></div>
+      <button class="btn btn-sm btn-primary" onclick="showTugas()">+ Buat Tugas</button>
       <div id="listTugas" style="margin-top:8px"></div>
     </div>
   </div>
