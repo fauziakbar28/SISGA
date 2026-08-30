@@ -209,8 +209,18 @@
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">quiz</span> Kuis / Ulangan</div>
-      <select class="form-control" id="kMapel" onchange="loadKuis()"></select>
-      <button class="btn btn-sm btn-primary" onclick="showKuis()" style="margin-top:6px">+ Buat Kuis</button>
+      <div class="info-box">
+         <b>Alur:</b> Buat kuis → Copy link → Share ke siswa → Siswa jawab di HP → Dapat nilai otomatis → Screenshot bukti → Kirim ke guru.
+      </div>
+      <div class="form-group"><label>Filter Kelas</label>
+        <select class="form-control" id="kKelas" onchange="onKuisKelasChange()">
+          <option value="">-- Semua Kelas --</option>
+        </select></div>
+      <div class="form-group"><label>Filter Mapel</label>
+        <select class="form-control" id="kMapel" onchange="loadKuis()">
+          <option value="">-- Semua Mapel --</option>
+        </select></div>
+      <button class="btn btn-sm btn-primary" onclick="showKuis()">+ Buat Kuis</button>
       <div id="listKuis" style="margin-top:8px"></div>
     </div>
   </div>
@@ -539,19 +549,73 @@ function saveNilaiTugas(tugasId, nis) {
   saveDB(); toast('Nilai tersimpan', 'success');
 }
 
-// ============ KUIS ============
+// ============ KUIS (DENGAN LINK & AUTO-GRADE) ============
 let kuisSoal = [];
+
 function initKuis() {
-  document.getElementById('kMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
+  const selKelas = document.getElementById('kKelas');
+  selKelas.innerHTML = '<option value="">-- Semua Kelas --</option>' + 
+    db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
+  
+  const selMapel = document.getElementById('kMapel');
+  selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + 
+    db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
+  
   loadKuis();
 }
-function loadKuis() {
-  const mapelId = document.getElementById('kMapel').value;
-  const list = db.kuis.filter(k => !mapelId || k.mapelId === mapelId);
-  const el = document.getElementById('listKuis');
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="material-icons">quiz</span><div>Belum ada kuis</div></div>'; return; }
-  el.innerHTML = list.map(k => `<div class="list-item"><div class="info"><div class="title">${esc(k.judul)} <span class="badge badge-info">${k.soal.length} soal</span></div><div class="desc">️ ${esc(k.durasi)} mnt • Bobot: ${esc(k.bobot)}%</div></div><div class="actions"><button class="btn-icon" onclick="showHasilKuis('${k.id}')"><span class="material-icons" style="font-size:16px;color:#10b981">grading</span></button><button class="btn-icon" onclick="delKuis('${k.id}')"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button></div></div>`).join('');
+
+function onKuisKelasChange() {
+  const kelasId = document.getElementById('kKelas').value;
+  const selMapel = document.getElementById('kMapel');
+  
+  if (!kelasId) {
+    selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + 
+      db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
+  } else {
+    const mapelKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId));
+    selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + 
+      mapelKelas.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
+  }
+  loadKuis();
 }
+
+function loadKuis() {
+  const kelasId = document.getElementById('kKelas').value;
+  const mapelId = document.getElementById('kMapel').value;
+  const el = document.getElementById('listKuis');
+  
+  let list = db.kuis;
+  
+  if (kelasId) {
+    const mapelIdsKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId)).map(m => m.id);
+    list = list.filter(k => mapelIdsKelas.includes(k.mapelId));
+  }
+  if (mapelId) {
+    list = list.filter(k => k.mapelId === mapelId);
+  }
+  
+  if (list.length === 0) { 
+    el.innerHTML = '<div class="empty"><span class="material-icons">quiz</span><div>Belum ada kuis</div></div>'; 
+    return; 
+  }
+  
+  el.innerHTML = list.map(k => {
+    const m = db.mapel.find(x => x.id === k.mapelId);
+    const jmlNilai = db.nilaiKuis.filter(n => n.kuisId === k.id).length;
+    return `<div class="list-item">
+      <div class="info">
+        <div class="title">${esc(k.judul)} <span class="badge badge-info">${k.soal.length} soal</span></div>
+        <div class="desc">📚 ${esc(m?.nama||'')} • ⏱️ ${esc(k.durasi)} mnt • Bobot: ${esc(k.bobot)}% • 📝 ${jmlNilai} dinilai</div>
+      </div>
+      <div class="actions">
+        <button class="btn-icon" onclick="generateLinkKuis('${k.id}')" title="Copy Link"><span class="material-icons" style="font-size:16px;color:#3b82f6">link</span></button>
+        <button class="btn-icon" onclick="showHasilKuis('${k.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#10b981">grading</span></button>
+        <button class="btn-icon" onclick="delKuis('${k.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 function showKuis() {
   if (db.mapel.length === 0) return toast('Buat mapel dulu', 'error');
   kuisSoal = [];
@@ -563,30 +627,206 @@ function showKuis() {
     <button class="btn btn-sm btn-primary" onclick="addSoal()" style="margin-bottom:10px">+ Tambah Soal</button>
     <button class="btn btn-block btn-success" onclick="saveKuis()">Simpan Kuis</button>`);
 }
+
 function addSoal() { kuisSoal.push({tipe:'pg', pertanyaan:'', opsi:['',''], kunci:0}); renderSoal(); }
 function renderSoal() {
   document.getElementById('kuisSoalBox').innerHTML = kuisSoal.map((s,i) => `<div style="background:#f8fafc;padding:10px;border-radius:8px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><b>Soal ${i+1}</b><button class="btn-icon" onclick="delSoal(${i})"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button></div><textarea class="form-control" onchange="kuisSoal[${i}].pertanyaan=this.value" placeholder="Pertanyaan" rows="2">${esc(s.pertanyaan)}</textarea>${s.opsi.map((o,j) => `<div style="display:flex;gap:5px;margin-top:5px;align-items:center"><input type="radio" name="k${i}" ${s.kunci==j?'checked':''} onchange="kuisSoal[${i}].kunci=${j}"><input class="form-control" value="${esc(o)}" onchange="kuisSoal[${i}].opsi[${j}]=this.value" placeholder="Opsi ${String.fromCharCode(65+j)}"></div>`).join('')}</div>`).join('');
 }
 function delSoal(i) { kuisSoal.splice(i,1); renderSoal(); }
+
 function saveKuis() {
   const mapelId = document.getElementById('fKMapel').value, judul = document.getElementById('fKJudul').value.trim(), durasi = document.getElementById('fKDuras').value, bobot = document.getElementById('fKBobot').value;
   if (!judul || kuisSoal.length === 0) return toast('Judul & minimal 1 soal wajib', 'error');
   db.kuis.push({id:genId('K'), mapelId, judul, durasi, bobot, soal:kuisSoal});
   saveDB(); toast('Kuis dibuat', 'success'); closeModal(); loadKuis();
 }
-function delKuis(id) { if (!confirm('Hapus?')) return; db.kuis = db.kuis.filter(k => k.id !== id); saveDB(); toast('Dihapus', 'success'); loadKuis(); }
+
+function delKuis(id) { if (!confirm('Hapus?')) return; db.kuis = db.kuis.filter(k => k.id !== id); db.nilaiKuis = db.nilaiKuis.filter(n => n.kuisId !== id); saveDB(); toast('Dihapus', 'success'); loadKuis(); }
+
+// GENERATE LINK KUIS (SAMA SEPERTI TUGAS)
+function generateLinkKuis(kuisId) {
+  const k = db.kuis.find(x => x.id === kuisId);
+  if (!k) return;
+  const m = db.mapel.find(x => x.id === k.mapelId);
+  const data = { id:k.id, judul:k.judul, durasi:k.durasi, bobot:k.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'', soal:k.soal };
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  const link = window.location.origin + window.location.pathname + '?kuis=' + encoded;
+  
+  showModal(`<div class="modal-title">🔗 Link Kuis</div>
+    <div class="success-box">✅ Link berhasil dibuat! Copy dan share ke siswa via WhatsApp.</div>
+    <div class="form-group"><label>Nama Kuis</label><div style="font-weight:700">${esc(k.judul)}</div></div>
+    <div class="form-group"><label>Link Kuis (Copy ini)</label>
+      <div class="link-box" id="linkBox">${link}</div>
+    </div>
+    <div class="form-group"><label>Pesan WhatsApp (Copy ini)</label>
+      <div class="link-box" style="white-space:pre-wrap">Assalamualaikum anak-anak,
+
+Silakan kerjakan kuis berikut:
+
+ *${esc(k.judul)}*
+️ Durasi: ${esc(k.durasi)} menit
+📝 Jumlah Soal: ${k.soal.length} soal
+
+🔗 Link: ${link}
+
+Cara mengerjakan:
+1. Buka link di atas
+2. Isi NIS, Nama, Kelas
+3. Jawab semua soal
+4. Klik "Kirim Jawaban"
+5. Screenshot halaman hasil nilai
+6. Kirim screenshot ini ke Bapak/Ibu Guru
+
+Selamat mengerjakan! 📝</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-block btn-primary" onclick="copyLinkKuis()"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
+      <button class="btn btn-block btn-success" onclick="copyPesanWAKuis()"><span class="material-icons" style="font-size:14px">share</span> Copy Pesan WA</button>
+    </div>
+    <button class="btn btn-block btn-secondary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
+  
+  window._currentLinkKuis = link;
+  window._currentPesanKuis = `Assalamualaikum anak-anak,\n\nSilakan kerjakan kuis berikut:\n\n📚 *${k.judul}*\n⏱️ Durasi: ${k.durasi} menit\n📝 Jumlah Soal: ${k.soal.length} soal\n\n🔗 Link: ${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Jawab semua soal\n4. Klik "Kirim Jawaban"\n5. Screenshot halaman hasil nilai\n6. Kirim screenshot ini ke Bapak/Ibu Guru\n\nSelamat mengerjakan! 📝`;
+}
+
+function copyLinkKuis() { navigator.clipboard.writeText(window._currentLinkKuis).then(() => toast('Link disalin!', 'success')); }
+function copyPesanWAKuis() { navigator.clipboard.writeText(window._currentPesanKuis).then(() => toast('Pesan disalin!', 'success')); }
+
 function showHasilKuis(kuisId) {
   const kuis = db.kuis.find(k => k.id === kuisId);
   const mapel = db.mapel.find(m => m.id === kuis.mapelId);
   const siswaList = db.siswa.filter(s => mapel.kelasIds.includes(s.kelasId));
   const nm = {}; db.nilaiKuis.filter(n => n.kuisId === kuisId).forEach(n => nm[n.siswaNis] = n);
-  showModal(`<div class="modal-title">Hasil: ${esc(kuis.judul)}</div><div style="max-height:60vh;overflow-y:auto"><div style="overflow-x:auto"><table><thead><tr><th>Nama</th><th>Nilai</th><th>Aksi</th></tr></thead><tbody>${siswaList.map(s => { const n = nm[s.nis]; return `<tr><td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td><td><input type="number" class="form-control" style="width:70px" id="nk_${s.nis}" value="${n?n.nilai:''}" min="0" max="100"></td><td><button class="btn btn-sm btn-success" onclick="saveNilaiKuis('${kuisId}','${s.nis}')"><span class="material-icons" style="font-size:14px">save</span></button></td></tr>`; }).join('')}</tbody></table></div></div><button class="btn btn-block btn-primary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
+  showModal(`<div class="modal-title">Hasil: ${esc(kuis.judul)}</div>
+    <div class="warning-box">💡 Input nilai berdasarkan <b>screenshot bukti</b> yang dikirim siswa via WhatsApp. Nilai sudah dihitung otomatis oleh aplikasi saat siswa submit.</div>
+    <div style="max-height:60vh;overflow-y:auto"><div style="overflow-x:auto"><table><thead><tr><th>Nama</th><th>Nilai</th><th>Aksi</th></tr></thead><tbody>${siswaList.map(s => { const n = nm[s.nis]; return `<tr><td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td><td><input type="number" class="form-control" style="width:70px" id="nk_${s.nis}" value="${n?n.nilai:''}" min="0" max="100"></td><td><button class="btn btn-sm btn-success" onclick="saveNilaiKuis('${kuisId}','${s.nis}')"><span class="material-icons" style="font-size:14px">save</span></button></td></tr>`; }).join('')}</tbody></table></div></div><button class="btn btn-block btn-primary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
 }
+
 function saveNilaiKuis(kuisId, nis) {
   const nilai = document.getElementById('nk_'+nis).value;
   const idx = db.nilaiKuis.findIndex(n => n.kuisId === kuisId && n.siswaNis === nis);
-  if (idx >= 0) db.nilaiKuis[idx].nilai = nilai; else db.nilaiKuis.push({id:genId('NK'), kuisId, siswaNis:nis, nilai, tglSubmit:today()});
+  if (idx >= 0) db.nilaiKuis[idx].nilai = nilai; else db.nilaiKuis.push({id:genId('NK'), kuisId, siswaNis:nis, nilai, tglSubmit:today(), kodeBukti:'-'});
   saveDB(); toast('Nilai tersimpan', 'success');
+}
+
+// ============ HALAMAN SISWA: KERJAKAN KUIS ============
+let currentKuis = null;
+let jawabanKuis = {};
+
+function showKuisPage() {
+  document.getElementById('appContainer').style.display = 'none';
+  document.getElementById('siswaContainer').style.display = 'block';
+  document.getElementById('headerMode').textContent = 'Portal Kuis';
+  
+  if (!currentKuis) {
+    document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link kuis tidak valid.</div></div></div>`;
+    return;
+  }
+  
+  const k = currentKuis;
+  
+  document.getElementById('siswaContent').innerHTML = `
+    <div class="card">
+      <div class="card-title"><span class="material-icons">quiz</span> Detail Kuis</div>
+      <div style="margin-bottom:10px"><span class="badge badge-info">${esc(k.mapelKode||k.mapelNama)}</span></div>
+      <h2 style="font-size:18px;margin-bottom:8px">${esc(k.judul)}</h2>
+      <div style="font-size:12px;color:#64748b">⏱️ Durasi: ${esc(k.durasi)} menit •  ${k.soal.length} soal • Bobot: ${esc(k.bobot)}%</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="material-icons">person</span> Data Siswa</div>
+      <div class="form-group"><label>NIS</label><input class="form-control" id="kNis" placeholder="Masukkan NIS Anda"></div>
+      <div class="form-group"><label>Nama Lengkap</label><input class="form-control" id="kNama" placeholder="Masukkan nama lengkap"></div>
+      <div class="form-group"><label>Kelas</label><input class="form-control" id="kKelasSiswa" placeholder="Contoh: X TKJ 1"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="material-icons">help</span> Soal Kuis</div>
+      <div id="daftarSoalKuis">
+        ${k.soal.map((s, i) => `
+          <div style="background:#f8fafc;padding:12px;border-radius:8px;margin-bottom:10px;border-left:4px solid #1e40af">
+            <div style="font-weight:700;margin-bottom:8px">Soal ${i+1}: ${esc(s.pertanyaan)}</div>
+            ${s.opsi.map((o, j) => `
+              <label style="display:flex;align-items:center;gap:8px;padding:6px;margin:3px 0;cursor:pointer;background:white;border-radius:6px">
+                <input type="radio" name="soal_${i}" value="${j}" onchange="pilihJawaban(${i},${j})" style="cursor:pointer">
+                <span><b>${String.fromCharCode(65+j)}.</b> ${esc(o)}</span>
+              </label>
+            `).join('')}
+          </div>
+        `).join('')}
+      </div>
+      <button class="btn btn-block btn-success" onclick="submitKuisSiswa()" style="margin-top:10px"><span class="material-icons">send</span> Kirim Jawaban</button>
+    </div>
+  `;
+  
+  jawabanKuis = {};
+  window.scrollTo(0, 0);
+}
+
+function pilihJawaban(noSoal, indeksOpsi) {
+  jawabanKuis[noSoal] = indeksOpsi;
+}
+
+function submitKuisSiswa() {
+  const nis = document.getElementById('kNis').value.trim();
+  const nama = document.getElementById('kNama').value.trim();
+  const kelas = document.getElementById('kKelasSiswa').value.trim();
+  
+  if (!nis || !nama || !kelas) return toast('Lengkapi NIS, Nama, dan Kelas', 'error');
+  if (Object.keys(jawabanKuis).length < currentKuis.soal.length) {
+    return toast(`Jawab semua soal! (${Object.keys(jawabanKuis).length}/${currentKuis.soal.length})`, 'error');
+  }
+  
+  // AUTO-GRADE
+  let benar = 0;
+  currentKuis.soal.forEach((s, i) => {
+    if (jawabanKuis[i] === s.kunci) benar++;
+  });
+  const totalSoal = currentKuis.soal.length;
+  const nilai = Math.round((benar / totalSoal) * 100);
+  const kodeBukti = genKode();
+  const tglSubmit = now();
+  
+  // Tampilkan halaman bukti
+  showBuktiKuis({ kodeBukti, nis, nama, kelas, kuisId:currentKuis.id, kuisJudul:currentKuis.judul, tglSubmit, nilai, benar, totalSoal, jawaban: jawabanKuis });
+}
+
+function showBuktiKuis(sub) {
+  document.getElementById('siswaContent').innerHTML = `
+    <div class="bukti-card">
+      <h2>✅ KUIS BERHASIL DIKUMPULKAN!</h2>
+      <div class="success-box" style="text-align:center">
+        <b> LANGKAH PENTING:</b><br>
+        Screenshot halaman ini dan kirim ke guru Anda via WhatsApp!
+      </div>
+      
+      <div class="bukti-info"><div class="lbl">Nama Siswa</div><div class="val">${esc(sub.nama)}</div></div>
+      <div class="bukti-info"><div class="lbl">NIS</div><div class="val">${esc(sub.nis)}</div></div>
+      <div class="bukti-info"><div class="lbl">Kelas</div><div class="val">${esc(sub.kelas)}</div></div>
+      <div class="bukti-info"><div class="lbl">Nama Kuis</div><div class="val">${esc(sub.kuisJudul)}</div></div>
+      <div class="bukti-info"><div class="lbl">Waktu Submit</div><div class="val">${esc(sub.tglSubmit)}</div></div>
+      
+      <div style="margin:15px 0">
+        <div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">KODE BUKTI SUBMISSION</div>
+        <div class="kode-bukti">${sub.kodeBukti}</div>
+      </div>
+      
+      <div style="background:linear-gradient(135deg,#059669,#10b981);color:white;padding:20px;border-radius:12px;text-align:center;margin:15px 0">
+        <div style="font-size:12px;opacity:0.9">NILAI ANDA</div>
+        <div style="font-size:48px;font-weight:800;margin:5px 0">${sub.nilai}</div>
+        <div style="font-size:13px">Benar ${sub.benar} dari ${sub.totalSoal} soal</div>
+      </div>
+      
+      <div class="warning-box" style="margin-top:15px">
+        <b>📱 Instruksi:</b><br>
+        1. Screenshot halaman ini<br>
+        2. Kirim screenshot ke guru via WhatsApp<br>
+        3. Tunggu konfirmasi dari guru<br><br>
+        <b>️ Penting:</b> Tanpa screenshot ini, guru tidak dapat melihat nilai Anda!
+      </div>
+      
+      <button class="btn btn-block btn-primary" onclick="window.print()" style="margin-top:10px"><span class="material-icons" style="font-size:14px">print</span> Cetak / Simpan PDF</button>
+    </div>
+  `;
+  window.scrollTo(0, 0);
 }
 
 // ============ REKAP ============
@@ -624,6 +864,8 @@ function resetData() { if (!confirm('Yakin hapus SEMUA data?')) return; if (!con
 
 // ============ HALAMAN SISWA (KERJAKAN TUGAS) ============
 let currentTugas = null;
+let currentKuis = null;
+let jawabanKuis = {};
 let currentFoto = null;
 
 function showSiswaPage() {
@@ -781,6 +1023,7 @@ function showBuktiPage(sub) {
 loadDB();
 const urlParams = new URLSearchParams(window.location.search);
 const tugasEncoded = urlParams.get('tugas');
+const kuisEncoded = urlParams.get('kuis');
 
 if (tugasEncoded) {
   try {
@@ -788,10 +1031,19 @@ if (tugasEncoded) {
     document.getElementById('headerMode').textContent = 'Portal Tugas';
     showSiswaPage();
   } catch(e) {
-    console.error(e);
     document.getElementById('siswaContainer').style.display = 'block';
     document.getElementById('appContainer').style.display = 'none';
     document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link tidak valid.</div></div></div>`;
+  }
+} else if (kuisEncoded) {
+  try {
+    currentKuis = JSON.parse(decodeURIComponent(escape(atob(kuisEncoded))));
+    document.getElementById('headerMode').textContent = 'Portal Kuis';
+    showKuisPage();
+  } catch(e) {
+    document.getElementById('siswaContainer').style.display = 'block';
+    document.getElementById('appContainer').style.display = 'none';
+    document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link kuis tidak valid.</div></div></div>`;
   }
 } else {
   loadDashboard();
