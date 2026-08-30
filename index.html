@@ -5,111 +5,159 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SISGA - SMKN 2 Dompu</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Tahoma,sans-serif; }
-  body { background:#f0f2f5; min-height:100vh; }
-  .header { background:linear-gradient(135deg,#1e3a8a,#3b82f6); color:white; padding:15px 20px; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
-  .header h1 { font-size:18px; display:flex; align-items:center; gap:8px; }
-  .header .sub { font-size:11px; opacity:0.9; margin-top:2px; }
-  .container { padding:15px; max-width:1000px; margin:0 auto; }
-  .page { display:none; }
-  .page.active { display:block; animation:fadeIn 0.3s; }
-  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+  body { background:linear-gradient(135deg,#f5f7fa 0%,#e4e8f0 100%); min-height:100vh; color:#1e293b; }
+  
+  .header { 
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); 
+    color:white; padding:18px 20px; 
+    box-shadow:0 4px 20px rgba(102,126,234,0.3);
+    position:sticky; top:0; z-index:100;
+  }
+  .header h1 { font-size:20px; display:flex; align-items:center; gap:8px; font-weight:800; }
+  .header .sub { font-size:11px; opacity:0.9; margin-top:2px; font-weight:500; }
+  
+  .container { padding:15px; max-width:1100px; margin:0 auto; }
+  .page { display:none; animation:fadeIn 0.4s; }
+  .page.active { display:block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
   
   .menu-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:15px; }
-  .menu-card { background:white; border-radius:14px; padding:20px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.06); transition:all 0.2s; border:2px solid transparent; text-align:center; }
-  .menu-card:hover { transform:translateY(-3px); box-shadow:0 6px 16px rgba(0,0,0,0.1); border-color:#3b82f6; }
-  .menu-card .icon { width:50px; height:50px; border-radius:12px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:28px; color:white; }
+  .menu-card { 
+    background:white; border-radius:16px; padding:18px; cursor:pointer; 
+    box-shadow:0 4px 15px rgba(0,0,0,0.06); transition:all 0.3s; 
+    border:2px solid transparent; text-align:center; position:relative; overflow:hidden;
+  }
+  .menu-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg,var(--c1),var(--c2));
+  }
+  .menu-card:hover { transform:translateY(-5px); box-shadow:0 8px 25px rgba(0,0,0,0.12); }
+  .menu-card .icon { 
+    width:52px; height:52px; border-radius:14px; margin:0 auto 10px; 
+    display:flex; align-items:center; justify-content:center; font-size:28px; color:white;
+    background:linear-gradient(135deg,var(--c1),var(--c2));
+  }
   .menu-card .label { font-size:13px; font-weight:700; color:#1e293b; }
   .menu-card .desc { font-size:10px; color:#64748b; margin-top:3px; }
-  .ic-blue { background:linear-gradient(135deg,#1e40af,#3b82f6); }
-  .ic-green { background:linear-gradient(135deg,#059669,#10b981); }
-  .ic-orange { background:linear-gradient(135deg,#d97706,#f59e0b); }
-  .ic-purple { background:linear-gradient(135deg,#7c3aed,#a855f7); }
-  .ic-red { background:linear-gradient(135deg,#dc2626,#ef4444); }
-  .ic-teal { background:linear-gradient(135deg,#0d9488,#14b8a6); }
   
   .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:15px; }
-  .stat-box { background:white; padding:12px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.05); }
-  .stat-box .val { font-size:22px; font-weight:800; color:#1e3a8a; }
-  .stat-box .lbl { font-size:10px; color:#64748b; font-weight:600; }
+  .stat-box { 
+    background:white; padding:14px; border-radius:14px; text-align:center; 
+    box-shadow:0 4px 15px rgba(0,0,0,0.05); position:relative; overflow:hidden;
+  }
+  .stat-box::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg,var(--c1,#667eea),var(--c2,#764ba2));
+  }
+  .stat-box .val { font-size:24px; font-weight:800; background:linear-gradient(135deg,var(--c1,#667eea),var(--c2,#764ba2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-box .lbl { font-size:10px; color:#64748b; font-weight:600; margin-top:3px; }
   
-  .card { background:white; border-radius:12px; padding:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05); margin-bottom:12px; }
-  .card-title { font-size:14px; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
-  .card-title .material-icons { color:#1e40af; }
+  .card { 
+    background:white; border-radius:16px; padding:18px; 
+    box-shadow:0 4px 15px rgba(0,0,0,0.05); margin-bottom:14px;
+  }
+  .card-title { font-size:15px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:6px; color:#1e293b; }
+  .card-title .material-icons { color:#667eea; }
   
-  .btn { padding:8px 14px; border:none; border-radius:8px; cursor:pointer; font-weight:600; font-size:12px; display:inline-flex; align-items:center; gap:5px; }
-  .btn-primary { background:#1e40af; color:white; }
-  .btn-success { background:#10b981; color:white; }
-  .btn-danger { background:#ef4444; color:white; }
-  .btn-secondary { background:#64748b; color:white; }
-  .btn-sm { padding:5px 10px; font-size:11px; }
+  .btn { padding:9px 16px; border:none; border-radius:10px; cursor:pointer; font-weight:600; font-size:12px; display:inline-flex; align-items:center; gap:5px; transition:all 0.2s; }
+  .btn:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+  .btn-primary { background:linear-gradient(135deg,#667eea,#764ba2); color:white; }
+  .btn-success { background:linear-gradient(135deg,#11998e,#38ef7d); color:white; }
+  .btn-danger { background:linear-gradient(135deg,#eb3349,#f45c43); color:white; }
+  .btn-warning { background:linear-gradient(135deg,#f09819,#edde5d); color:white; }
+  .btn-secondary { background:linear-gradient(135deg,#606c88,#3f4c6b); color:white; }
+  .btn-info { background:linear-gradient(135deg,#2193b0,#6dd5ed); color:white; }
+  .btn-sm { padding:6px 11px; font-size:11px; }
   .btn-block { width:100%; justify-content:center; }
   
-  .form-group { margin-bottom:10px; }
-  .form-group label { display:block; font-size:11px; font-weight:600; margin-bottom:4px; color:#64748b; }
-  .form-control { width:100%; padding:8px 10px; border:1.5px solid #e2e8f0; border-radius:8px; font-size:13px; background:white; }
-  .form-control:focus { outline:none; border-color:#1e40af; }
+  .form-group { margin-bottom:11px; }
+  .form-group label { display:block; font-size:11px; font-weight:600; margin-bottom:4px; color:#475569; }
+  .form-control { width:100%; padding:9px 11px; border:1.5px solid #e2e8f0; border-radius:10px; font-size:13px; background:white; transition:all 0.2s; }
+  .form-control:focus { outline:none; border-color:#667eea; box-shadow:0 0 0 3px rgba(102,126,234,0.1); }
   textarea.form-control { resize:vertical; min-height:70px; }
   
-  .list-item { background:white; padding:12px; border-radius:8px; margin-bottom:8px; border:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; }
+  .list-item { background:white; padding:13px; border-radius:12px; margin-bottom:9px; border:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; transition:all 0.2s; }
+  .list-item:hover { box-shadow:0 4px 12px rgba(0,0,0,0.06); }
   .list-item .info { flex:1; }
-  .list-item .title { font-weight:700; font-size:13px; }
+  .list-item .title { font-weight:700; font-size:13px; color:#1e293b; }
   .list-item .desc { font-size:11px; color:#64748b; margin-top:2px; }
   .list-item .actions { display:flex; gap:5px; }
-  .btn-icon { width:32px; height:32px; border:none; border-radius:6px; background:#f1f5f9; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .btn-icon { width:34px; height:34px; border:none; border-radius:8px; background:#f1f5f9; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+  .btn-icon:hover { background:#e2e8f0; transform:scale(1.1); }
   
-  .modal-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200; align-items:center; justify-content:center; padding:15px; }
+  .modal-bg { display:none; position:fixed; inset:0; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); z-index:200; align-items:center; justify-content:center; padding:15px; }
   .modal-bg.active { display:flex; }
-  .modal { background:white; border-radius:12px; padding:18px; width:100%; max-width:500px; max-height:85vh; overflow-y:auto; }
-  .modal-title { font-size:16px; font-weight:700; margin-bottom:12px; }
+  .modal { background:white; border-radius:16px; padding:20px; width:100%; max-width:520px; max-height:88vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+  .modal-title { font-size:17px; font-weight:700; margin-bottom:14px; color:#1e293b; }
   
-  .toast { position:fixed; top:15px; left:50%; transform:translateX(-50%); background:#1e40af; color:white; padding:10px 18px; border-radius:8px; z-index:300; font-size:12px; font-weight:600; opacity:0; transition:opacity 0.3s; }
+  .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:11px 20px; border-radius:10px; z-index:300; font-size:12px; font-weight:600; opacity:0; transition:opacity 0.3s; box-shadow:0 4px 15px rgba(0,0,0,0.2); }
   .toast.show { opacity:1; }
-  .toast.success { background:#10b981; }
-  .toast.error { background:#ef4444; }
+  .toast.success { background:linear-gradient(135deg,#11998e,#38ef7d); }
+  .toast.error { background:linear-gradient(135deg,#eb3349,#f45c43); }
   
-  .badge { display:inline-block; padding:2px 8px; border-radius:8px; font-size:10px; font-weight:700; }
+  .badge { display:inline-block; padding:3px 9px; border-radius:10px; font-size:10px; font-weight:700; }
   .badge-info { background:#dbeafe; color:#1e40af; }
   .badge-success { background:#d1fae5; color:#065f46; }
   .badge-danger { background:#fee2e2; color:#991b1b; }
+  .badge-warning { background:#fef3c7; color:#92400e; }
+  .badge-purple { background:#ede9fe; color:#5b21b6; }
   
-  .absen-row { display:flex; align-items:center; gap:8px; padding:8px; border-bottom:1px solid #e2e8f0; }
+  .absen-row { display:flex; align-items:center; gap:8px; padding:9px; border-bottom:1px solid #f1f5f9; transition:background 0.2s; }
+  .absen-row:hover { background:#f8fafc; }
   .absen-row .nama { flex:1; font-weight:600; font-size:12px; }
   .absen-btns { display:flex; gap:3px; }
-  .absen-btn { width:30px; height:30px; border:2px solid #e2e8f0; background:white; border-radius:6px; cursor:pointer; font-weight:700; font-size:11px; }
-  .absen-btn.H.active { background:#10b981; color:white; border-color:#10b981; }
-  .absen-btn.S.active { background:#f59e0b; color:white; border-color:#f59e0b; }
-  .absen-btn.I.active { background:#3b82f6; color:white; border-color:#3b82f6; }
-  .absen-btn.A.active { background:#ef4444; color:white; border-color:#ef4444; }
+  .absen-btn { width:32px; height:32px; border:2px solid #e2e8f0; background:white; border-radius:8px; cursor:pointer; font-weight:700; font-size:11px; transition:all 0.2s; }
+  .absen-btn.H.active { background:linear-gradient(135deg,#11998e,#38ef7d); color:white; border-color:#11998e; }
+  .absen-btn.S.active { background:linear-gradient(135deg,#f09819,#edde5d); color:white; border-color:#f09819; }
+  .absen-btn.I.active { background:linear-gradient(135deg,#2193b0,#6dd5ed); color:white; border-color:#2193b0; }
+  .absen-btn.A.active { background:linear-gradient(135deg,#eb3349,#f45c43); color:white; border-color:#eb3349; }
   
-  .empty { text-align:center; padding:30px; color:#64748b; }
-  .empty .material-icons { font-size:40px; opacity:0.3; margin-bottom:8px; display:block; }
+  .empty { text-align:center; padding:35px; color:#64748b; }
+  .empty .material-icons { font-size:45px; opacity:0.3; margin-bottom:8px; display:block; }
   table { width:100%; border-collapse:collapse; font-size:12px; }
-  th { background:#f8fafc; padding:8px; text-align:left; font-weight:700; font-size:10px; color:#64748b; }
-  td { padding:8px; border-top:1px solid #e2e8f0; }
+  th { background:linear-gradient(135deg,#f8fafc,#e2e8f0); padding:9px; text-align:left; font-weight:700; font-size:10px; color:#475569; text-transform:uppercase; }
+  td { padding:9px; border-top:1px solid #f1f5f9; }
+  tr:hover td { background:#f8fafc; }
   
-  .info-box { background:#eff6ff; border-left:4px solid #1e40af; padding:10px; border-radius:6px; font-size:12px; margin-bottom:10px; }
-  .success-box { background:#d1fae5; border-left:4px solid #10b981; padding:10px; border-radius:6px; font-size:12px; margin-bottom:10px; }
-  .warning-box { background:#fef3c7; border-left:4px solid #f59e0b; padding:10px; border-radius:6px; font-size:12px; margin-bottom:10px; }
-  .back-btn { background:#e2e8f0; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-size:12px; font-weight:600; margin-bottom:10px; display:inline-flex; align-items:center; gap:5px; }
+  .info-box { background:linear-gradient(135deg,#eff6ff,#dbeafe); border-left:4px solid #667eea; padding:11px; border-radius:10px; font-size:12px; margin-bottom:11px; color:#1e40af; }
+  .success-box { background:linear-gradient(135deg,#d1fae5,#a7f3d0); border-left:4px solid #11998e; padding:11px; border-radius:10px; font-size:12px; margin-bottom:11px; color:#065f46; }
+  .warning-box { background:linear-gradient(135deg,#fef3c7,#fde68a); border-left:4px solid #f09819; padding:11px; border-radius:10px; font-size:12px; margin-bottom:11px; color:#92400e; }
+  .back-btn { background:linear-gradient(135deg,#e2e8f0,#cbd5e1); border:none; padding:9px 15px; border-radius:10px; cursor:pointer; font-size:12px; font-weight:600; margin-bottom:11px; display:inline-flex; align-items:center; gap:5px; transition:all 0.2s; color:#475569; }
+  .back-btn:hover { transform:translateX(-3px); }
   
-  .upload-area { border:2px dashed #e2e8f0; border-radius:10px; padding:20px; text-align:center; cursor:pointer; background:#f8fafc; }
-  .upload-area:hover { border-color:#1e40af; background:#eff6ff; }
-  .upload-area.has-file { border-color:#10b981; background:#f0fdf4; }
-  .preview-img { max-width:100%; max-height:200px; border-radius:8px; margin-top:10px; }
+  .upload-area { border:2px dashed #cbd5e1; border-radius:12px; padding:22px; text-align:center; cursor:pointer; background:linear-gradient(135deg,#f8fafc,#f1f5f9); transition:all 0.2s; }
+  .upload-area:hover { border-color:#667eea; background:linear-gradient(135deg,#eff6ff,#dbeafe); }
+  .upload-area.has-file { border-color:#11998e; background:linear-gradient(135deg,#d1fae5,#a7f3d0); }
+  .preview-img { max-width:100%; max-height:200px; border-radius:10px; margin-top:10px; }
   
-  .link-box { background:#f1f5f9; padding:10px; border-radius:8px; word-break:break-all; font-size:11px; font-family:monospace; margin:8px 0; border:1px solid #e2e8f0; }
-  .kode-bukti { background:linear-gradient(135deg,#1e40af,#3b82f6); color:white; padding:15px; border-radius:10px; text-align:center; font-size:24px; font-weight:800; letter-spacing:3px; margin:10px 0; font-family:monospace; }
+  .link-box { background:linear-gradient(135deg,#f8fafc,#e2e8f0); padding:11px; border-radius:10px; word-break:break-all; font-size:11px; font-family:monospace; margin:8px 0; border:1px solid #cbd5e1; }
+  .kode-bukti { background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:16px; border-radius:12px; text-align:center; font-size:26px; font-weight:800; letter-spacing:4px; margin:12px 0; font-family:monospace; box-shadow:0 4px 15px rgba(102,126,234,0.4); }
   
-  .bukti-card { background:white; border-radius:12px; padding:20px; box-shadow:0 4px 15px rgba(0,0,0,0.1); border:3px solid #10b981; }
-  .bukti-card h2 { color:#059669; margin-bottom:15px; text-align:center; }
-  .bukti-info { background:#f0fdf4; padding:12px; border-radius:8px; margin:8px 0; }
+  .bukti-card { background:white; border-radius:16px; padding:22px; box-shadow:0 8px 30px rgba(0,0,0,0.12); border:3px solid #11998e; }
+  .bukti-card h2 { color:#11998e; margin-bottom:15px; text-align:center; }
+  .bukti-info { background:linear-gradient(135deg,#f0fdf4,#dcfce7); padding:12px; border-radius:10px; margin:8px 0; }
   .bukti-info .lbl { font-size:11px; color:#64748b; font-weight:600; }
   .bukti-info .val { font-size:14px; font-weight:700; color:#1e293b; }
   
-  @media (max-width:600px) { .stats-row { grid-template-columns:repeat(2,1fr); } .menu-grid { grid-template-columns:repeat(2,1fr); } }
-  @media (min-width:768px) { .menu-grid { grid-template-columns:repeat(3,1fr); } }
+  .soal-item { background:linear-gradient(135deg,#f8fafc,#f1f5f9); padding:12px; border-radius:10px; margin-bottom:10px; border-left:4px solid #667eea; }
+  
+  .rekap-absen-table td, .rekap-absen-table th { padding:7px 5px; font-size:11px; }
+  .kehadiran-high { color:#11998e; font-weight:700; }
+  .kehadiran-mid { color:#f09819; font-weight:700; }
+  .kehadiran-low { color:#eb3349; font-weight:700; }
+  
+  @media (max-width:600px) { 
+    .stats-row { grid-template-columns:repeat(2,1fr); } 
+    .menu-grid { grid-template-columns:repeat(2,1fr); }
+    .header h1 { font-size:17px; }
+  }
+  @media (min-width:768px) { 
+    .menu-grid { grid-template-columns:repeat(4,1fr); }
+    .container { padding:20px; }
+  }
 </style>
 </head>
 <body>
@@ -120,25 +168,27 @@
 </div>
 
 <div class="container" id="appContainer">
+  <!-- DASHBOARD -->
   <div class="page active" id="g-dash">
     <div class="stats-row">
-      <div class="stat-box"><div class="val" id="stMapel">0</div><div class="lbl">MAPEL</div></div>
-      <div class="stat-box"><div class="val" id="stSiswa">0</div><div class="lbl">SISWA</div></div>
-      <div class="stat-box"><div class="val" id="stTugas">0</div><div class="lbl">TUGAS</div></div>
-      <div class="stat-box"><div class="val" id="stKuis">0</div><div class="lbl">KUIS</div></div>
+      <div class="stat-box" style="--c1:#667eea;--c2:#764ba2"><div class="val" id="stMapel">0</div><div class="lbl">MAPEL</div></div>
+      <div class="stat-box" style="--c1:#11998e;--c2:#38ef7d"><div class="val" id="stSiswa">0</div><div class="lbl">SISWA</div></div>
+      <div class="stat-box" style="--c1:#f09819;--c2:#edde5d"><div class="val" id="stTugas">0</div><div class="lbl">TUGAS</div></div>
+      <div class="stat-box" style="--c1:#eb3349;--c2:#f45c43"><div class="val" id="stKuis">0</div><div class="lbl">KUIS</div></div>
     </div>
-    <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:#1e293b">📋 MENU UTAMA</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:#1e293b"> MENU UTAMA</div>
     <div class="menu-grid">
-      <div class="menu-card" onclick="showPage('g-data')"><div class="icon ic-blue"><span class="material-icons">database</span></div><div class="label">Data Master</div><div class="desc">Kelas, Siswa, Mapel</div></div>
-      <div class="menu-card" onclick="showPage('g-absen')"><div class="icon ic-green"><span class="material-icons">fact_check</span></div><div class="label">Absensi</div><div class="desc">Catat kehadiran</div></div>
-      <div class="menu-card" onclick="showPage('g-tugas')"><div class="icon ic-orange"><span class="material-icons">assignment</span></div><div class="label">Tugas</div><div class="desc">Buat & share link</div></div>
-      <div class="menu-card" onclick="showPage('g-kuis')"><div class="icon ic-purple"><span class="material-icons">quiz</span></div><div class="label">Kuis/Ujian</div><div class="desc">Buat soal & auto-grade</div></div>
-      <div class="menu-card" onclick="showPage('g-rekap')"><div class="icon ic-red"><span class="material-icons">assessment</span></div><div class="label">Rekap Nilai</div><div class="desc">Nilai total siswa</div></div>
-      <div class="menu-card" onclick="showPage('g-setting')"><div class="icon ic-teal"><span class="material-icons">settings</span></div><div class="label">Pengaturan</div><div class="desc">Backup & KKM</div></div>
+      <div class="menu-card" style="--c1:#667eea;--c2:#764ba2" onclick="showPage('g-data')"><div class="icon"><span class="material-icons">database</span></div><div class="label">Data Master</div><div class="desc">Kelas, Siswa, Mapel</div></div>
+      <div class="menu-card" style="--c1:#11998e;--c2:#38ef7d" onclick="showPage('g-absen')"><div class="icon"><span class="material-icons">fact_check</span></div><div class="label">Absensi</div><div class="desc">Catat kehadiran</div></div>
+      <div class="menu-card" style="--c1:#f09819;--c2:#edde5d" onclick="showPage('g-tugas')"><div class="icon"><span class="material-icons">assignment</span></div><div class="label">Tugas</div><div class="desc">Buat & share link</div></div>
+      <div class="menu-card" style="--c1:#eb3349;--c2:#f45c43" onclick="showPage('g-kuis')"><div class="icon"><span class="material-icons">quiz</span></div><div class="label">Kuis/Ujian</div><div class="desc">PG & Esai</div></div>
+      <div class="menu-card" style="--c1:#2193b0;--c2:#6dd5ed" onclick="showPage('g-rekap')"><div class="icon"><span class="material-icons">assessment</span></div><div class="label">Rekap Nilai</div><div class="desc">Nilai + Kehadiran</div></div>
+      <div class="menu-card" style="--c1:#8e2de2;--c2:#4a00e0" onclick="showPage('g-rekapabsen')"><div class="icon"><span class="material-icons">calendar_today</span></div><div class="label">Rekap Absen</div><div class="desc">Statistik kehadiran</div></div>
+      <div class="menu-card" style="--c1:#606c88;--c2:#3f4c6b" onclick="showPage('g-setting')"><div class="icon"><span class="material-icons">settings</span></div><div class="label">Pengaturan</div><div class="desc">Backup & KKM</div></div>
     </div>
     <div class="card">
       <div class="card-title"><span class="material-icons">info</span> Cara Kerja Aplikasi</div>
-      <div style="font-size:12px;color:#64748b;line-height:1.8">
+      <div style="font-size:12px;color:#475569;line-height:1.8">
         <b>1️⃣ Setup:</b> Data Master → Buat Kelas → Import Siswa → Buat Mapel<br>
         <b>2️⃣ Tugas/Kuis:</b> Buat → Copy Link → Share ke WhatsApp siswa<br>
         <b>3️⃣ Siswa:</b> Buka link → Isi data → Jawab/Kerjakan → Dapat Bukti<br>
@@ -149,6 +199,7 @@
     </div>
   </div>
 
+  <!-- DATA MASTER -->
   <div class="page" id="g-data">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
@@ -171,6 +222,7 @@
     </div>
   </div>
 
+  <!-- ABSEN -->
   <div class="page" id="g-absen">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
@@ -190,6 +242,7 @@
     </div>
   </div>
 
+  <!-- TUGAS -->
   <div class="page" id="g-tugas">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
@@ -208,11 +261,12 @@
     </div>
   </div>
 
+  <!-- KUIS -->
   <div class="page" id="g-kuis">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">quiz</span> Kuis / Ulangan</div>
-      <div class="info-box"> <b>Alur:</b> Buat kuis → Copy link → Share ke siswa → Siswa jawab → Dapat nilai otomatis → Screenshot bukti → Kirim ke guru.</div>
+      <div class="info-box">🎯 <b>Alur:</b> Buat kuis (PG + Esai) → Copy link → Share ke siswa → Siswa jawab → Auto-grade PG + Esai dinilai guru → Screenshot bukti → Kirim ke guru.</div>
       <div class="form-group"><label>Filter Kelas</label>
         <select class="form-control" id="kKelas" onchange="onKuisKelasChange()">
           <option value="">-- Semua Kelas --</option>
@@ -226,15 +280,41 @@
     </div>
   </div>
 
+  <!-- REKAP NILAI -->
   <div class="page" id="g-rekap">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
-      <div class="card-title"><span class="material-icons">assessment</span> Rekap Nilai</div>
+      <div class="card-title"><span class="material-icons">assessment</span> Rekap Nilai & Kehadiran</div>
       <select class="form-control" id="rMapel" onchange="loadRekap()"><option value="">-- Pilih Mapel --</option></select>
       <div id="rekapBox" style="margin-top:8px"></div>
     </div>
   </div>
 
+  <!-- REKAP ABSEN -->
+  <div class="page" id="g-rekapabsen">
+    <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
+    <div class="card">
+      <div class="card-title"><span class="material-icons">calendar_today</span> Rekap Absensi</div>
+      <div class="info-box"> Lihat statistik kehadiran siswa per kelas, per mapel, dalam rentang waktu tertentu.</div>
+      <div class="form-group"><label>Kelas</label>
+        <select class="form-control" id="raKelas" onchange="onRekapAbsenKelasChange()">
+          <option value="">-- Pilih Kelas --</option>
+        </select></div>
+      <div class="form-group"><label>Mata Pelajaran</label>
+        <select class="form-control" id="raMapel" onchange="loadRekapAbsen()">
+          <option value="">-- Pilih Mapel --</option>
+        </select></div>
+      <div style="display:flex;gap:8px">
+        <div class="form-group" style="flex:1"><label>Tanggal Mulai</label>
+          <input type="date" class="form-control" id="raTglMulai" onchange="loadRekapAbsen()"></div>
+        <div class="form-group" style="flex:1"><label>Tanggal Akhir</label>
+          <input type="date" class="form-control" id="raTglAkhir" onchange="loadRekapAbsen()"></div>
+      </div>
+      <div id="rekapAbsenBox"></div>
+    </div>
+  </div>
+
+  <!-- SETTING -->
   <div class="page" id="g-setting">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
@@ -248,15 +328,16 @@
       <div class="card-title"><span class="material-icons">cloud</span> Backup & Restore</div>
       <div class="info-box">⚠️ Data tersimpan di browser. <b>Export JSON</b> secara berkala!</div>
       <button class="btn btn-sm btn-primary" onclick="exportData()" style="margin-right:5px">📥 Export JSON</button>
-      <button class="btn btn-sm btn-success" onclick="document.getElementById('importFile').click()"> Import JSON</button>
+      <button class="btn btn-sm btn-success" onclick="document.getElementById('importFile').click()">📤 Import JSON</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
-      <button class="btn btn-sm btn-danger" onclick="resetData()" style="margin-left:5px">🗑️ Reset</button>
+      <button class="btn btn-sm btn-danger" onclick="resetData()" style="margin-left:5px">️ Reset</button>
     </div>
   </div>
 </div>
 
+<!-- HALAMAN SISWA -->
 <div id="siswaContainer" style="display:none">
-  <div class="header" style="background:linear-gradient(135deg,#059669,#10b981)">
+  <div class="header" style="background:linear-gradient(135deg,#11998e,#38ef7d)">
     <h1><span class="material-icons">school</span> SISGA - Portal</h1>
     <div class="sub" id="portalSub">SMKN 2 Dompu</div>
   </div>
@@ -268,7 +349,7 @@
 
 <script>
 // ============ DATABASE ============
-const DB_KEY = 'SISGA_SMKN2DOMPU_FINAL';
+const DB_KEY = 'SISGA_SMKN2DOMPU_V5';
 let db = { kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], pengaturan:{kkm:75, bobotTugas:30, bobotKuis:30} };
 
 function loadDB() { try { const s = localStorage.getItem(DB_KEY); if (s) db = JSON.parse(s); } catch(e) {} }
@@ -296,6 +377,7 @@ function showPage(id) {
   else if (id === 'g-tugas') initTugas();
   else if (id === 'g-kuis') initKuis();
   else if (id === 'g-rekap') initRekap();
+  else if (id === 'g-rekapabsen') initRekapAbsen();
   else if (id === 'g-setting') loadSetting();
 }
 
@@ -329,7 +411,7 @@ function loadData() {
 function renderKelas() {
   const el = document.getElementById('listKelas');
   if (db.kelas.length === 0) { el.innerHTML = '<div class="empty"><span class="material-icons">apartment</span><div>Belum ada kelas</div></div>'; return; }
-  el.innerHTML = db.kelas.map(k => `<div class="list-item"><div class="info"><div class="title">${esc(k.nama)}</div><div class="desc">${esc(k.jurusan)} • ${esc(k.tingkat)} • ${db.siswa.filter(s=>s.kelasId===k.id).length} siswa</div></div><div class="actions"><button class="btn-icon" onclick='showKelas(${JSON.stringify(k).replace(/"/g,"&quot;")})'><span class="material-icons" style="font-size:16px">edit</span></button><button class="btn-icon" onclick="delKelas('${k.id}')"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button></div></div>`).join('');
+  el.innerHTML = db.kelas.map(k => `<div class="list-item"><div class="info"><div class="title">${esc(k.nama)}</div><div class="desc">${esc(k.jurusan)} • ${esc(k.tingkat)} • ${db.siswa.filter(s=>s.kelasId===k.id).length} siswa</div></div><div class="actions"><button class="btn-icon" onclick='showKelas(${JSON.stringify(k).replace(/"/g,"&quot;")})'><span class="material-icons" style="font-size:16px">edit</span></button><button class="btn-icon" onclick="delKelas('${k.id}')"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button></div></div>`).join('');
 }
 function showKelas(k=null) {
   showModal(`<div class="modal-title">${k?'Edit':'Tambah'} Kelas</div>
@@ -354,7 +436,7 @@ function renderSiswa() {
   const el = document.getElementById('listSiswa');
   if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="material-icons">people</span><div>Belum ada siswa</div></div>'; return; }
   const km = {}; db.kelas.forEach(k => km[k.id] = k.nama);
-  el.innerHTML = `<div style="overflow-x:auto"><table><thead><tr><th>NIS</th><th>Nama</th><th>Kelas</th><th>Aksi</th></tr></thead><tbody>` + list.map(s => `<tr><td>${esc(s.nis)}</td><td>${esc(s.nama)}</td><td>${esc(km[s.kelasId]||'')}</td><td><button class="btn-icon" onclick='showSiswa(${JSON.stringify(s).replace(/"/g,"&quot;")})'><span class="material-icons" style="font-size:16px">edit</span></button><button class="btn-icon" onclick="delSiswa('${s.nis}')"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button></td></tr>`).join('') + `</tbody></table></div>`;
+  el.innerHTML = `<div style="overflow-x:auto"><table><thead><tr><th>NIS</th><th>Nama</th><th>Kelas</th><th>Aksi</th></tr></thead><tbody>` + list.map(s => `<tr><td>${esc(s.nis)}</td><td>${esc(s.nama)}</td><td>${esc(km[s.kelasId]||'')}</td><td><button class="btn-icon" onclick='showSiswa(${JSON.stringify(s).replace(/"/g,"&quot;")})'><span class="material-icons" style="font-size:16px">edit</span></button><button class="btn-icon" onclick="delSiswa('${s.nis}')"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button></td></tr>`).join('') + `</tbody></table></div>`;
 }
 function showSiswa(s=null) {
   if (db.kelas.length === 0) return toast('Buat kelas dulu', 'error');
@@ -395,7 +477,7 @@ function renderMapel() {
   const el = document.getElementById('listMapel');
   if (db.mapel.length === 0) { el.innerHTML = '<div class="empty"><span class="material-icons">menu_book</span><div>Belum ada mapel</div></div>'; return; }
   const km = {}; db.kelas.forEach(k => km[k.id] = k.nama);
-  el.innerHTML = db.mapel.map(m => `<div class="list-item" style="flex-direction:column;align-items:stretch"><div style="display:flex;justify-content:space-between;width:100%"><div class="info"><div class="title">${esc(m.nama)} <span class="badge badge-info">${esc(m.kode)}</span></div><div class="desc">📚 Kelas: ${m.kelasIds.map(id => km[id]||id).join(', ')}</div></div><div class="actions"><button class="btn-icon" onclick='showMapel(${JSON.stringify(m).replace(/"/g,"&quot;")})'><span class="material-icons" style="font-size:16px">edit</span></button><button class="btn-icon" onclick="delMapel('${m.id}')"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button></div></div></div>`).join('');
+  el.innerHTML = db.mapel.map(m => `<div class="list-item" style="flex-direction:column;align-items:stretch"><div style="display:flex;justify-content:space-between;width:100%"><div class="info"><div class="title">${esc(m.nama)} <span class="badge badge-info">${esc(m.kode)}</span></div><div class="desc">📚 Kelas: ${m.kelasIds.map(id => km[id]||id).join(', ')}</div></div><div class="actions"><button class="btn-icon" onclick='showMapel(${JSON.stringify(m).replace(/"/g,"&quot;")})'><span class="material-icons" style="font-size:16px">edit</span></button><button class="btn-icon" onclick="delMapel('${m.id}')"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button></div></div></div>`).join('');
 }
 function showMapel(m=null) {
   if (db.kelas.length === 0) return toast('Buat kelas dulu', 'error');
@@ -403,7 +485,7 @@ function showMapel(m=null) {
     <div class="form-group"><label>ID</label><input class="form-control" id="fMId" value="${m?esc(m.id):''}" ${m?'readonly':''}></div>
     <div class="form-group"><label>Kode</label><input class="form-control" id="fMKode" value="${m?esc(m.kode):''}"></div>
     <div class="form-group"><label>Nama</label><input class="form-control" id="fMNama" value="${m?esc(m.nama):''}"></div>
-    <div class="form-group"><label>Kelas yang Diajar (Centang semua)</label><div style="max-height:150px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:8px;padding:8px">${db.kelas.map(k => `<label style="display:flex;align-items:center;gap:6px;padding:4px;font-size:12px;cursor:pointer"><input type="checkbox" class="mKelas" value="${k.id}" ${m&&m.kelasIds&&m.kelasIds.includes(k.id)?'checked':''}> ${esc(k.nama)}</label>`).join('')}</div></div>
+    <div class="form-group"><label>Kelas yang Diajar (Centang semua)</label><div style="max-height:150px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:10px;padding:8px">${db.kelas.map(k => `<label style="display:flex;align-items:center;gap:6px;padding:4px;font-size:12px;cursor:pointer"><input type="checkbox" class="mKelas" value="${k.id}" ${m&&m.kelasIds&&m.kelasIds.includes(k.id)?'checked':''}> ${esc(k.nama)}</label>`).join('')}</div></div>
     <button class="btn btn-block btn-primary" onclick="saveMapel()">Simpan</button>`);
 }
 function saveMapel() {
@@ -423,7 +505,7 @@ function initAbsen() {
   selKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
   document.getElementById('aMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>';
   document.getElementById('aTgl').value = today();
-  document.getElementById('absenBox').innerHTML = '<div class="info-box">ℹ️ Pilih Kelas terlebih dahulu.</div>';
+  document.getElementById('absenBox').innerHTML = '<div class="info-box">️ Pilih Kelas terlebih dahulu.</div>';
 }
 function onAbsenKelasChange() {
   const kelasId = document.getElementById('aKelas').value;
@@ -450,7 +532,7 @@ function loadAbsen() {
   db.absen.filter(a => a.mapelId === mapelId && a.tanggal === tgl && a.kelasId === kelasId).forEach(a => absenState[a.siswaNis] = a.status);
   if (siswaList.length === 0) { el.innerHTML = '<div class="empty"><div>Tidak ada siswa</div></div>'; return; }
   const km = {}; db.kelas.forEach(k => km[k.id] = k.nama);
-  el.innerHTML = `<div class="info-box" style="margin-bottom:10px">📚 <b>${esc(km[kelasId])}</b> • ${esc(mapel.nama)} • ${esc(tgl)} • 👥 ${siswaList.length} siswa</div>` +
+  el.innerHTML = `<div class="info-box" style="margin-bottom:10px"> <b>${esc(km[kelasId])}</b> • ${esc(mapel.nama)} • ${esc(tgl)} • 👥 ${siswaList.length} siswa</div>` +
     siswaList.map(s => { const cur = absenState[s.nis] || 'H'; return `<div class="absen-row"><div class="nama">${esc(s.nama)}<div style="font-size:10px;color:#64748b">${esc(s.nis)}</div></div><div class="absen-btns">${['H','S','I','A'].map(st => `<button class="absen-btn ${st} ${cur===st?'active':''}" onclick="setAbsen('${s.nis}','${st}',this)">${st}</button>`).join('')}</div></div>`; }).join('');
 }
 function setAbsen(nis, status, btn) { absenState[nis] = status; btn.parentElement.querySelectorAll('.absen-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
@@ -461,6 +543,104 @@ function saveAbsen() {
   db.absen = db.absen.filter(a => !(a.mapelId === mapelId && a.tanggal === tgl && a.kelasId === kelasId));
   Object.entries(absenState).forEach(([nis, status]) => { db.absen.push({id:genId('A'), siswaNis:nis, mapelId, kelasId, tanggal:tgl, status}); });
   saveDB(); toast(`Absensi tersimpan (${Object.keys(absenState).length} siswa)`, 'success');
+}
+
+// ============ REKAP ABSEN ============
+function initRekapAbsen() {
+  const selKelas = document.getElementById('raKelas');
+  selKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
+  document.getElementById('raMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>';
+  document.getElementById('raTglMulai').value = today().substring(0,7) + '-01';
+  document.getElementById('raTglAkhir').value = today();
+  document.getElementById('rekapAbsenBox').innerHTML = '<div class="info-box">ℹ️ Pilih Kelas dan Mapel untuk melihat rekap.</div>';
+}
+function onRekapAbsenKelasChange() {
+  const kelasId = document.getElementById('raKelas').value;
+  const selMapel = document.getElementById('raMapel');
+  if (!kelasId) {
+    selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>';
+    document.getElementById('rekapAbsenBox').innerHTML = '';
+    return;
+  }
+  const mapelKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId));
+  selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>' + mapelKelas.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
+  document.getElementById('rekapAbsenBox').innerHTML = '';
+}
+function loadRekapAbsen() {
+  const kelasId = document.getElementById('raKelas').value;
+  const mapelId = document.getElementById('raMapel').value;
+  const tglMulai = document.getElementById('raTglMulai').value;
+  const tglAkhir = document.getElementById('raTglAkhir').value;
+  const el = document.getElementById('rekapAbsenBox');
+  
+  if (!kelasId || !mapelId || !tglMulai || !tglAkhir) { 
+    el.innerHTML = '<div class="info-box">ℹ️ Lengkapi semua filter.</div>'; 
+    return; 
+  }
+  
+  const mapel = db.mapel.find(m => m.id === mapelId);
+  const siswaList = db.siswa.filter(s => s.kelasId === kelasId);
+  
+  if (siswaList.length === 0) {
+    el.innerHTML = '<div class="empty"><div>Tidak ada siswa di kelas ini</div></div>';
+    return;
+  }
+  
+  // Hitung absen per siswa
+  const rekap = siswaList.map(s => {
+    const absenSiswa = db.absen.filter(a => 
+      a.siswaNis === s.nis && 
+      a.mapelId === mapelId && 
+      a.kelasId === kelasId &&
+      a.tanggal >= tglMulai && 
+      a.tanggal <= tglAkhir
+    );
+    const H = absenSiswa.filter(a => a.status === 'H').length;
+    const S = absenSiswa.filter(a => a.status === 'S').length;
+    const I = absenSiswa.filter(a => a.status === 'I').length;
+    const A = absenSiswa.filter(a => a.status === 'A').length;
+    const total = H + S + I + A;
+    const kehadiran = total > 0 ? ((H + 0.5*S + 0.5*I) / total * 100) : 0;
+    return { nis:s.nis, nama:s.nama, H, S, I, A, total, kehadiran:Math.round(kehadiran*10)/10 };
+  });
+  
+  const km = {}; db.kelas.forEach(k => km[k.id] = k.nama);
+  
+  el.innerHTML = `
+    <div class="info-box" style="margin-bottom:10px">
+      📊 <b>Rekap Absensi</b><br>
+      📚 ${esc(km[kelasId])} • ${esc(mapel.nama)}<br>
+      📅 ${esc(tglMulai)} s/d ${esc(tglAkhir)}<br>
+      👥 ${siswaList.length} siswa
+    </div>
+    <div style="overflow-x:auto"><table class="rekap-absen-table">
+      <thead><tr>
+        <th>No</th><th>NIS</th><th>Nama</th>
+        <th style="text-align:center;color:#11998e">H</th>
+        <th style="text-align:center;color:#f09819">S</th>
+        <th style="text-align:center;color:#2193b0">I</th>
+        <th style="text-align:center;color:#eb3349">A</th>
+        <th style="text-align:center">Total</th>
+        <th style="text-align:center">% Hadir</th>
+      </tr></thead>
+      <tbody>
+        ${rekap.map((s,i) => {
+          const kelasKehadiran = s.kehadiran >= 80 ? 'kehadiran-high' : s.kehadiran >= 60 ? 'kehadiran-mid' : 'kehadiran-low';
+          return `<tr>
+            <td>${i+1}</td>
+            <td>${esc(s.nis)}</td>
+            <td><b>${esc(s.nama)}</b></td>
+            <td style="text-align:center;color:#11998e;font-weight:700">${s.H}</td>
+            <td style="text-align:center;color:#f09819;font-weight:700">${s.S}</td>
+            <td style="text-align:center;color:#2193b0;font-weight:700">${s.I}</td>
+            <td style="text-align:center;color:#eb3349;font-weight:700">${s.A}</td>
+            <td style="text-align:center">${s.total}</td>
+            <td style="text-align:center" class="${kelasKehadiran}">${s.kehadiran}%</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table></div>
+  `;
 }
 
 // ============ TUGAS ============
@@ -503,12 +683,12 @@ function loadTugas() {
         <div class="info">
           <div class="title">${esc(t.judul)}</div>
           <div class="desc">📚 ${esc(m?.nama||'')} • 📅 ${esc(t.deadline||'-')} • Bobot: ${esc(t.bobot)}%</div>
-          <div class="desc">🏫 ${esc(kelasDiajar)} • 📝 ${jmlNilai} dinilai</div>
+          <div class="desc"> ${esc(kelasDiajar)} •  ${jmlNilai} dinilai</div>
         </div>
         <div class="actions">
-          <button class="btn-icon" onclick="generateLinkTugas('${t.id}')" title="Copy Link"><span class="material-icons" style="font-size:16px;color:#3b82f6">link</span></button>
-          <button class="btn-icon" onclick="showNilaiTugas('${t.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#10b981">grading</span></button>
-          <button class="btn-icon" onclick="delTugas('${t.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button>
+          <button class="btn-icon" onclick="generateLinkTugas('${t.id}')" title="Copy Link"><span class="material-icons" style="font-size:16px;color:#667eea">link</span></button>
+          <button class="btn-icon" onclick="showNilaiTugas('${t.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#11998e">grading</span></button>
+          <button class="btn-icon" onclick="delTugas('${t.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button>
         </div>
       </div>
     </div>`;
@@ -539,36 +719,21 @@ function generateLinkTugas(tugasId) {
   const data = { id:t.id, judul:t.judul, deskripsi:t.deskripsi, deadline:t.deadline, bobot:t.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'' };
   const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
   const link = window.location.origin + window.location.pathname + '?tugas=' + encoded;
+  const pesanWA = `Assalamualaikum anak-anak,\n\nSilakan kerjakan tugas berikut:\n\n📚 *${t.judul}*\n📅 Deadline: ${t.deadline||'Tidak ada'}\n\n Link: ${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Upload foto jawaban\n4. Klik "Kirim Tugas"\n5. Screenshot halaman bukti\n6. Kirim screenshot ke Bapak/Ibu Guru\n\nSelamat mengerjakan! 📝`;
   
   showModal(`<div class="modal-title">🔗 Link Tugas</div>
     <div class="success-box">✅ Link berhasil dibuat! Copy dan share ke siswa via WhatsApp.</div>
     <div class="form-group"><label>Nama Tugas</label><div style="font-weight:700">${esc(t.judul)}</div></div>
     <div class="form-group"><label>Link Tugas</label><div class="link-box">${link}</div></div>
-    <div class="form-group"><label>Pesan WhatsApp</label><div class="link-box" style="white-space:pre-wrap">Assalamualaikum anak-anak,
-
-Silakan kerjakan tugas berikut:
-
-📚 *${esc(t.judul)}*
-📅 Deadline: ${esc(t.deadline||'Tidak ada')}
-
- Link: ${link}
-
-Cara mengerjakan:
-1. Buka link di atas
-2. Isi NIS, Nama, Kelas
-3. Upload foto jawaban
-4. Klik "Kirim Tugas"
-5. Screenshot halaman bukti
-6. Kirim screenshot ke Bapak/Ibu Guru
-
-Selamat mengerjakan! 📝</div></div>
+    <div class="form-group"><label>Pesan WhatsApp</label><div class="link-box" style="white-space:pre-wrap">${esc(pesanWA)}</div></div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-block btn-primary" onclick="copyText('${link.replace(/'/g,"\\'")}')"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
+      <button class="btn btn-block btn-info" onclick="copyText('${link.replace(/'/g,"\\'")}')"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
+      <button class="btn btn-block btn-success" onclick="copyText(\`${pesanWA.replace(/`/g,'\\`')}\`)"><span class="material-icons" style="font-size:14px">share</span> Copy Pesan WA</button>
     </div>
     <button class="btn btn-block btn-secondary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
 }
 
-function copyText(text) { navigator.clipboard.writeText(text).then(() => toast('Disalin!', 'success')); }
+function copyText(text) { navigator.clipboard.writeText(text).then(() => toast('Disalin!', 'success')).catch(() => { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Disalin!', 'success'); }); }
 
 function showNilaiTugas(tugasId) {
   const tugas = db.tugas.find(t => t.id === tugasId);
@@ -576,12 +741,12 @@ function showNilaiTugas(tugasId) {
   const siswaList = db.siswa.filter(s => mapel.kelasIds.includes(s.kelasId));
   const nm = {}; db.nilaiTugas.filter(n => n.tugasId === tugasId).forEach(n => nm[n.siswaNis] = n);
   showModal(`<div class="modal-title">Penilaian: ${esc(tugas.judul)}</div>
-    <div class="warning-box"> Input nilai berdasarkan <b>screenshot bukti submission</b> yang dikirim siswa via WhatsApp.</div>
+    <div class="warning-box">📸 Input nilai berdasarkan <b>screenshot bukti submission</b> yang dikirim siswa via WhatsApp.</div>
     <div style="max-height:55vh;overflow-y:auto">${siswaList.map(s => {
       const n = nm[s.nis];
-      return `<div style="background:#f8fafc;padding:10px;border-radius:8px;margin-bottom:8px;border-left:3px solid ${n?'#10b981':'#e2e8f0'}">
+      return `<div style="background:#f8fafc;padding:10px;border-radius:10px;margin-bottom:8px;border-left:3px solid ${n?'#11998e':'#e2e8f0'}">
         <div style="font-weight:700;font-size:12px">${esc(s.nama)} <span style="font-size:10px;color:#64748b">(${esc(s.nis)})</span> ${n?'<span class="badge badge-success">✓ Dinilai</span>':''}</div>
-        ${n && n.feedback ? `<div style="background:#fef3c7;padding:5px;border-radius:4px;font-size:11px;margin:5px 0">💬 ${esc(n.feedback)}</div>` : ''}
+        ${n && n.feedback ? `<div style="background:#fef3c7;padding:5px;border-radius:6px;font-size:11px;margin:5px 0">💬 ${esc(n.feedback)}</div>` : ''}
         <div style="display:flex;gap:5px;margin-top:5px"><input type="number" class="form-control" style="flex:1" id="nt_${s.nis}" value="${n?n.nilai:''}" placeholder="Nilai" min="0" max="100"><button class="btn btn-sm btn-success" onclick="saveNilaiTugas('${tugasId}','${s.nis}')"><span class="material-icons" style="font-size:14px">save</span></button></div>
         <textarea class="form-control" style="margin-top:5px;font-size:11px" id="fb_${s.nis}" placeholder="Feedback...">${n?esc(n.feedback||''):''}</textarea>
       </div>`;
@@ -595,7 +760,7 @@ function saveNilaiTugas(tugasId, nis) {
   saveDB(); toast('Nilai tersimpan', 'success');
 }
 
-// ============ KUIS ============
+// ============ KUIS (PG + ESAI) ============
 let kuisSoal = [];
 function initKuis() {
   const selKelas = document.getElementById('kKelas');
@@ -628,16 +793,19 @@ function loadKuis() {
   if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="material-icons">quiz</span><div>Belum ada kuis</div></div>'; return; }
   el.innerHTML = list.map(k => {
     const m = db.mapel.find(x => x.id === k.mapelId);
+    const jmlPG = k.soal.filter(s => s.tipe === 'pg').length;
+    const jmlEsai = k.soal.filter(s => s.tipe === 'esai').length;
     const jmlNilai = db.nilaiKuis.filter(n => n.kuisId === k.id).length;
     return `<div class="list-item">
       <div class="info">
         <div class="title">${esc(k.judul)} <span class="badge badge-info">${k.soal.length} soal</span></div>
-        <div class="desc">📚 ${esc(m?.nama||'')} • ⏱️ ${esc(k.durasi)} mnt • Bobot: ${esc(k.bobot)}% • 📝 ${jmlNilai} dinilai</div>
+        <div class="desc">📚 ${esc(m?.nama||'')} • ⏱️ ${esc(k.durasi)} mnt • Bobot: ${esc(k.bobot)}%</div>
+        <div class="desc">📝 PG: ${jmlPG} • ✍️ Esai: ${jmlEsai} • 📊 ${jmlNilai} dinilai</div>
       </div>
       <div class="actions">
-        <button class="btn-icon" onclick="generateLinkKuis('${k.id}')" title="Copy Link"><span class="material-icons" style="font-size:16px;color:#3b82f6">link</span></button>
-        <button class="btn-icon" onclick="showHasilKuis('${k.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#10b981">grading</span></button>
-        <button class="btn-icon" onclick="delKuis('${k.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button>
+        <button class="btn-icon" onclick="generateLinkKuis('${k.id}')" title="Copy Link"><span class="material-icons" style="font-size:16px;color:#667eea">link</span></button>
+        <button class="btn-icon" onclick="showHasilKuis('${k.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#11998e">grading</span></button>
+        <button class="btn-icon" onclick="delKuis('${k.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button>
       </div>
     </div>`;
   }).join('');
@@ -649,13 +817,26 @@ function showKuis() {
     <div class="form-group"><label>Mapel</label><select class="form-control" id="fKMapel">${db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('')}</select></div>
     <div class="form-group"><label>Judul</label><input class="form-control" id="fKJudul"></div>
     <div style="display:flex;gap:6px"><div class="form-group" style="flex:1"><label>Durasi (mnt)</label><input type="number" class="form-control" id="fKDuras" value="30"></div><div class="form-group" style="flex:1"><label>Bobot (%)</label><input type="number" class="form-control" id="fKBobot" value="20"></div></div>
-    <div style="margin:10px 0"><b>Soal Pilihan Ganda:</b></div><div id="kuisSoalBox"></div>
-    <button class="btn btn-sm btn-primary" onclick="addSoal()" style="margin-bottom:10px">+ Tambah Soal</button>
+    <div style="margin:10px 0"><b>Soal:</b></div><div id="kuisSoalBox"></div>
+    <div style="display:flex;gap:6px;margin-bottom:10px">
+      <button class="btn btn-sm btn-primary" onclick="addSoal('pg')"><span class="material-icons" style="font-size:14px">add</span> PG</button>
+      <button class="btn btn-sm btn-warning" onclick="addSoal('esai')"><span class="material-icons" style="font-size:14px">add</span> Esai</button>
+    </div>
     <button class="btn btn-block btn-success" onclick="saveKuis()">Simpan Kuis</button>`);
 }
-function addSoal() { kuisSoal.push({tipe:'pg', pertanyaan:'', opsi:['',''], kunci:0}); renderSoal(); }
+function addSoal(tipe) { 
+  if (tipe === 'pg') kuisSoal.push({tipe:'pg', pertanyaan:'', opsi:['','','','',''], kunci:0}); 
+  else kuisSoal.push({tipe:'esai', pertanyaan:'', jawabanIdeal:''}); 
+  renderSoal(); 
+}
 function renderSoal() {
-  document.getElementById('kuisSoalBox').innerHTML = kuisSoal.map((s,i) => `<div style="background:#f8fafc;padding:10px;border-radius:8px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><b>Soal ${i+1}</b><button class="btn-icon" onclick="delSoal(${i})"><span class="material-icons" style="font-size:16px;color:#ef4444">delete</span></button></div><textarea class="form-control" onchange="kuisSoal[${i}].pertanyaan=this.value" placeholder="Pertanyaan" rows="2">${esc(s.pertanyaan)}</textarea>${s.opsi.map((o,j) => `<div style="display:flex;gap:5px;margin-top:5px;align-items:center"><input type="radio" name="k${i}" ${s.kunci==j?'checked':''} onchange="kuisSoal[${i}].kunci=${j}"><input class="form-control" value="${esc(o)}" onchange="kuisSoal[${i}].opsi[${j}]=this.value" placeholder="Opsi ${String.fromCharCode(65+j)}"></div>`).join('')}</div>`).join('');
+  document.getElementById('kuisSoalBox').innerHTML = kuisSoal.map((s,i) => {
+    if (s.tipe === 'pg') {
+      return `<div class="soal-item"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><b>Soal ${i+1} (PG)</b><button class="btn-icon" onclick="delSoal(${i})"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button></div><textarea class="form-control" onchange="kuisSoal[${i}].pertanyaan=this.value" placeholder="Pertanyaan" rows="2">${esc(s.pertanyaan)}</textarea>${s.opsi.map((o,j) => `<div style="display:flex;gap:5px;margin-top:5px;align-items:center"><input type="radio" name="k${i}" ${s.kunci==j?'checked':''} onchange="kuisSoal[${i}].kunci=${j}"><input class="form-control" value="${esc(o)}" onchange="kuisSoal[${i}].opsi[${j}]=this.value" placeholder="Opsi ${String.fromCharCode(65+j)}"></div>`).join('')}</div>`;
+    } else {
+      return `<div class="soal-item" style="border-left-color:#f09819"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><b>Soal ${i+1} (Esai)</b><button class="btn-icon" onclick="delSoal(${i})"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button></div><textarea class="form-control" onchange="kuisSoal[${i}].pertanyaan=this.value" placeholder="Pertanyaan Esai" rows="2">${esc(s.pertanyaan)}</textarea><textarea class="form-control" style="margin-top:5px" onchange="kuisSoal[${i}].jawabanIdeal=this.value" placeholder="Jawaban ideal (untuk referensi penilaian)" rows="2">${esc(s.jawabanIdeal||'')}</textarea></div>`;
+    }
+  }).join('');
 }
 function delSoal(i) { kuisSoal.splice(i,1); renderSoal(); }
 function saveKuis() {
@@ -673,32 +854,16 @@ function generateLinkKuis(kuisId) {
   const data = { id:k.id, judul:k.judul, durasi:k.durasi, bobot:k.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'', soal:k.soal };
   const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
   const link = window.location.origin + window.location.pathname + '?kuis=' + encoded;
+  const pesanWA = `Assalamualaikum anak-anak,\n\nSilakan kerjakan kuis berikut:\n\n *${k.judul}*\n️ Durasi: ${k.durasi} menit\n📝 Jumlah Soal: ${k.soal.length} soal (PG + Esai)\n\n🔗 Link: ${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Jawab semua soal (PG & Esai)\n4. Klik "Kirim Jawaban"\n5. Screenshot halaman hasil\n6. Kirim screenshot ke Bapak/Ibu Guru\n\nSelamat mengerjakan! 📝`;
   
   showModal(`<div class="modal-title"> Link Kuis</div>
     <div class="success-box">✅ Link berhasil dibuat! Copy dan share ke siswa via WhatsApp.</div>
     <div class="form-group"><label>Nama Kuis</label><div style="font-weight:700">${esc(k.judul)}</div></div>
     <div class="form-group"><label>Link Kuis</label><div class="link-box">${link}</div></div>
-    <div class="form-group"><label>Pesan WhatsApp</label><div class="link-box" style="white-space:pre-wrap">Assalamualaikum anak-anak,
-
-Silakan kerjakan kuis berikut:
-
-📚 *${esc(k.judul)}*
-⏱️ Durasi: ${esc(k.durasi)} menit
-📝 Jumlah Soal: ${k.soal.length} soal
-
- Link: ${link}
-
-Cara mengerjakan:
-1. Buka link di atas
-2. Isi NIS, Nama, Kelas
-3. Jawab semua soal
-4. Klik "Kirim Jawaban"
-5. Screenshot halaman hasil nilai
-6. Kirim screenshot ke Bapak/Ibu Guru
-
-Selamat mengerjakan! 📝</div></div>
+    <div class="form-group"><label>Pesan WhatsApp</label><div class="link-box" style="white-space:pre-wrap">${esc(pesanWA)}</div></div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-block btn-primary" onclick="copyText('${link.replace(/'/g,"\\'")}')"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
+      <button class="btn btn-block btn-info" onclick="copyText('${link.replace(/'/g,"\\'")}')"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
+      <button class="btn btn-block btn-success" onclick="copyText(\`${pesanWA.replace(/`/g,'\\`')}\`)"><span class="material-icons" style="font-size:14px">share</span> Copy Pesan WA</button>
     </div>
     <button class="btn btn-block btn-secondary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
 }
@@ -708,18 +873,53 @@ function showHasilKuis(kuisId) {
   const mapel = db.mapel.find(m => m.id === kuis.mapelId);
   const siswaList = db.siswa.filter(s => mapel.kelasIds.includes(s.kelasId));
   const nm = {}; db.nilaiKuis.filter(n => n.kuisId === kuisId).forEach(n => nm[n.siswaNis] = n);
+  
+  const jmlPG = kuis.soal.filter(s => s.tipe === 'pg').length;
+  const jmlEsai = kuis.soal.filter(s => s.tipe === 'esai').length;
+  
   showModal(`<div class="modal-title">Hasil: ${esc(kuis.judul)}</div>
-    <div class="warning-box">💡 Input nilai berdasarkan <b>screenshot bukti</b> yang dikirim siswa via WhatsApp. Nilai sudah dihitung otomatis oleh aplikasi saat siswa submit.</div>
-    <div style="max-height:60vh;overflow-y:auto"><div style="overflow-x:auto"><table><thead><tr><th>Nama</th><th>Nilai</th><th>Aksi</th></tr></thead><tbody>${siswaList.map(s => { const n = nm[s.nis]; return `<tr><td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td><td><input type="number" class="form-control" style="width:70px" id="nk_${s.nis}" value="${n?n.nilai:''}" min="0" max="100"></td><td><button class="btn btn-sm btn-success" onclick="saveNilaiKuis('${kuisId}','${s.nis}')"><span class="material-icons" style="font-size:14px">save</span></button></td></tr>`; }).join('')}</tbody></table></div></div><button class="btn btn-block btn-primary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
-}
-function saveNilaiKuis(kuisId, nis) {
-  const nilai = document.getElementById('nk_'+nis).value;
-  const idx = db.nilaiKuis.findIndex(n => n.kuisId === kuisId && n.siswaNis === nis);
-  if (idx >= 0) db.nilaiKuis[idx].nilai = nilai; else db.nilaiKuis.push({id:genId('NK'), kuisId, siswaNis:nis, nilai, tglSubmit:today(), kodeBukti:'-'});
-  saveDB(); toast('Nilai tersimpan', 'success');
+    <div class="info-box">📊 PG: ${jmlPG} soal (auto-grade) | ✍️ Esai: ${jmlEsai} soal (nilai manual)<br>💡 Input nilai berdasarkan <b>screenshot bukti</b> dari siswa.</div>
+    <div style="max-height:60vh;overflow-y:auto"><div style="overflow-x:auto"><table><thead><tr><th>Nama</th><th>Nilai PG</th><th>Nilai Esai</th><th>Nilai Akhir</th><th>Aksi</th></tr></thead><tbody>${siswaList.map(s => { 
+      const n = nm[s.nis];
+      return `<tr><td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td>
+        <td>${n?n.nilaiPG||'-':'-'}</td>
+        <td><input type="number" class="form-control" style="width:60px" id="ne_${s.nis}" value="${n?n.nilaiEsai||'':''}" placeholder="0-100" min="0" max="100"></td>
+        <td><b>${n?n.nilai||'-':'-'}</b></td>
+        <td><button class="btn btn-sm btn-success" onclick="saveNilaiKuis('${kuisId}','${s.nis}')"><span class="material-icons" style="font-size:14px">save</span></button></td>
+      </tr>`; 
+    }).join('')}</tbody></table></div></div><button class="btn btn-block btn-primary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
 }
 
-// ============ REKAP ============
+function saveNilaiKuis(kuisId, nis) {
+  const nilaiEsai = parseFloat(document.getElementById('ne_'+nis).value);
+  const kuis = db.kuis.find(k => k.id === kuisId);
+  const idx = db.nilaiKuis.findIndex(n => n.kuisId === kuisId && n.siswaNis === nis);
+  
+  if (idx < 0) return toast('Siswa belum submit kuis ini', 'error');
+  
+  const n = db.nilaiKuis[idx];
+  const nilaiPG = n.nilaiPG || 0;
+  const jmlPG = kuis.soal.filter(s => s.tipe === 'pg').length;
+  const jmlEsai = kuis.soal.filter(s => s.tipe === 'esai').length;
+  
+  let nilaiAkhir;
+  if (jmlPG > 0 && jmlEsai > 0) {
+    // Gabungan: rata-rata PG dan Esai
+    const esaiFinal = isNaN(nilaiEsai) ? 0 : nilaiEsai;
+    nilaiAkhir = Math.round((nilaiPG + esaiFinal) / 2);
+  } else if (jmlPG > 0) {
+    nilaiAkhir = nilaiPG;
+  } else {
+    nilaiAkhir = isNaN(nilaiEsai) ? 0 : nilaiEsai;
+  }
+  
+  db.nilaiKuis[idx].nilaiEsai = isNaN(nilaiEsai) ? '' : nilaiEsai;
+  db.nilaiKuis[idx].nilai = nilaiAkhir;
+  saveDB(); toast('Nilai tersimpan', 'success');
+  showHasilKuis(kuisId); // Refresh modal
+}
+
+// ============ REKAP NILAI (DENGAN KEHADIRAN) ============
 function initRekap() {
   document.getElementById('rMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
   loadRekap();
@@ -731,18 +931,67 @@ function loadRekap() {
   const siswaList = db.siswa.filter(s => mapel.kelasIds.includes(s.kelasId));
   const tugasList = db.tugas.filter(t => t.mapelId === mapelId);
   const kuisList = db.kuis.filter(k => k.mapelId === mapelId);
+  
   const rekap = siswaList.map(s => {
+    // Nilai Tugas
     const ntSiswa = db.nilaiTugas.filter(n => { const t = tugasList.find(tt => tt.id === n.tugasId); return t && n.siswaNis === s.nis && n.nilai !== '' && n.nilai != null; });
     const avgTugas = ntSiswa.length > 0 ? ntSiswa.reduce((a,b) => a + (parseFloat(b.nilai)||0), 0) / ntSiswa.length : 0;
+    
+    // Nilai Kuis
     const nkSiswa = db.nilaiKuis.filter(n => { const k = kuisList.find(kk => kk.id === n.kuisId); return k && n.siswaNis === s.nis; });
     const avgKuis = nkSiswa.length > 0 ? nkSiswa.reduce((a,b) => a + (parseFloat(b.nilai)||0), 0) / nkSiswa.length : 0;
+    
+    // Kehadiran
+    const absenSiswa = db.absen.filter(a => a.siswaNis === s.nis && a.mapelId === mapelId);
+    const H = absenSiswa.filter(a => a.status === 'H').length;
+    const S = absenSiswa.filter(a => a.status === 'S').length;
+    const I = absenSiswa.filter(a => a.status === 'I').length;
+    const A = absenSiswa.filter(a => a.status === 'A').length;
+    const totalAbsen = H + S + I + A;
+    const kehadiran = totalAbsen > 0 ? ((H + 0.5*S + 0.5*I) / totalAbsen * 100) : 0;
+    
+    // Nilai Akhir
     const bTugas = parseFloat(db.pengaturan.bobotTugas) || 0, bKuis = parseFloat(db.pengaturan.bobotKuis) || 0, totalBobot = bTugas + bKuis;
     const nilaiAkhir = totalBobot > 0 ? ((avgTugas * bTugas + avgKuis * bKuis) / totalBobot) : 0;
-    return { nis:s.nis, nama:s.nama, avgTugas:Math.round(avgTugas*100)/100, avgKuis:Math.round(avgKuis*100)/100, nilaiAkhir:Math.round(nilaiAkhir*100)/100, status: nilaiAkhir >= parseFloat(db.pengaturan.kkm) ? 'LULUS' : 'REMEDI' };
+    
+    return { 
+      nis:s.nis, nama:s.nama, 
+      avgTugas:Math.round(avgTugas*10)/10, avgKuis:Math.round(avgKuis*10)/10, 
+      nilaiAkhir:Math.round(nilaiAkhir*10)/10, 
+      kehadiran:Math.round(kehadiran*10)/10,
+      H, S, I, A, totalAbsen,
+      status: nilaiAkhir >= parseFloat(db.pengaturan.kkm) ? 'LULUS' : 'REMEDI' 
+    };
   });
+  
   const lulus = rekap.filter(s => s.status === 'LULUS').length, remed = rekap.filter(s => s.status === 'REMEDI').length;
   const avg = rekap.length > 0 ? rekap.reduce((a,b) => a + b.nilaiAkhir, 0) / rekap.length : 0;
-  el.innerHTML = `<div class="stats-row" style="margin-bottom:10px"><div class="stat-box"><div class="val" style="color:#10b981">${lulus}</div><div class="lbl">LULUS</div></div><div class="stat-box"><div class="val" style="color:#ef4444">${remed}</div><div class="lbl">REMEDI</div></div><div class="stat-box"><div class="val">${avg.toFixed(1)}</div><div class="lbl">RATA-RATA</div></div><div class="stat-box"><div class="val">${db.pengaturan.kkm}</div><div class="lbl">KKM</div></div></div><div style="overflow-x:auto"><table><thead><tr><th>Nama</th><th>Tugas</th><th>Kuis</th><th>Akhir</th><th>Status</th></tr></thead><tbody>${rekap.map(s => `<tr><td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td><td>${s.avgTugas}</td><td>${s.avgKuis}</td><td><b>${s.nilaiAkhir}</b></td><td><span class="badge ${s.status==='LULUS'?'badge-success':'badge-danger'}">${s.status}</span></td></tr>`).join('')}</tbody></table></div>`;
+  const avgKehadiran = rekap.length > 0 ? rekap.reduce((a,b) => a + b.kehadiran, 0) / rekap.length : 0;
+  
+  el.innerHTML = `
+    <div class="stats-row" style="margin-bottom:10px">
+      <div class="stat-box" style="--c1:#11998e;--c2:#38ef7d"><div class="val">${lulus}</div><div class="lbl">LULUS</div></div>
+      <div class="stat-box" style="--c1:#eb3349;--c2:#f45c43"><div class="val">${remed}</div><div class="lbl">REMEDI</div></div>
+      <div class="stat-box" style="--c1:#667eea;--c2:#764ba2"><div class="val">${avg.toFixed(1)}</div><div class="lbl">RATA NILAI</div></div>
+      <div class="stat-box" style="--c1:#f09819;--c2:#edde5d"><div class="val">${avgKehadiran.toFixed(1)}%</div><div class="lbl">RATA HADIR</div></div>
+    </div>
+    <div style="overflow-x:auto"><table>
+      <thead><tr><th>Nama</th><th>Tugas</th><th>Kuis</th><th>Akhir</th><th>H</th><th>S</th><th>I</th><th>A</th><th>% Hadir</th><th>Status</th></tr></thead>
+      <tbody>${rekap.map(s => {
+        const kelasKehadiran = s.kehadiran >= 80 ? 'kehadiran-high' : s.kehadiran >= 60 ? 'kehadiran-mid' : 'kehadiran-low';
+        return `<tr>
+          <td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td>
+          <td>${s.avgTugas}</td><td>${s.avgKuis}</td><td><b>${s.nilaiAkhir}</b></td>
+          <td style="color:#11998e;font-weight:700">${s.H}</td>
+          <td style="color:#f09819;font-weight:700">${s.S}</td>
+          <td style="color:#2193b0;font-weight:700">${s.I}</td>
+          <td style="color:#eb3349;font-weight:700">${s.A}</td>
+          <td class="${kelasKehadiran}">${s.kehadiran}%</td>
+          <td><span class="badge ${s.status==='LULUS'?'badge-success':'badge-danger'}">${s.status}</span></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table></div>
+  `;
 }
 
 // ============ SETTING ============
@@ -772,9 +1021,9 @@ function showSiswaPage() {
       <div style="margin-bottom:10px"><span class="badge badge-info">${esc(t.mapelKode||t.mapelNama)}</span></div>
       <h2 style="font-size:18px;margin-bottom:8px">${esc(t.judul)}</h2>
       <div style="font-size:12px;color:#64748b;margin-bottom:12px">📅 Deadline: ${esc(t.deadline||'Tidak ada')} • Bobot: ${esc(t.bobot)}% ${isExpired?'<span class="badge badge-danger">LEWAT</span>':''}</div>
-      ${t.deskripsi ? `<div style="background:#f8fafc;padding:12px;border-radius:8px;line-height:1.6;font-size:13px;white-space:pre-wrap">${esc(t.deskripsi)}</div>` : ''}
+      ${t.deskripsi ? `<div style="background:#f8fafc;padding:12px;border-radius:10px;line-height:1.6;font-size:13px;white-space:pre-wrap">${esc(t.deskripsi)}</div>` : ''}
     </div>
-    ${isExpired ? '<div class="warning-box">⚠️ Deadline tugas sudah lewat. Hubungi guru Anda.</div>' : `
+    ${isExpired ? '<div class="warning-box">️ Deadline tugas sudah lewat. Hubungi guru Anda.</div>' : `
     <div class="card">
       <div class="card-title"><span class="material-icons">person</span> Data Siswa</div>
       <div class="form-group"><label>NIS</label><input class="form-control" id="sNis" placeholder="Masukkan NIS Anda"></div>
@@ -854,7 +1103,7 @@ function showBuktiPage(sub) {
       <div class="bukti-info"><div class="lbl">Waktu Submit</div><div class="val">${esc(sub.tglSubmit)}</div></div>
       ${sub.catatan ? `<div class="bukti-info"><div class="lbl">Catatan</div><div class="val">${esc(sub.catatan)}</div></div>` : ''}
       <div style="margin:15px 0"><div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">KODE BUKTI SUBMISSION</div><div class="kode-bukti">${sub.kodeBukti}</div><div style="font-size:11px;color:#64748b;text-align:center">Simpan kode ini sebagai bukti submission</div></div>
-      <div style="margin:15px 0"><div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">FOTO JAWABAN</div><img src="${sub.fotoUrl}" style="width:100%;border-radius:8px;border:2px solid #e2e8f0"></div>
+      <div style="margin:15px 0"><div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">FOTO JAWABAN</div><img src="${sub.fotoUrl}" style="width:100%;border-radius:10px;border:2px solid #e2e8f0"></div>
       <div class="warning-box" style="margin-top:15px"><b>📱 Instruksi:</b><br>1. Screenshot halaman ini<br>2. Kirim screenshot ke guru via WhatsApp<br>3. Tunggu konfirmasi & nilai dari guru<br><br><b>️ Penting:</b> Tanpa screenshot ini, guru tidak dapat melihat jawaban Anda!</div>
       <button class="btn btn-block btn-primary" onclick="window.print()" style="margin-top:10px"><span class="material-icons" style="font-size:14px">print</span> Cetak / Simpan PDF</button>
     </div>
@@ -862,7 +1111,7 @@ function showBuktiPage(sub) {
   window.scrollTo(0, 0);
 }
 
-// ============ HALAMAN SISWA: KUIS ============
+// ============ HALAMAN SISWA: KUIS (PG + ESAI) ============
 function showKuisPage() {
   document.getElementById('appContainer').style.display = 'none';
   document.getElementById('siswaContainer').style.display = 'block';
@@ -891,17 +1140,24 @@ function showKuisPage() {
     <div class="card">
       <div class="card-title"><span class="material-icons">help</span> Soal Kuis</div>
       <div id="daftarSoalKuis">
-        ${k.soal.map((s, i) => `
-          <div style="background:#f8fafc;padding:12px;border-radius:8px;margin-bottom:10px;border-left:4px solid #1e40af">
-            <div style="font-weight:700;margin-bottom:8px">Soal ${i+1}: ${esc(s.pertanyaan)}</div>
-            ${s.opsi.map((o, j) => `
-              <label style="display:flex;align-items:center;gap:8px;padding:6px;margin:3px 0;cursor:pointer;background:white;border-radius:6px">
-                <input type="radio" name="soal_${i}" value="${j}" onchange="pilihJawaban(${i},${j})" style="cursor:pointer">
-                <span><b>${String.fromCharCode(65+j)}.</b> ${esc(o)}</span>
-              </label>
-            `).join('')}
-          </div>
-        `).join('')}
+        ${k.soal.map((s, i) => {
+          if (s.tipe === 'pg') {
+            return `<div class="soal-item">
+              <div style="font-weight:700;margin-bottom:8px">Soal ${i+1} (PG): ${esc(s.pertanyaan)}</div>
+              ${s.opsi.map((o, j) => `
+                <label style="display:flex;align-items:center;gap:8px;padding:7px;margin:3px 0;cursor:pointer;background:white;border-radius:8px;border:1px solid #e2e8f0">
+                  <input type="radio" name="soal_${i}" value="${j}" onchange="pilihJawaban(${i},${j})" style="cursor:pointer">
+                  <span><b>${String.fromCharCode(65+j)}.</b> ${esc(o)}</span>
+                </label>
+              `).join('')}
+            </div>`;
+          } else {
+            return `<div class="soal-item" style="border-left-color:#f09819">
+              <div style="font-weight:700;margin-bottom:8px">Soal ${i+1} (Esai): ${esc(s.pertanyaan)}</div>
+              <textarea class="form-control" id="esai_${i}" placeholder="Tulis jawaban esai Anda di sini..." rows="4"></textarea>
+            </div>`;
+          }
+        }).join('')}
       </div>
       <button class="btn btn-block btn-success" onclick="submitKuisSiswa()" style="margin-top:10px"><span class="material-icons">send</span> Kirim Jawaban</button>
     </div>
@@ -911,7 +1167,7 @@ function showKuisPage() {
   window.scrollTo(0, 0);
 }
 
-function pilihJawaban(noSoal, indeksOpsi) { jawabanKuis[noSoal] = indeksOpsi; }
+function pilihJawaban(noSoal, indeksOpsi) { jawabanKuis[noSoal] = { tipe:'pg', nilai:indeksOpsi }; }
 
 function submitKuisSiswa() {
   const nis = document.getElementById('kNis').value.trim();
@@ -919,21 +1175,35 @@ function submitKuisSiswa() {
   const kelas = document.getElementById('kKelasSiswa').value.trim();
   
   if (!nis || !nama || !kelas) return toast('Lengkapi NIS, Nama, dan Kelas', 'error');
-  if (Object.keys(jawabanKuis).length < currentKuis.soal.length) {
-    return toast(`Jawab semua soal! (${Object.keys(jawabanKuis).length}/${currentKuis.soal.length})`, 'error');
+  
+  // Cek semua soal PG sudah dijawab
+  const soalPG = currentKuis.soal.map((s,i) => ({s,i})).filter(x => x.s.tipe === 'pg');
+  for (const {i} of soalPG) {
+    if (jawabanKuis[i] === undefined) return toast(`Jawab semua soal PG! (Soal ${i+1} belum dijawab)`, 'error');
   }
   
-  let benar = 0;
-  currentKuis.soal.forEach((s, i) => { if (jawabanKuis[i] === s.kunci) benar++; });
-  const totalSoal = currentKuis.soal.length;
-  const nilai = Math.round((benar / totalSoal) * 100);
+  // Cek semua soal Esai sudah diisi
+  const soalEsai = currentKuis.soal.map((s,i) => ({s,i})).filter(x => x.s.tipe === 'esai');
+  for (const {i} of soalEsai) {
+    const val = document.getElementById('esai_'+i)?.value.trim();
+    if (!val) return toast(`Jawab semua soal Esai! (Soal ${i+1} belum dijawab)`, 'error');
+    jawabanKuis[i] = { tipe:'esai', nilai:val };
+  }
+  
+  // Hitung nilai PG
+  let benarPG = 0;
+  soalPG.forEach(({s,i}) => { if (jawabanKuis[i].nilai === s.kunci) benarPG++; });
+  const totalPG = soalPG.length;
+  const nilaiPG = totalPG > 0 ? Math.round((benarPG / totalPG) * 100) : 0;
+  
   const kodeBukti = genKode();
   const tglSubmit = now();
   
-  showBuktiKuis({ kodeBukti, nis, nama, kelas, kuisId:currentKuis.id, kuisJudul:currentKuis.judul, tglSubmit, nilai, benar, totalSoal });
+  showBuktiKuis({ kodeBukti, nis, nama, kelas, kuisId:currentKuis.id, kuisJudul:currentKuis.judul, tglSubmit, nilaiPG, benarPG, totalPG, totalEsai:soalEsai.length, jawaban: jawabanKuis });
 }
 
 function showBuktiKuis(sub) {
+  const hasEsai = sub.totalEsai > 0;
   document.getElementById('siswaContent').innerHTML = `
     <div class="bukti-card">
       <h2>✅ KUIS BERHASIL DIKUMPULKAN!</h2>
@@ -944,12 +1214,13 @@ function showBuktiKuis(sub) {
       <div class="bukti-info"><div class="lbl">Nama Kuis</div><div class="val">${esc(sub.kuisJudul)}</div></div>
       <div class="bukti-info"><div class="lbl">Waktu Submit</div><div class="val">${esc(sub.tglSubmit)}</div></div>
       <div style="margin:15px 0"><div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">KODE BUKTI SUBMISSION</div><div class="kode-bukti">${sub.kodeBukti}</div></div>
-      <div style="background:linear-gradient(135deg,#059669,#10b981);color:white;padding:20px;border-radius:12px;text-align:center;margin:15px 0">
-        <div style="font-size:12px;opacity:0.9">NILAI ANDA</div>
-        <div style="font-size:48px;font-weight:800;margin:5px 0">${sub.nilai}</div>
-        <div style="font-size:13px">Benar ${sub.benar} dari ${sub.totalSoal} soal</div>
+      <div style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:12px;text-align:center;margin:15px 0">
+        <div style="font-size:12px;opacity:0.9">NILAI PILIHAN GANDA (AUTO)</div>
+        <div style="font-size:48px;font-weight:800;margin:5px 0">${sub.nilaiPG}</div>
+        <div style="font-size:13px">Benar ${sub.benarPG} dari ${sub.totalPG} soal PG</div>
+        ${hasEsai ? `<div style="font-size:11px;opacity:0.8;margin-top:8px">✍️ Soal Esai akan dinilai manual oleh guru</div>` : ''}
       </div>
-      <div class="warning-box" style="margin-top:15px"><b>📱 Instruksi:</b><br>1. Screenshot halaman ini<br>2. Kirim screenshot ke guru via WhatsApp<br>3. Tunggu konfirmasi dari guru<br><br><b>⚠️ Penting:</b> Tanpa screenshot ini, guru tidak dapat melihat nilai Anda!</div>
+      <div class="warning-box" style="margin-top:15px"><b>📱 Instruksi:</b><br>1. Screenshot halaman ini<br>2. Kirim screenshot ke guru via WhatsApp<br>3. Tunggu konfirmasi & nilai esai dari guru<br><br><b>⚠️ Penting:</b> Tanpa screenshot ini, guru tidak dapat melihat nilai Anda!</div>
       <button class="btn btn-block btn-primary" onclick="window.print()" style="margin-top:10px"><span class="material-icons" style="font-size:14px">print</span> Cetak / Simpan PDF</button>
     </div>
   `;
