@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SISGA - Sistem Informasi Guru</title>
+<title>SISGA - SMKN 2 Dompu</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -16,7 +16,7 @@
     box-shadow:0 4px 20px rgba(102,126,234,0.3);
     position:sticky; top:0; z-index:100;
   }
-  .header h1 { font-size:18px; display:flex; align-items:center; gap:8px; font-weight:800; }
+  .header h1 { font-size:20px; display:flex; align-items:center; gap:8px; font-weight:800; }
   .header .sub { font-size:11px; opacity:0.9; margin-top:2px; font-weight:500; }
   
   .container { padding:15px; max-width:1100px; margin:0 auto; }
@@ -30,7 +30,10 @@
     box-shadow:0 4px 15px rgba(0,0,0,0.06); transition:all 0.3s; 
     border:2px solid transparent; text-align:center; position:relative; overflow:hidden;
   }
-  .menu-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--c1),var(--c2)); }
+  .menu-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg,var(--c1),var(--c2));
+  }
   .menu-card:hover { transform:translateY(-5px); box-shadow:0 8px 25px rgba(0,0,0,0.12); }
   .menu-card .icon { 
     width:52px; height:52px; border-radius:14px; margin:0 auto 10px; 
@@ -45,11 +48,17 @@
     background:white; padding:14px; border-radius:14px; text-align:center; 
     box-shadow:0 4px 15px rgba(0,0,0,0.05); position:relative; overflow:hidden;
   }
-  .stat-box::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--c1,#667eea),var(--c2,#764ba2)); }
+  .stat-box::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg,var(--c1,#667eea),var(--c2,#764ba2));
+  }
   .stat-box .val { font-size:24px; font-weight:800; background:linear-gradient(135deg,var(--c1,#667eea),var(--c2,#764ba2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
   .stat-box .lbl { font-size:10px; color:#64748b; font-weight:600; margin-top:3px; }
   
-  .card { background:white; border-radius:16px; padding:18px; box-shadow:0 4px 15px rgba(0,0,0,0.05); margin-bottom:14px; }
+  .card { 
+    background:white; border-radius:16px; padding:18px; 
+    box-shadow:0 4px 15px rgba(0,0,0,0.05); margin-bottom:14px;
+  }
   .card-title { font-size:15px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:6px; color:#1e293b; }
   .card-title .material-icons { color:#667eea; }
   
@@ -94,6 +103,7 @@
   .badge-success { background:#d1fae5; color:#065f46; }
   .badge-danger { background:#fee2e2; color:#991b1b; }
   .badge-warning { background:#fef3c7; color:#92400e; }
+  .badge-purple { background:#ede9fe; color:#5b21b6; }
   
   .absen-row { display:flex; align-items:center; gap:8px; padding:9px; border-bottom:1px solid #f1f5f9; transition:background 0.2s; }
   .absen-row:hover { background:#f8fafc; }
@@ -142,7 +152,7 @@
   @media (max-width:600px) { 
     .stats-row { grid-template-columns:repeat(2,1fr); } 
     .menu-grid { grid-template-columns:repeat(2,1fr); }
-    .header h1 { font-size:16px; }
+    .header h1 { font-size:17px; }
   }
   @media (min-width:768px) { 
     .menu-grid { grid-template-columns:repeat(4,1fr); }
@@ -153,8 +163,8 @@
 <body>
 
 <div class="header">
-  <h1><span class="material-icons">school</span> <span id="displayInstitusiHeader">SISGA</span></h1>
-  <div class="sub"><span id="displayInstitusiSub">SMKN 2 Dompu</span> - <span id="headerMode">Mode Guru: <span id="displayGuru">Guru</span></span></div>
+  <h1><span class="material-icons">school</span> SISGA</h1>
+  <div class="sub">SMKN 2 Dompu - <span id="headerMode">Mode Guru</span></div>
 </div>
 
 <div class="container" id="appContainer">
@@ -166,7 +176,7 @@
       <div class="stat-box" style="--c1:#f09819;--c2:#edde5d"><div class="val" id="stTugas">0</div><div class="lbl">TUGAS</div></div>
       <div class="stat-box" style="--c1:#eb3349;--c2:#f45c43"><div class="val" id="stKuis">0</div><div class="lbl">KUIS</div></div>
     </div>
-    <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:#1e293b">📋 MENU UTAMA</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:#1e293b"> MENU UTAMA</div>
     <div class="menu-grid">
       <div class="menu-card" style="--c1:#667eea;--c2:#764ba2" onclick="showPage('g-data')"><div class="icon"><span class="material-icons">database</span></div><div class="label">Data Master</div><div class="desc">Kelas, Siswa, Mapel</div></div>
       <div class="menu-card" style="--c1:#11998e;--c2:#38ef7d" onclick="showPage('g-absen')"><div class="icon"><span class="material-icons">fact_check</span></div><div class="label">Absensi</div><div class="desc">Catat kehadiran</div></div>
@@ -174,16 +184,16 @@
       <div class="menu-card" style="--c1:#eb3349;--c2:#f45c43" onclick="showPage('g-kuis')"><div class="icon"><span class="material-icons">quiz</span></div><div class="label">Kuis/Ujian</div><div class="desc">PG & Esai</div></div>
       <div class="menu-card" style="--c1:#2193b0;--c2:#6dd5ed" onclick="showPage('g-rekap')"><div class="icon"><span class="material-icons">assessment</span></div><div class="label">Rekap Nilai</div><div class="desc">Nilai + Kehadiran</div></div>
       <div class="menu-card" style="--c1:#8e2de2;--c2:#4a00e0" onclick="showPage('g-rekapabsen')"><div class="icon"><span class="material-icons">calendar_today</span></div><div class="label">Rekap Absen</div><div class="desc">Statistik kehadiran</div></div>
-      <div class="menu-card" style="--c1:#606c88;--c2:#3f4c6b" onclick="showPage('g-setting')"><div class="icon"><span class="material-icons">settings</span></div><div class="label">Pengaturan</div><div class="desc">Profil, Backup & KKM</div></div</div>
+      <div class="menu-card" style="--c1:#606c88;--c2:#3f4c6b" onclick="showPage('g-setting')"><div class="icon"><span class="material-icons">settings</span></div><div class="label">Pengaturan</div><div class="desc">Backup & KKM</div></div>
     </div>
     <div class="card">
       <div class="card-title"><span class="material-icons">info</span> Cara Kerja Aplikasi</div>
       <div style="font-size:12px;color:#475569;line-height:1.8">
-        <b>1️⃣ Setup:</b> Pengaturan (Isi Nama) → Data Master → Buat Kelas → Import Siswa → Buat Mapel<br>
-        <b>2️⃣ Tugas/Kuis:</b> Buat → Copy Link/Pesan WA → Share ke WhatsApp siswa<br>
+        <b>1️⃣ Setup:</b> Data Master → Buat Kelas → Import Siswa → Buat Mapel<br>
+        <b>2️⃣ Tugas/Kuis:</b> Buat → Copy Link → Share ke WhatsApp siswa<br>
         <b>3️⃣ Siswa:</b> Buka link → Isi data → Jawab/Kerjakan → Dapat Bukti<br>
         <b>4️⃣ Siswa Kirim Bukti:</b> Screenshot bukti → Kirim ke guru via WA<br>
-        <b>5️⃣ Guru Nilai:</b> Terima screenshot → Input nilai (PG dari screenshot) → Aplikasi hitung otomatis<br>
+        <b>5️⃣ Guru Nilai:</b> Terima screenshot → Input nilai di aplikasi<br>
         <br><b>⚠️ Penting:</b> Data tersimpan di browser. <b>Export JSON</b> secara berkala!
       </div>
     </div>
@@ -195,16 +205,13 @@
     <div class="card">
       <div class="card-title"><span class="material-icons">apartment</span> Kelas</div>
       <button class="btn btn-sm btn-primary" onclick="showKelas()">+ Tambah Kelas</button>
-      <button class="btn btn-sm btn-info" onclick="document.getElementById('importKelasCsv').click()">📥 Import CSV Kelas</button>
-      <input type="file" id="importKelasCsv" accept=".csv" style="display:none" onchange="importCSV('kelas', this)">
       <div id="listKelas" style="margin-top:8px"></div>
     </div>
     <div class="card">
       <div class="card-title"><span class="material-icons">people</span> Siswa</div>
       <select class="form-control" id="fKelas" onchange="renderSiswa()"><option value="">-- Filter Kelas --</option></select>
       <button class="btn btn-sm btn-primary" onclick="showSiswa()" style="margin-top:6px">+ Tambah Siswa</button>
-      <button class="btn btn-sm btn-info" onclick="document.getElementById('importSiswaCsv').click()">📥 Import CSV Siswa</button>
-      <input type="file" id="importSiswaCsv" accept=".csv" style="display:none" onchange="importCSV('siswa', this)">
+      <button class="btn btn-sm btn-secondary" onclick="showImportSiswa()" style="margin-top:6px">📋 Import Massal</button>
       <div id="listSiswa" style="margin-top:8px"></div>
     </div>
     <div class="card">
@@ -240,7 +247,7 @@
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">assignment</span> Tugas</div>
-      <div class="info-box">📌 <b>Alur:</b> Buat tugas → Copy Link/Pesan WA → Share ke siswa → Siswa kirim bukti submission via WhatsApp → Anda nilai.</div>
+      <div class="info-box">📌 <b>Alur:</b> Buat tugas → Copy link → Share ke siswa → Siswa kerjakan → Siswa kirim bukti submission via WhatsApp → Anda nilai.</div>
       <div class="form-group"><label>Filter Kelas</label>
         <select class="form-control" id="tKelas" onchange="onTugasKelasChange()">
           <option value="">-- Semua Kelas --</option>
@@ -259,7 +266,7 @@
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">quiz</span> Kuis / Ulangan</div>
-      <div class="info-box">🎯 <b>Alur:</b> Buat kuis (PG + Esai) → Copy Link/Pesan WA → Share ke siswa → Siswa jawab → <b>Nilai PG muncul di layar siswa</b> → Siswa screenshot → Guru input Nilai PG dari screenshot → Aplikasi hitung Nilai Akhir.</div>
+      <div class="info-box">🎯 <b>Alur:</b> Buat kuis (PG + Esai) → Copy link → Share ke siswa → Siswa jawab → Auto-grade PG + Esai dinilai guru → Screenshot bukti → Kirim ke guru.</div>
       <div class="form-group"><label>Filter Kelas</label>
         <select class="form-control" id="kKelas" onchange="onKuisKelasChange()">
           <option value="">-- Semua Kelas --</option>
@@ -311,14 +318,6 @@
   <div class="page" id="g-setting">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
-      <div class="card-title"><span class="material-icons">account_circle</span> Profil Aplikasi</div>
-      <div class="form-group"><label>Nama Institusi / Sekolah</label>
-        <input type="text" class="form-control" id="setInstitusi" placeholder="Contoh: SMKN 2 Dompu"></div>
-      <div class="form-group"><label>Nama Guru</label>
-        <input type="text" class="form-control" id="setGuru" placeholder="Contoh: Budi Santoso, S.Pd"></div>
-      <button class="btn btn-block btn-primary" onclick="saveProfil()">💾 Simpan Profil</button>
-    </div>
-    <div class="card">
       <div class="card-title"><span class="material-icons">settings</span> Pengaturan Penilaian</div>
       <div class="form-group"><label>KKM</label><input type="number" class="form-control" id="setKkm" value="75"></div>
       <div class="form-group"><label>Bobot Tugas (%)</label><input type="number" class="form-control" id="setBobotTugas" value="30"></div>
@@ -331,7 +330,7 @@
       <button class="btn btn-sm btn-primary" onclick="exportData()" style="margin-right:5px">📥 Export JSON</button>
       <button class="btn btn-sm btn-success" onclick="document.getElementById('importFile').click()">📤 Import JSON</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
-      <button class="btn btn-sm btn-danger" onclick="resetData()" style="margin-left:5px">🗑️ Reset</button>
+      <button class="btn btn-sm btn-danger" onclick="resetData()" style="margin-left:5px">️ Reset</button>
     </div>
   </div>
 </div>
@@ -339,8 +338,8 @@
 <!-- HALAMAN SISWA -->
 <div id="siswaContainer" style="display:none">
   <div class="header" style="background:linear-gradient(135deg,#11998e,#38ef7d)">
-    <h1><span class="material-icons">school</span> <span id="siswaInstitusiHeader">SISGA</span></h1>
-    <div class="sub" id="portalSub">Portal Siswa</div>
+    <h1><span class="material-icons">school</span> SISGA - Portal</h1>
+    <div class="sub" id="portalSub">SMKN 2 Dompu</div>
   </div>
   <div class="container" id="siswaContent"></div>
 </div>
@@ -350,15 +349,8 @@
 
 <script>
 // ============ DATABASE ============
-const DB_KEY = 'SISGA_V6_FINAL';
-let db = { 
-  kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], 
-  pengaturan:{
-    namaInstitusi: 'SMKN 2 Dompu', 
-    namaGuru: 'Guru',
-    kkm:75, bobotTugas:30, bobotKuis:30
-  } 
-};
+const DB_KEY = 'SISGA_SMKN2DOMPU_V5';
+let db = { kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], pengaturan:{kkm:75, bobotTugas:30, bobotKuis:30} };
 
 function loadDB() { try { const s = localStorage.getItem(DB_KEY); if (s) db = JSON.parse(s); } catch(e) {} }
 function saveDB() { try { localStorage.setItem(DB_KEY, JSON.stringify(db)); } catch(e) { toast('Storage penuh!', 'error'); } }
@@ -375,20 +367,11 @@ let currentFoto = null;
 let jawabanKuis = {};
 let absenState = {};
 
-// ============ NAVIGASI & INIT ============
-function updateUIProfil() {
-  const inst = db.pengaturan.namaInstitusi || 'SISGA';
-  const guru = db.pengaturan.namaGuru || 'Guru';
-  document.getElementById('displayInstitusiHeader').textContent = inst;
-  document.getElementById('displayInstitusiSub').textContent = inst;
-  document.getElementById('displayGuru').textContent = guru;
-  document.getElementById('siswaInstitusiHeader').textContent = inst;
-}
-
+// ============ NAVIGASI ============
 function showPage(id) {
   document.querySelectorAll('#appContainer .page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  if (id === 'g-dash') { loadDashboard(); updateUIProfil(); }
+  if (id === 'g-dash') loadDashboard();
   else if (id === 'g-data') loadData();
   else if (id === 'g-absen') initAbsen();
   else if (id === 'g-tugas') initTugas();
@@ -402,7 +385,7 @@ function toast(msg, type='') {
   const t = document.getElementById('toast'); 
   t.textContent = msg; 
   t.className = 'toast show ' + type; 
-  setTimeout(() => t.className = 'toast', 2500); 
+  setTimeout(() => t.className = 'toast', 2000); 
 }
 function showModal(html) { 
   document.getElementById('modalBox').innerHTML = html; 
@@ -472,36 +455,22 @@ function saveSiswa() {
 }
 function delSiswa(nis) { if (!confirm('Hapus?')) return; db.siswa = db.siswa.filter(s => s.nis !== nis); saveDB(); toast('Dihapus', 'success'); loadData(); }
 
-// IMPORT CSV
-function importCSV(type, input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const text = e.target.result;
-    const lines = text.split('\n').filter(l => l.trim() !== '');
-    let count = 0;
-    lines.forEach((line, index) => {
-      if (index === 0 && line.toLowerCase().includes('nis')) return; // skip header
-      const cols = line.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
-      if (type === 'siswa' && cols.length >= 3) {
-        if (!db.siswa.find(s => s.nis === cols[0])) {
-          db.siswa.push({nis: cols[0], nama: cols[1], kelasId: cols[2]});
-          count++;
-        }
-      } else if (type === 'kelas' && cols.length >= 2) {
-        if (!db.kelas.find(k => k.id === cols[0])) {
-          db.kelas.push({id: cols[0], nama: cols[1], jurusan: cols[2]||'', tingkat: cols[3]||'X'});
-          count++;
-        }
-      }
-    });
-    saveDB();
-    toast(`${count} data ${type} berhasil diimport`, 'success');
-    loadData();
-    input.value = ''; // reset
-  };
-  reader.readAsText(file);
+function showImportSiswa() {
+  showModal(`<div class="modal-title">📋 Import Massal</div>
+    <div class="info-box">Format per baris: <b>NIS, Nama</b><br>Contoh:<br>2024001, Ahmad<br>2024002, Budi</div>
+    <div class="form-group"><label>Kelas Tujuan</label><select class="form-control" id="impKelas">${db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)}</option>`).join('')}</select></div>
+    <div class="form-group"><label>Data</label><textarea class="form-control" id="impData" rows="8"></textarea></div>
+    <button class="btn btn-block btn-primary" onclick="doImportSiswa()">Import</button>`);
+}
+function doImportSiswa() {
+  const kelasId = document.getElementById('impKelas').value, data = document.getElementById('impData').value.trim();
+  if (!data) return toast('Data kosong', 'error');
+  let count = 0;
+  data.split('\n').forEach(line => {
+    const parts = line.split(',').map(s => s.trim());
+    if (parts.length >= 2 && !db.siswa.find(s => s.nis === parts[0])) { db.siswa.push({nis:parts[0], nama:parts[1], kelasId}); count++; }
+  });
+  saveDB(); toast(`${count} siswa diimport`, 'success'); closeModal(); loadData();
 }
 
 function renderMapel() {
@@ -536,7 +505,7 @@ function initAbsen() {
   selKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
   document.getElementById('aMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>';
   document.getElementById('aTgl').value = today();
-  document.getElementById('absenBox').innerHTML = '<div class="info-box">ℹ️ Pilih Kelas terlebih dahulu.</div>';
+  document.getElementById('absenBox').innerHTML = '<div class="info-box">️ Pilih Kelas terlebih dahulu.</div>';
 }
 function onAbsenKelasChange() {
   const kelasId = document.getElementById('aKelas').value;
@@ -563,7 +532,7 @@ function loadAbsen() {
   db.absen.filter(a => a.mapelId === mapelId && a.tanggal === tgl && a.kelasId === kelasId).forEach(a => absenState[a.siswaNis] = a.status);
   if (siswaList.length === 0) { el.innerHTML = '<div class="empty"><div>Tidak ada siswa</div></div>'; return; }
   const km = {}; db.kelas.forEach(k => km[k.id] = k.nama);
-  el.innerHTML = `<div class="info-box" style="margin-bottom:10px">📚 <b>${esc(km[kelasId])}</b> • ${esc(mapel.nama)} • ${esc(tgl)} • 👥 ${siswaList.length} siswa</div>` +
+  el.innerHTML = `<div class="info-box" style="margin-bottom:10px"> <b>${esc(km[kelasId])}</b> • ${esc(mapel.nama)} • ${esc(tgl)} • 👥 ${siswaList.length} siswa</div>` +
     siswaList.map(s => { const cur = absenState[s.nis] || 'H'; return `<div class="absen-row"><div class="nama">${esc(s.nama)}<div style="font-size:10px;color:#64748b">${esc(s.nis)}</div></div><div class="absen-btns">${['H','S','I','A'].map(st => `<button class="absen-btn ${st} ${cur===st?'active':''}" onclick="setAbsen('${s.nis}','${st}',this)">${st}</button>`).join('')}</div></div>`; }).join('');
 }
 function setAbsen(nis, status, btn) { absenState[nis] = status; btn.parentElement.querySelectorAll('.absen-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
@@ -603,12 +572,29 @@ function loadRekapAbsen() {
   const tglMulai = document.getElementById('raTglMulai').value;
   const tglAkhir = document.getElementById('raTglAkhir').value;
   const el = document.getElementById('rekapAbsenBox');
-  if (!kelasId || !mapelId || !tglMulai || !tglAkhir) { el.innerHTML = '<div class="info-box">ℹ️ Lengkapi semua filter.</div>'; return; }
+  
+  if (!kelasId || !mapelId || !tglMulai || !tglAkhir) { 
+    el.innerHTML = '<div class="info-box">ℹ️ Lengkapi semua filter.</div>'; 
+    return; 
+  }
+  
   const mapel = db.mapel.find(m => m.id === mapelId);
   const siswaList = db.siswa.filter(s => s.kelasId === kelasId);
-  if (siswaList.length === 0) { el.innerHTML = '<div class="empty"><div>Tidak ada siswa di kelas ini</div></div>'; return; }
+  
+  if (siswaList.length === 0) {
+    el.innerHTML = '<div class="empty"><div>Tidak ada siswa di kelas ini</div></div>';
+    return;
+  }
+  
+  // Hitung absen per siswa
   const rekap = siswaList.map(s => {
-    const absenSiswa = db.absen.filter(a => a.siswaNis === s.nis && a.mapelId === mapelId && a.kelasId === kelasId && a.tanggal >= tglMulai && a.tanggal <= tglAkhir);
+    const absenSiswa = db.absen.filter(a => 
+      a.siswaNis === s.nis && 
+      a.mapelId === mapelId && 
+      a.kelasId === kelasId &&
+      a.tanggal >= tglMulai && 
+      a.tanggal <= tglAkhir
+    );
     const H = absenSiswa.filter(a => a.status === 'H').length;
     const S = absenSiswa.filter(a => a.status === 'S').length;
     const I = absenSiswa.filter(a => a.status === 'I').length;
@@ -617,14 +603,44 @@ function loadRekapAbsen() {
     const kehadiran = total > 0 ? ((H + 0.5*S + 0.5*I) / total * 100) : 0;
     return { nis:s.nis, nama:s.nama, H, S, I, A, total, kehadiran:Math.round(kehadiran*10)/10 };
   });
+  
   const km = {}; db.kelas.forEach(k => km[k.id] = k.nama);
-  el.innerHTML = `<div class="info-box" style="margin-bottom:10px">📊 <b>Rekap Absensi</b><br>📚 ${esc(km[kelasId])} • ${esc(mapel.nama)}<br>📅 ${esc(tglMulai)} s/d ${esc(tglAkhir)}<br>👥 ${siswaList.length} siswa</div>
+  
+  el.innerHTML = `
+    <div class="info-box" style="margin-bottom:10px">
+      📊 <b>Rekap Absensi</b><br>
+      📚 ${esc(km[kelasId])} • ${esc(mapel.nama)}<br>
+      📅 ${esc(tglMulai)} s/d ${esc(tglAkhir)}<br>
+      👥 ${siswaList.length} siswa
+    </div>
     <div style="overflow-x:auto"><table class="rekap-absen-table">
-      <thead><tr><th>No</th><th>NIS</th><th>Nama</th><th style="text-align:center;color:#11998e">H</th><th style="text-align:center;color:#f09819">S</th><th style="text-align:center;color:#2193b0">I</th><th style="text-align:center;color:#eb3349">A</th><th style="text-align:center">Total</th><th style="text-align:center">% Hadir</th></tr></thead>
-      <tbody>${rekap.map((s,i) => {
-        const kelasKehadiran = s.kehadiran >= 80 ? 'kehadiran-high' : s.kehadiran >= 60 ? 'kehadiran-mid' : 'kehadiran-low';
-        return `<tr><td>${i+1}</td><td>${esc(s.nis)}</td><td><b>${esc(s.nama)}</b></td><td style="text-align:center;color:#11998e;font-weight:700">${s.H}</td><td style="text-align:center;color:#f09819;font-weight:700">${s.S}</td><td style="text-align:center;color:#2193b0;font-weight:700">${s.I}</td><td style="text-align:center;color:#eb3349;font-weight:700">${s.A}</td><td style="text-align:center">${s.total}</td><td style="text-align:center" class="${kelasKehadiran}">${s.kehadiran}%</td></tr>`;
-      }).join('')}</tbody></table></div>`;
+      <thead><tr>
+        <th>No</th><th>NIS</th><th>Nama</th>
+        <th style="text-align:center;color:#11998e">H</th>
+        <th style="text-align:center;color:#f09819">S</th>
+        <th style="text-align:center;color:#2193b0">I</th>
+        <th style="text-align:center;color:#eb3349">A</th>
+        <th style="text-align:center">Total</th>
+        <th style="text-align:center">% Hadir</th>
+      </tr></thead>
+      <tbody>
+        ${rekap.map((s,i) => {
+          const kelasKehadiran = s.kehadiran >= 80 ? 'kehadiran-high' : s.kehadiran >= 60 ? 'kehadiran-mid' : 'kehadiran-low';
+          return `<tr>
+            <td>${i+1}</td>
+            <td>${esc(s.nis)}</td>
+            <td><b>${esc(s.nama)}</b></td>
+            <td style="text-align:center;color:#11998e;font-weight:700">${s.H}</td>
+            <td style="text-align:center;color:#f09819;font-weight:700">${s.S}</td>
+            <td style="text-align:center;color:#2193b0;font-weight:700">${s.I}</td>
+            <td style="text-align:center;color:#eb3349;font-weight:700">${s.A}</td>
+            <td style="text-align:center">${s.total}</td>
+            <td style="text-align:center" class="${kelasKehadiran}">${s.kehadiran}%</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table></div>
+  `;
 }
 
 // ============ TUGAS ============
@@ -667,10 +683,10 @@ function loadTugas() {
         <div class="info">
           <div class="title">${esc(t.judul)}</div>
           <div class="desc">📚 ${esc(m?.nama||'')} • 📅 ${esc(t.deadline||'-')} • Bobot: ${esc(t.bobot)}%</div>
-          <div class="desc">🏫 ${esc(kelasDiajar)} • 📝 ${jmlNilai} dinilai</div>
+          <div class="desc"> ${esc(kelasDiajar)} •  ${jmlNilai} dinilai</div>
         </div>
         <div class="actions">
-          <button class="btn-icon" onclick="showModalTugas('${t.id}')" title="Link & WA"><span class="material-icons" style="font-size:16px;color:#667eea">link</span></button>
+          <button class="btn-icon" onclick="generateLinkTugas('${t.id}')" title="Copy Link"><span class="material-icons" style="font-size:16px;color:#667eea">link</span></button>
           <button class="btn-icon" onclick="showNilaiTugas('${t.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#11998e">grading</span></button>
           <button class="btn-icon" onclick="delTugas('${t.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button>
         </div>
@@ -696,50 +712,28 @@ function saveTugas() {
 }
 function delTugas(id) { if (!confirm('Hapus?')) return; db.tugas = db.tugas.filter(t => t.id !== id); db.nilaiTugas = db.nilaiTugas.filter(n => n.tugasId !== id); saveDB(); toast('Dihapus', 'success'); loadTugas(); }
 
-function showModalTugas(tugasId) {
+function generateLinkTugas(tugasId) {
   const t = db.tugas.find(x => x.id === tugasId);
   if (!t) return;
   const m = db.mapel.find(x => x.id === t.mapelId);
   const data = { id:t.id, judul:t.judul, deskripsi:t.deskripsi, deadline:t.deadline, bobot:t.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'' };
   const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
   const link = window.location.origin + window.location.pathname + '?tugas=' + encoded;
+  const pesanWA = `Assalamualaikum anak-anak,\n\nSilakan kerjakan tugas berikut:\n\n📚 *${t.judul}*\n📅 Deadline: ${t.deadline||'Tidak ada'}\n\n Link: ${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Upload foto jawaban\n4. Klik "Kirim Tugas"\n5. Screenshot halaman bukti\n6. Kirim screenshot ke Bapak/Ibu Guru\n\nSelamat mengerjakan! 📝`;
   
   showModal(`<div class="modal-title">🔗 Link Tugas</div>
     <div class="success-box">✅ Link berhasil dibuat! Copy dan share ke siswa via WhatsApp.</div>
     <div class="form-group"><label>Nama Tugas</label><div style="font-weight:700">${esc(t.judul)}</div></div>
     <div class="form-group"><label>Link Tugas</label><div class="link-box">${link}</div></div>
+    <div class="form-group"><label>Pesan WhatsApp</label><div class="link-box" style="white-space:pre-wrap">${esc(pesanWA)}</div></div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-block btn-info" onclick="copyText('${link}')"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
-      <button class="btn btn-block btn-success" onclick="copyWAMessage('tugas', '${t.id}')"><span class="material-icons" style="font-size:14px">share</span> Copy Pesan WA</button>
+      <button class="btn btn-block btn-info" onclick="copyText('${link.replace(/'/g,"\\'")}')"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
+      <button class="btn btn-block btn-success" onclick="copyText(\`${pesanWA.replace(/`/g,'\\`')}\`)"><span class="material-icons" style="font-size:14px">share</span> Copy Pesan WA</button>
     </div>
     <button class="btn btn-block btn-secondary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
 }
 
-function copyText(text) { 
-  navigator.clipboard.writeText(text).then(() => toast('Disalin!', 'success')).catch(() => { 
-    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Disalin!', 'success'); 
-  }); 
-}
-
-function copyWAMessage(type, id) {
-  let msg = '';
-  if (type === 'tugas') {
-    const t = db.tugas.find(x => x.id === id);
-    const m = db.mapel.find(x => x.id === t.mapelId);
-    const data = { id:t.id, judul:t.judul, deskripsi:t.deskripsi, deadline:t.deadline, bobot:t.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'' };
-    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-    const link = window.location.origin + window.location.pathname + '?tugas=' + encoded;
-    msg = `Assalamualaikum anak-anak,\n\nSilakan kerjakan tugas berikut:\n\n📚 *${t.judul}*\n📅 Deadline: ${t.deadline||'Tidak ada'}\n\n🔗 Link:\n${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Upload foto jawaban\n4. Klik "Kirim Tugas"\n5. Screenshot halaman bukti\n6. Kirim screenshot ke Bapak/Ibu ${db.pengaturan.namaGuru}\n\nSelamat mengerjakan! 📝`;
-  } else if (type === 'kuis') {
-    const k = db.kuis.find(x => x.id === id);
-    const m = db.mapel.find(x => x.id === k.mapelId);
-    const data = { id:k.id, judul:k.judul, durasi:k.durasi, bobot:k.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'', soal:k.soal };
-    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-    const link = window.location.origin + window.location.pathname + '?kuis=' + encoded;
-    msg = `Assalamualaikum anak-anak,\n\nSilakan kerjakan kuis berikut:\n\n📚 *${k.judul}*\n⏱️ Durasi: ${k.durasi} menit\n📝 Jumlah Soal: ${k.soal.length} soal (PG + Esai)\n\n🔗 Link:\n${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Jawab semua soal\n4. Klik "Kirim Jawaban"\n5. Screenshot halaman hasil nilai\n6. Kirim screenshot ke Bapak/Ibu ${db.pengaturan.namaGuru}\n\nSelamat mengerjakan! 📝`;
-  }
-  copyText(msg);
-}
+function copyText(text) { navigator.clipboard.writeText(text).then(() => toast('Disalin!', 'success')).catch(() => { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Disalin!', 'success'); }); }
 
 function showNilaiTugas(tugasId) {
   const tugas = db.tugas.find(t => t.id === tugasId);
@@ -809,7 +803,7 @@ function loadKuis() {
         <div class="desc">📝 PG: ${jmlPG} • ✍️ Esai: ${jmlEsai} • 📊 ${jmlNilai} dinilai</div>
       </div>
       <div class="actions">
-        <button class="btn-icon" onclick="showModalKuis('${k.id}')" title="Link & WA"><span class="material-icons" style="font-size:16px;color:#667eea">link</span></button>
+        <button class="btn-icon" onclick="generateLinkKuis('${k.id}')" title="Copy Link"><span class="material-icons" style="font-size:16px;color:#667eea">link</span></button>
         <button class="btn-icon" onclick="showHasilKuis('${k.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#11998e">grading</span></button>
         <button class="btn-icon" onclick="delKuis('${k.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button>
       </div>
@@ -825,7 +819,7 @@ function showKuis() {
     <div style="display:flex;gap:6px"><div class="form-group" style="flex:1"><label>Durasi (mnt)</label><input type="number" class="form-control" id="fKDuras" value="30"></div><div class="form-group" style="flex:1"><label>Bobot (%)</label><input type="number" class="form-control" id="fKBobot" value="20"></div></div>
     <div style="margin:10px 0"><b>Soal:</b></div><div id="kuisSoalBox"></div>
     <div style="display:flex;gap:6px;margin-bottom:10px">
-      <button class="btn btn-sm btn-primary" onclick="addSoal('pg')"><span class="material-icons" style="font-size:14px">add</span> PG (5 Opsi)</button>
+      <button class="btn btn-sm btn-primary" onclick="addSoal('pg')"><span class="material-icons" style="font-size:14px">add</span> PG</button>
       <button class="btn btn-sm btn-warning" onclick="addSoal('esai')"><span class="material-icons" style="font-size:14px">add</span> Esai</button>
     </div>
     <button class="btn btn-block btn-success" onclick="saveKuis()">Simpan Kuis</button>`);
@@ -853,24 +847,25 @@ function saveKuis() {
 }
 function delKuis(id) { if (!confirm('Hapus?')) return; db.kuis = db.kuis.filter(k => k.id !== id); db.nilaiKuis = db.nilaiKuis.filter(n => n.kuisId !== id); saveDB(); toast('Dihapus', 'success'); loadKuis(); }
 
-function showModalKuis(kuisId) {
+function generateLinkKuis(kuisId) {
   const k = db.kuis.find(x => x.id === kuisId);
   if (!k) return;
-  showModal(`<div class="modal-title">🔗 Link Kuis</div>
-    <div class="success-box">✅ Link berhasil dibuat! Copy dan share ke siswa via WhatsApp.</div>
-    <div class="form-group"><label>Nama Kuis</label><div style="font-weight:700">${esc(k.judul)}</div></div>
-    <div class="form-group"><label>Link Kuis</label><div class="link-box" id="linkBoxKuis"></div></div>
-    <div style="display:flex;gap:8px">
-      <button class="btn btn-block btn-info" onclick="copyText(window._tempKuisLink)"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
-      <button class="btn btn-block btn-success" onclick="copyWAMessage('kuis', '${k.id}')"><span class="material-icons" style="font-size:14px">share</span> Copy Pesan WA</button>
-    </div>
-    <button class="btn btn-block btn-secondary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
-  
   const m = db.mapel.find(x => x.id === k.mapelId);
   const data = { id:k.id, judul:k.judul, durasi:k.durasi, bobot:k.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'', soal:k.soal };
   const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-  window._tempKuisLink = window.location.origin + window.location.pathname + '?kuis=' + encoded;
-  document.getElementById('linkBoxKuis').textContent = window._tempKuisLink;
+  const link = window.location.origin + window.location.pathname + '?kuis=' + encoded;
+  const pesanWA = `Assalamualaikum anak-anak,\n\nSilakan kerjakan kuis berikut:\n\n *${k.judul}*\n️ Durasi: ${k.durasi} menit\n📝 Jumlah Soal: ${k.soal.length} soal (PG + Esai)\n\n🔗 Link: ${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Jawab semua soal (PG & Esai)\n4. Klik "Kirim Jawaban"\n5. Screenshot halaman hasil\n6. Kirim screenshot ke Bapak/Ibu Guru\n\nSelamat mengerjakan! 📝`;
+  
+  showModal(`<div class="modal-title"> Link Kuis</div>
+    <div class="success-box">✅ Link berhasil dibuat! Copy dan share ke siswa via WhatsApp.</div>
+    <div class="form-group"><label>Nama Kuis</label><div style="font-weight:700">${esc(k.judul)}</div></div>
+    <div class="form-group"><label>Link Kuis</label><div class="link-box">${link}</div></div>
+    <div class="form-group"><label>Pesan WhatsApp</label><div class="link-box" style="white-space:pre-wrap">${esc(pesanWA)}</div></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-block btn-info" onclick="copyText('${link.replace(/'/g,"\\'")}')"><span class="material-icons" style="font-size:14px">content_copy</span> Copy Link</button>
+      <button class="btn btn-block btn-success" onclick="copyText(\`${pesanWA.replace(/`/g,'\\`')}\`)"><span class="material-icons" style="font-size:14px">share</span> Copy Pesan WA</button>
+    </div>
+    <button class="btn btn-block btn-secondary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
 }
 
 function showHasilKuis(kuisId) {
@@ -883,11 +878,11 @@ function showHasilKuis(kuisId) {
   const jmlEsai = kuis.soal.filter(s => s.tipe === 'esai').length;
   
   showModal(`<div class="modal-title">Hasil: ${esc(kuis.judul)}</div>
-    <div class="warning-box">⚠️ <b>Penting:</b> Karena aplikasi berjalan di browser (tanpa server), nilai PG otomatis hanya muncul di layar siswa. <br>Silakan input <b>Nilai PG</b> sesuai screenshot yang dikirim siswa, dan aplikasi akan otomatis menghitung Nilai Akhir.</div>
-    <div style="max-height:60vh;overflow-y:auto"><div style="overflow-x:auto"><table><thead><tr><th>Nama</th><th>Nilai PG<br><small>(dari screenshot)</small></th><th>Nilai Esai</th><th>Nilai Akhir</th><th>Aksi</th></tr></thead><tbody>${siswaList.map(s => { 
+    <div class="info-box">📊 PG: ${jmlPG} soal (auto-grade) | ✍️ Esai: ${jmlEsai} soal (nilai manual)<br>💡 Input nilai berdasarkan <b>screenshot bukti</b> dari siswa.</div>
+    <div style="max-height:60vh;overflow-y:auto"><div style="overflow-x:auto"><table><thead><tr><th>Nama</th><th>Nilai PG</th><th>Nilai Esai</th><th>Nilai Akhir</th><th>Aksi</th></tr></thead><tbody>${siswaList.map(s => { 
       const n = nm[s.nis];
       return `<tr><td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td>
-        <td><input type="number" class="form-control" style="width:60px" id="npg_${s.nis}" value="${n?n.nilaiPG||'':''}" placeholder="0-100" min="0" max="100"></td>
+        <td>${n?n.nilaiPG||'-':'-'}</td>
         <td><input type="number" class="form-control" style="width:60px" id="ne_${s.nis}" value="${n?n.nilaiEsai||'':''}" placeholder="0-100" min="0" max="100"></td>
         <td><b>${n?n.nilai||'-':'-'}</b></td>
         <td><button class="btn btn-sm btn-success" onclick="saveNilaiKuis('${kuisId}','${s.nis}')"><span class="material-icons" style="font-size:14px">save</span></button></td>
@@ -896,32 +891,30 @@ function showHasilKuis(kuisId) {
 }
 
 function saveNilaiKuis(kuisId, nis) {
-  const nilaiPGInput = document.getElementById('npg_'+nis).value;
-  const nilaiEsaiInput = document.getElementById('ne_'+nis).value;
+  const nilaiEsai = parseFloat(document.getElementById('ne_'+nis).value);
   const kuis = db.kuis.find(k => k.id === kuisId);
   const idx = db.nilaiKuis.findIndex(n => n.kuisId === kuisId && n.siswaNis === nis);
   
-  const nilaiPG = parseFloat(nilaiPGInput) || 0;
-  const nilaiEsai = parseFloat(nilaiEsaiInput) || 0;
+  if (idx < 0) return toast('Siswa belum submit kuis ini', 'error');
+  
+  const n = db.nilaiKuis[idx];
+  const nilaiPG = n.nilaiPG || 0;
   const jmlPG = kuis.soal.filter(s => s.tipe === 'pg').length;
   const jmlEsai = kuis.soal.filter(s => s.tipe === 'esai').length;
   
   let nilaiAkhir;
   if (jmlPG > 0 && jmlEsai > 0) {
-    nilaiAkhir = Math.round((nilaiPG + nilaiEsai) / 2);
+    // Gabungan: rata-rata PG dan Esai
+    const esaiFinal = isNaN(nilaiEsai) ? 0 : nilaiEsai;
+    nilaiAkhir = Math.round((nilaiPG + esaiFinal) / 2);
   } else if (jmlPG > 0) {
     nilaiAkhir = nilaiPG;
   } else {
-    nilaiAkhir = nilaiEsai;
+    nilaiAkhir = isNaN(nilaiEsai) ? 0 : nilaiEsai;
   }
   
-  if (idx >= 0) {
-    db.nilaiKuis[idx].nilaiPG = nilaiPGInput;
-    db.nilaiKuis[idx].nilaiEsai = nilaiEsaiInput;
-    db.nilaiKuis[idx].nilai = nilaiAkhir;
-  } else {
-    db.nilaiKuis.push({id:genId('NK'), kuisId, siswaNis:nis, nilaiPG:nilaiPGInput, nilaiEsai:nilaiEsaiInput, nilai:nilaiAkhir, tglSubmit:today(), kodeBukti:'-'});
-  }
+  db.nilaiKuis[idx].nilaiEsai = isNaN(nilaiEsai) ? '' : nilaiEsai;
+  db.nilaiKuis[idx].nilai = nilaiAkhir;
   saveDB(); toast('Nilai tersimpan', 'success');
   showHasilKuis(kuisId); // Refresh modal
 }
@@ -940,12 +933,15 @@ function loadRekap() {
   const kuisList = db.kuis.filter(k => k.mapelId === mapelId);
   
   const rekap = siswaList.map(s => {
+    // Nilai Tugas
     const ntSiswa = db.nilaiTugas.filter(n => { const t = tugasList.find(tt => tt.id === n.tugasId); return t && n.siswaNis === s.nis && n.nilai !== '' && n.nilai != null; });
     const avgTugas = ntSiswa.length > 0 ? ntSiswa.reduce((a,b) => a + (parseFloat(b.nilai)||0), 0) / ntSiswa.length : 0;
     
+    // Nilai Kuis
     const nkSiswa = db.nilaiKuis.filter(n => { const k = kuisList.find(kk => kk.id === n.kuisId); return k && n.siswaNis === s.nis; });
     const avgKuis = nkSiswa.length > 0 ? nkSiswa.reduce((a,b) => a + (parseFloat(b.nilai)||0), 0) / nkSiswa.length : 0;
     
+    // Kehadiran
     const absenSiswa = db.absen.filter(a => a.siswaNis === s.nis && a.mapelId === mapelId);
     const H = absenSiswa.filter(a => a.status === 'H').length;
     const S = absenSiswa.filter(a => a.status === 'S').length;
@@ -954,6 +950,7 @@ function loadRekap() {
     const totalAbsen = H + S + I + A;
     const kehadiran = totalAbsen > 0 ? ((H + 0.5*S + 0.5*I) / totalAbsen * 100) : 0;
     
+    // Nilai Akhir
     const bTugas = parseFloat(db.pengaturan.bobotTugas) || 0, bKuis = parseFloat(db.pengaturan.bobotKuis) || 0, totalBobot = bTugas + bKuis;
     const nilaiAkhir = totalBobot > 0 ? ((avgTugas * bTugas + avgKuis * bKuis) / totalBobot) : 0;
     
@@ -998,34 +995,17 @@ function loadRekap() {
 }
 
 // ============ SETTING ============
-function loadSetting() { 
-  document.getElementById('setInstitusi').value = db.pengaturan.namaInstitusi || 'SMKN 2 Dompu'; 
-  document.getElementById('setGuru').value = db.pengaturan.namaGuru || 'Guru';
-  document.getElementById('setKkm').value = db.pengaturan.kkm; 
-  document.getElementById('setBobotTugas').value = db.pengaturan.bobotTugas; 
-  document.getElementById('setBobotKuis').value = db.pengaturan.bobotKuis; 
-}
-function saveProfil() {
-  db.pengaturan.namaInstitusi = document.getElementById('setInstitusi').value.trim() || 'SISGA';
-  db.pengaturan.namaGuru = document.getElementById('setGuru').value.trim() || 'Guru';
-  saveDB(); updateUIProfil(); toast('Profil disimpan', 'success');
-}
-function savePengaturan() { 
-  db.pengaturan.kkm = document.getElementById('setKkm').value; 
-  db.pengaturan.bobotTugas = document.getElementById('setBobotTugas').value; 
-  db.pengaturan.bobotKuis = document.getElementById('setBobotKuis').value; 
-  saveDB(); toast('Pengaturan tersimpan', 'success'); 
-}
+function loadSetting() { document.getElementById('setKkm').value = db.pengaturan.kkm; document.getElementById('setBobotTugas').value = db.pengaturan.bobotTugas; document.getElementById('setBobotKuis').value = db.pengaturan.bobotKuis; }
+function savePengaturan() { db.pengaturan.kkm = document.getElementById('setKkm').value; db.pengaturan.bobotTugas = document.getElementById('setBobotTugas').value; db.pengaturan.bobotKuis = document.getElementById('setBobotKuis').value; saveDB(); toast('Pengaturan tersimpan', 'success'); }
 function exportData() { const data = JSON.stringify(db, null, 2); const blob = new Blob([data], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'SISGA-Backup-' + today() + '.json'; a.click(); URL.revokeObjectURL(url); toast('Data diexport', 'success'); }
-function importData(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { try { if (!confirm('Import akan MENIMPA data saat ini. Lanjutkan?')) return; db = JSON.parse(ev.target.result); saveDB(); updateUIProfil(); toast('Data diimport', 'success'); showPage('g-dash'); } catch(err) { toast('File tidak valid', 'error'); } }; reader.readAsText(file); }
-function resetData() { if (!confirm('Yakin hapus SEMUA data?')) return; if (!confirm('Data tidak bisa dikembalikan!')) return; localStorage.removeItem(DB_KEY); db = { kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], pengaturan:{namaInstitusi:'SMKN 2 Dompu', namaGuru:'Guru', kkm:75,bobotTugas:30,bobotKuis:30} }; updateUIProfil(); toast('Data direset', 'success'); showPage('g-dash'); }
+function importData(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { try { if (!confirm('Import akan MENIMPA data saat ini. Lanjutkan?')) return; db = JSON.parse(ev.target.result); saveDB(); toast('Data diimport', 'success'); showPage('g-dash'); } catch(err) { toast('File tidak valid', 'error'); } }; reader.readAsText(file); }
+function resetData() { if (!confirm('Yakin hapus SEMUA data?')) return; if (!confirm('Data tidak bisa dikembalikan!')) return; localStorage.removeItem(DB_KEY); db = { kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], pengaturan:{kkm:75,bobotTugas:30,bobotKuis:30} }; toast('Data direset', 'success'); showPage('g-dash'); }
 
 // ============ HALAMAN SISWA: TUGAS ============
 function showSiswaPage() {
   document.getElementById('appContainer').style.display = 'none';
   document.getElementById('siswaContainer').style.display = 'block';
-  document.getElementById('portalSub').textContent = 'Portal Tugas';
-  updateUIProfil();
+  document.getElementById('portalSub').textContent = 'Portal Tugas - SMKN 2 Dompu';
   
   if (!currentTugas) {
     document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link tugas tidak valid.</div></div></div>`;
@@ -1043,7 +1023,7 @@ function showSiswaPage() {
       <div style="font-size:12px;color:#64748b;margin-bottom:12px">📅 Deadline: ${esc(t.deadline||'Tidak ada')} • Bobot: ${esc(t.bobot)}% ${isExpired?'<span class="badge badge-danger">LEWAT</span>':''}</div>
       ${t.deskripsi ? `<div style="background:#f8fafc;padding:12px;border-radius:10px;line-height:1.6;font-size:13px;white-space:pre-wrap">${esc(t.deskripsi)}</div>` : ''}
     </div>
-    ${isExpired ? '<div class="warning-box">⚠️ Deadline tugas sudah lewat. Hubungi guru Anda.</div>' : `
+    ${isExpired ? '<div class="warning-box">️ Deadline tugas sudah lewat. Hubungi guru Anda.</div>' : `
     <div class="card">
       <div class="card-title"><span class="material-icons">person</span> Data Siswa</div>
       <div class="form-group"><label>NIS</label><input class="form-control" id="sNis" placeholder="Masukkan NIS Anda"></div>
@@ -1124,7 +1104,7 @@ function showBuktiPage(sub) {
       ${sub.catatan ? `<div class="bukti-info"><div class="lbl">Catatan</div><div class="val">${esc(sub.catatan)}</div></div>` : ''}
       <div style="margin:15px 0"><div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">KODE BUKTI SUBMISSION</div><div class="kode-bukti">${sub.kodeBukti}</div><div style="font-size:11px;color:#64748b;text-align:center">Simpan kode ini sebagai bukti submission</div></div>
       <div style="margin:15px 0"><div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">FOTO JAWABAN</div><img src="${sub.fotoUrl}" style="width:100%;border-radius:10px;border:2px solid #e2e8f0"></div>
-      <div class="warning-box" style="margin-top:15px"><b>📱 Instruksi:</b><br>1. Screenshot halaman ini<br>2. Kirim screenshot ke guru via WhatsApp<br>3. Tunggu konfirmasi & nilai dari guru<br><br><b>⚠️ Penting:</b> Tanpa screenshot ini, guru tidak dapat melihat jawaban Anda!</div>
+      <div class="warning-box" style="margin-top:15px"><b>📱 Instruksi:</b><br>1. Screenshot halaman ini<br>2. Kirim screenshot ke guru via WhatsApp<br>3. Tunggu konfirmasi & nilai dari guru<br><br><b>️ Penting:</b> Tanpa screenshot ini, guru tidak dapat melihat jawaban Anda!</div>
       <button class="btn btn-block btn-primary" onclick="window.print()" style="margin-top:10px"><span class="material-icons" style="font-size:14px">print</span> Cetak / Simpan PDF</button>
     </div>
   `;
@@ -1135,8 +1115,7 @@ function showBuktiPage(sub) {
 function showKuisPage() {
   document.getElementById('appContainer').style.display = 'none';
   document.getElementById('siswaContainer').style.display = 'block';
-  document.getElementById('portalSub').textContent = 'Portal Kuis';
-  updateUIProfil();
+  document.getElementById('portalSub').textContent = 'Portal Kuis - SMKN 2 Dompu';
   
   if (!currentKuis) {
     document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link kuis tidak valid.</div></div></div>`;
@@ -1197,11 +1176,13 @@ function submitKuisSiswa() {
   
   if (!nis || !nama || !kelas) return toast('Lengkapi NIS, Nama, dan Kelas', 'error');
   
+  // Cek semua soal PG sudah dijawab
   const soalPG = currentKuis.soal.map((s,i) => ({s,i})).filter(x => x.s.tipe === 'pg');
   for (const {i} of soalPG) {
     if (jawabanKuis[i] === undefined) return toast(`Jawab semua soal PG! (Soal ${i+1} belum dijawab)`, 'error');
   }
   
+  // Cek semua soal Esai sudah diisi
   const soalEsai = currentKuis.soal.map((s,i) => ({s,i})).filter(x => x.s.tipe === 'esai');
   for (const {i} of soalEsai) {
     const val = document.getElementById('esai_'+i)?.value.trim();
@@ -1209,6 +1190,7 @@ function submitKuisSiswa() {
     jawabanKuis[i] = { tipe:'esai', nilai:val };
   }
   
+  // Hitung nilai PG
   let benarPG = 0;
   soalPG.forEach(({s,i}) => { if (jawabanKuis[i].nilai === s.kunci) benarPG++; });
   const totalPG = soalPG.length;
@@ -1247,7 +1229,6 @@ function showBuktiKuis(sub) {
 
 // ============ DETEKSI URL SAAT LOAD ============
 loadDB();
-updateUIProfil();
 const urlParams = new URLSearchParams(window.location.search);
 const tugasEncoded = urlParams.get('tugas');
 const kuisEncoded = urlParams.get('kuis');
