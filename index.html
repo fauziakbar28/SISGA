@@ -9,50 +9,28 @@
 <style>
   * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
   body { background:linear-gradient(135deg,#f5f7fa 0%,#e4e8f0 100%); min-height:100vh; color:#1e293b; }
-  
-  .header { 
-    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); 
-    color:white; padding:18px 20px; 
-    box-shadow:0 4px 20px rgba(102,126,234,0.3);
-    position:sticky; top:0; z-index:100;
-  }
+  .header { background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:white; padding:18px 20px; box-shadow:0 4px 20px rgba(102,126,234,0.3); position:sticky; top:0; z-index:100; }
   .header h1 { font-size:18px; display:flex; align-items:center; gap:8px; font-weight:800; }
   .header .sub { font-size:11px; opacity:0.9; margin-top:2px; font-weight:500; }
-  
   .container { padding:15px; max-width:1100px; margin:0 auto; }
   .page { display:none; animation:fadeIn 0.4s; }
   .page.active { display:block; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-  
   .menu-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:15px; }
-  .menu-card { 
-    background:white; border-radius:16px; padding:18px; cursor:pointer; 
-    box-shadow:0 4px 15px rgba(0,0,0,0.06); transition:all 0.3s; 
-    border:2px solid transparent; text-align:center; position:relative; overflow:hidden;
-  }
+  .menu-card { background:white; border-radius:16px; padding:18px; cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.06); transition:all 0.3s; border:2px solid transparent; text-align:center; position:relative; overflow:hidden; }
   .menu-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--c1),var(--c2)); }
   .menu-card:hover { transform:translateY(-5px); box-shadow:0 8px 25px rgba(0,0,0,0.12); }
-  .menu-card .icon { 
-    width:52px; height:52px; border-radius:14px; margin:0 auto 10px; 
-    display:flex; align-items:center; justify-content:center; font-size:28px; color:white;
-    background:linear-gradient(135deg,var(--c1),var(--c2));
-  }
+  .menu-card .icon { width:52px; height:52px; border-radius:14px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:28px; color:white; background:linear-gradient(135deg,var(--c1),var(--c2)); }
   .menu-card .label { font-size:13px; font-weight:700; color:#1e293b; }
   .menu-card .desc { font-size:10px; color:#64748b; margin-top:3px; }
-  
   .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:15px; }
-  .stat-box { 
-    background:white; padding:14px; border-radius:14px; text-align:center; 
-    box-shadow:0 4px 15px rgba(0,0,0,0.05); position:relative; overflow:hidden;
-  }
+  .stat-box { background:white; padding:14px; border-radius:14px; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.05); position:relative; overflow:hidden; }
   .stat-box::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--c1,#667eea),var(--c2,#764ba2)); }
   .stat-box .val { font-size:24px; font-weight:800; background:linear-gradient(135deg,var(--c1,#667eea),var(--c2,#764ba2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
   .stat-box .lbl { font-size:10px; color:#64748b; font-weight:600; margin-top:3px; }
-  
   .card { background:white; border-radius:16px; padding:18px; box-shadow:0 4px 15px rgba(0,0,0,0.05); margin-bottom:14px; }
   .card-title { font-size:15px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:6px; color:#1e293b; }
   .card-title .material-icons { color:#667eea; }
-  
   .btn { padding:9px 16px; border:none; border-radius:10px; cursor:pointer; font-weight:600; font-size:12px; display:inline-flex; align-items:center; gap:5px; transition:all 0.2s; }
   .btn:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,0.15); }
   .btn-primary { background:linear-gradient(135deg,#667eea,#764ba2); color:white; }
@@ -63,13 +41,11 @@
   .btn-info { background:linear-gradient(135deg,#2193b0,#6dd5ed); color:white; }
   .btn-sm { padding:6px 11px; font-size:11px; }
   .btn-block { width:100%; justify-content:center; }
-  
   .form-group { margin-bottom:11px; }
   .form-group label { display:block; font-size:11px; font-weight:600; margin-bottom:4px; color:#475569; }
   .form-control { width:100%; padding:9px 11px; border:1.5px solid #e2e8f0; border-radius:10px; font-size:13px; background:white; transition:all 0.2s; }
   .form-control:focus { outline:none; border-color:#667eea; box-shadow:0 0 0 3px rgba(102,126,234,0.1); }
   textarea.form-control { resize:vertical; min-height:70px; }
-  
   .list-item { background:white; padding:13px; border-radius:12px; margin-bottom:9px; border:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; transition:all 0.2s; }
   .list-item:hover { box-shadow:0 4px 12px rgba(0,0,0,0.06); }
   .list-item .info { flex:1; }
@@ -78,23 +54,19 @@
   .list-item .actions { display:flex; gap:5px; }
   .btn-icon { width:34px; height:34px; border:none; border-radius:8px; background:#f1f5f9; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
   .btn-icon:hover { background:#e2e8f0; transform:scale(1.1); }
-  
   .modal-bg { display:none; position:fixed; inset:0; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); z-index:200; align-items:center; justify-content:center; padding:15px; }
   .modal-bg.active { display:flex; }
   .modal { background:white; border-radius:16px; padding:20px; width:100%; max-width:520px; max-height:88vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
   .modal-title { font-size:17px; font-weight:700; margin-bottom:14px; color:#1e293b; }
-  
   .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:11px 20px; border-radius:10px; z-index:300; font-size:12px; font-weight:600; opacity:0; transition:opacity 0.3s; box-shadow:0 4px 15px rgba(0,0,0,0.2); }
   .toast.show { opacity:1; }
   .toast.success { background:linear-gradient(135deg,#11998e,#38ef7d); }
   .toast.error { background:linear-gradient(135deg,#eb3349,#f45c43); }
-  
   .badge { display:inline-block; padding:3px 9px; border-radius:10px; font-size:10px; font-weight:700; }
   .badge-info { background:#dbeafe; color:#1e40af; }
   .badge-success { background:#d1fae5; color:#065f46; }
   .badge-danger { background:#fee2e2; color:#991b1b; }
   .badge-warning { background:#fef3c7; color:#92400e; }
-  
   .absen-row { display:flex; align-items:center; gap:8px; padding:9px; border-bottom:1px solid #f1f5f9; transition:background 0.2s; }
   .absen-row:hover { background:#f8fafc; }
   .absen-row .nama { flex:1; font-weight:600; font-size:12px; }
@@ -104,50 +76,35 @@
   .absen-btn.S.active { background:linear-gradient(135deg,#f09819,#edde5d); color:white; border-color:#f09819; }
   .absen-btn.I.active { background:linear-gradient(135deg,#2193b0,#6dd5ed); color:white; border-color:#2193b0; }
   .absen-btn.A.active { background:linear-gradient(135deg,#eb3349,#f45c43); color:white; border-color:#eb3349; }
-  
   .empty { text-align:center; padding:35px; color:#64748b; }
   .empty .material-icons { font-size:45px; opacity:0.3; margin-bottom:8px; display:block; }
   table { width:100%; border-collapse:collapse; font-size:12px; }
   th { background:linear-gradient(135deg,#f8fafc,#e2e8f0); padding:9px; text-align:left; font-weight:700; font-size:10px; color:#475569; text-transform:uppercase; }
   td { padding:9px; border-top:1px solid #f1f5f9; }
   tr:hover td { background:#f8fafc; }
-  
   .info-box { background:linear-gradient(135deg,#eff6ff,#dbeafe); border-left:4px solid #667eea; padding:11px; border-radius:10px; font-size:12px; margin-bottom:11px; color:#1e40af; }
   .success-box { background:linear-gradient(135deg,#d1fae5,#a7f3d0); border-left:4px solid #11998e; padding:11px; border-radius:10px; font-size:12px; margin-bottom:11px; color:#065f46; }
   .warning-box { background:linear-gradient(135deg,#fef3c7,#fde68a); border-left:4px solid #f09819; padding:11px; border-radius:10px; font-size:12px; margin-bottom:11px; color:#92400e; }
   .back-btn { background:linear-gradient(135deg,#e2e8f0,#cbd5e1); border:none; padding:9px 15px; border-radius:10px; cursor:pointer; font-size:12px; font-weight:600; margin-bottom:11px; display:inline-flex; align-items:center; gap:5px; transition:all 0.2s; color:#475569; }
   .back-btn:hover { transform:translateX(-3px); }
-  
   .upload-area { border:2px dashed #cbd5e1; border-radius:12px; padding:22px; text-align:center; cursor:pointer; background:linear-gradient(135deg,#f8fafc,#f1f5f9); transition:all 0.2s; }
   .upload-area:hover { border-color:#667eea; background:linear-gradient(135deg,#eff6ff,#dbeafe); }
   .upload-area.has-file { border-color:#11998e; background:linear-gradient(135deg,#d1fae5,#a7f3d0); }
   .preview-img { max-width:100%; max-height:200px; border-radius:10px; margin-top:10px; }
-  
   .link-box { background:linear-gradient(135deg,#f8fafc,#e2e8f0); padding:11px; border-radius:10px; word-break:break-all; font-size:11px; font-family:monospace; margin:8px 0; border:1px solid #cbd5e1; }
   .kode-bukti { background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:16px; border-radius:12px; text-align:center; font-size:26px; font-weight:800; letter-spacing:4px; margin:12px 0; font-family:monospace; box-shadow:0 4px 15px rgba(102,126,234,0.4); }
-  
   .bukti-card { background:white; border-radius:16px; padding:22px; box-shadow:0 8px 30px rgba(0,0,0,0.12); border:3px solid #11998e; }
   .bukti-card h2 { color:#11998e; margin-bottom:15px; text-align:center; }
   .bukti-info { background:linear-gradient(135deg,#f0fdf4,#dcfce7); padding:12px; border-radius:10px; margin:8px 0; }
   .bukti-info .lbl { font-size:11px; color:#64748b; font-weight:600; }
   .bukti-info .val { font-size:14px; font-weight:700; color:#1e293b; }
-  
   .soal-item { background:linear-gradient(135deg,#f8fafc,#f1f5f9); padding:12px; border-radius:10px; margin-bottom:10px; border-left:4px solid #667eea; }
-  
   .rekap-absen-table td, .rekap-absen-table th { padding:7px 5px; font-size:11px; }
   .kehadiran-high { color:#11998e; font-weight:700; }
   .kehadiran-mid { color:#f09819; font-weight:700; }
   .kehadiran-low { color:#eb3349; font-weight:700; }
-  
-  @media (max-width:600px) { 
-    .stats-row { grid-template-columns:repeat(2,1fr); } 
-    .menu-grid { grid-template-columns:repeat(2,1fr); }
-    .header h1 { font-size:16px; }
-  }
-  @media (min-width:768px) { 
-    .menu-grid { grid-template-columns:repeat(4,1fr); }
-    .container { padding:20px; }
-  }
+  @media (max-width:600px) { .stats-row { grid-template-columns:repeat(2,1fr); } .menu-grid { grid-template-columns:repeat(2,1fr); } .header h1 { font-size:16px; } }
+  @media (min-width:768px) { .menu-grid { grid-template-columns:repeat(4,1fr); } .container { padding:20px; } }
 </style>
 </head>
 <body>
@@ -158,7 +115,6 @@
 </div>
 
 <div class="container" id="appContainer">
-  <!-- DASHBOARD -->
   <div class="page active" id="g-dash">
     <div class="stats-row">
       <div class="stat-box" style="--c1:#667eea;--c2:#764ba2"><div class="val" id="stMapel">0</div><div class="lbl">MAPEL</div></div>
@@ -182,14 +138,13 @@
         <b>1️⃣ Setup:</b> Pengaturan (Isi Nama) → Data Master → Buat Kelas → Import Siswa → Buat Mapel<br>
         <b>2️⃣ Tugas/Kuis:</b> Buat → Copy Link/Pesan WA → Share ke WhatsApp siswa<br>
         <b>3️⃣ Siswa:</b> Buka link → Isi data → Jawab/Kerjakan → Dapat Bukti<br>
-        <b>4️⃣ Siswa Kirim Bukti:</b> Screenshot bukti → Kirim ke guru via WA<br>
+        <b>4️⃣ Siswa Kirim Bukti:</b> Screenshot bukti (termasuk jawaban esai) → Kirim ke guru via WA<br>
         <b>5️⃣ Guru Nilai:</b> Terima screenshot → Input nilai (PG dari screenshot) → Aplikasi hitung otomatis<br>
         <br><b>⚠️ Penting:</b> Data tersimpan di browser. <b>Export JSON</b> secara berkala!
       </div>
     </div>
   </div>
 
-  <!-- DATA MASTER -->
   <div class="page" id="g-data">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
@@ -215,65 +170,42 @@
     </div>
   </div>
 
-  <!-- ABSEN -->
   <div class="page" id="g-absen">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">fact_check</span> Absensi</div>
-      <div class="form-group"><label>Kelas</label>
-        <select class="form-control" id="aKelas" onchange="onAbsenKelasChange()">
-          <option value="">-- Pilih Kelas --</option>
-        </select></div>
-      <div class="form-group"><label>Mata Pelajaran</label>
-        <select class="form-control" id="aMapel" onchange="loadAbsen()">
-          <option value="">-- Pilih Mapel --</option>
-        </select></div>
-      <div class="form-group"><label>Tanggal</label>
-        <input type="date" class="form-control" id="aTgl" onchange="loadAbsen()"></div>
+      <div class="form-group"><label>Kelas</label><select class="form-control" id="aKelas" onchange="onAbsenKelasChange()"><option value="">-- Pilih Kelas --</option></select></div>
+      <div class="form-group"><label>Mata Pelajaran</label><select class="form-control" id="aMapel" onchange="loadAbsen()"><option value="">-- Pilih Mapel --</option></select></div>
+      <div class="form-group"><label>Tanggal</label><input type="date" class="form-control" id="aTgl" onchange="loadAbsen()"></div>
       <div id="absenBox"></div>
       <button class="btn btn-block btn-success" onclick="saveAbsen()" style="margin-top:10px"><span class="material-icons">save</span> Simpan Absensi</button>
     </div>
   </div>
 
-  <!-- TUGAS -->
   <div class="page" id="g-tugas">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">assignment</span> Tugas</div>
       <div class="info-box">📌 <b>Alur:</b> Buat tugas → Copy Link/Pesan WA → Share ke siswa → Siswa kirim bukti submission via WhatsApp → Anda nilai.</div>
-      <div class="form-group"><label>Filter Kelas</label>
-        <select class="form-control" id="tKelas" onchange="onTugasKelasChange()">
-          <option value="">-- Semua Kelas --</option>
-        </select></div>
-      <div class="form-group"><label>Filter Mapel</label>
-        <select class="form-control" id="tMapel" onchange="loadTugas()">
-          <option value="">-- Semua Mapel --</option>
-        </select></div>
+      <div class="form-group"><label>Filter Kelas</label><select class="form-control" id="tKelas" onchange="onTugasKelasChange()"><option value="">-- Semua Kelas --</option></select></div>
+      <div class="form-group"><label>Filter Mapel</label><select class="form-control" id="tMapel" onchange="loadTugas()"><option value="">-- Semua Mapel --</option></select></div>
       <button class="btn btn-sm btn-primary" onclick="showTugas()">+ Buat Tugas</button>
       <div id="listTugas" style="margin-top:8px"></div>
     </div>
   </div>
 
-  <!-- KUIS -->
   <div class="page" id="g-kuis">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">quiz</span> Kuis / Ulangan</div>
-      <div class="info-box">🎯 <b>Alur:</b> Buat kuis (PG + Esai) → Copy Link/Pesan WA → Share ke siswa → Siswa jawab → <b>Nilai PG muncul di layar siswa</b> → Siswa screenshot → Guru input Nilai PG dari screenshot → Aplikasi hitung Nilai Akhir.</div>
-      <div class="form-group"><label>Filter Kelas</label>
-        <select class="form-control" id="kKelas" onchange="onKuisKelasChange()">
-          <option value="">-- Semua Kelas --</option>
-        </select></div>
-      <div class="form-group"><label>Filter Mapel</label>
-        <select class="form-control" id="kMapel" onchange="loadKuis()">
-          <option value="">-- Semua Mapel --</option>
-        </select></div>
+      <div class="info-box">🎯 <b>Alur:</b> Buat kuis (PG + Esai) → Copy Link/Pesan WA → Share ke siswa → Siswa jawab → <b>Nilai PG & Jawaban Esai muncul di bukti</b> → Siswa screenshot → Guru input Nilai PG dari screenshot → Aplikasi hitung Nilai Akhir.</div>
+      <div class="form-group"><label>Filter Kelas</label><select class="form-control" id="kKelas" onchange="onKuisKelasChange()"><option value="">-- Semua Kelas --</option></select></div>
+      <div class="form-group"><label>Filter Mapel</label><select class="form-control" id="kMapel" onchange="loadKuis()"><option value="">-- Semua Mapel --</option></select></div>
       <button class="btn btn-sm btn-primary" onclick="showKuis()">+ Buat Kuis</button>
       <div id="listKuis" style="margin-top:8px"></div>
     </div>
   </div>
 
-  <!-- REKAP NILAI -->
   <div class="page" id="g-rekap">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
@@ -283,39 +215,27 @@
     </div>
   </div>
 
-  <!-- REKAP ABSEN -->
   <div class="page" id="g-rekapabsen">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">calendar_today</span> Rekap Absensi</div>
       <div class="info-box"> Lihat statistik kehadiran siswa per kelas, per mapel, dalam rentang waktu tertentu.</div>
-      <div class="form-group"><label>Kelas</label>
-        <select class="form-control" id="raKelas" onchange="onRekapAbsenKelasChange()">
-          <option value="">-- Pilih Kelas --</option>
-        </select></div>
-      <div class="form-group"><label>Mata Pelajaran</label>
-        <select class="form-control" id="raMapel" onchange="loadRekapAbsen()">
-          <option value="">-- Pilih Mapel --</option>
-        </select></div>
+      <div class="form-group"><label>Kelas</label><select class="form-control" id="raKelas" onchange="onRekapAbsenKelasChange()"><option value="">-- Pilih Kelas --</option></select></div>
+      <div class="form-group"><label>Mata Pelajaran</label><select class="form-control" id="raMapel" onchange="loadRekapAbsen()"><option value="">-- Pilih Mapel --</option></select></div>
       <div style="display:flex;gap:8px">
-        <div class="form-group" style="flex:1"><label>Tanggal Mulai</label>
-          <input type="date" class="form-control" id="raTglMulai" onchange="loadRekapAbsen()"></div>
-        <div class="form-group" style="flex:1"><label>Tanggal Akhir</label>
-          <input type="date" class="form-control" id="raTglAkhir" onchange="loadRekapAbsen()"></div>
+        <div class="form-group" style="flex:1"><label>Tanggal Mulai</label><input type="date" class="form-control" id="raTglMulai" onchange="loadRekapAbsen()"></div>
+        <div class="form-group" style="flex:1"><label>Tanggal Akhir</label><input type="date" class="form-control" id="raTglAkhir" onchange="loadRekapAbsen()"></div>
       </div>
       <div id="rekapAbsenBox"></div>
     </div>
   </div>
 
-  <!-- SETTING -->
   <div class="page" id="g-setting">
     <button class="back-btn" onclick="showPage('g-dash')"><span class="material-icons" style="font-size:16px">arrow_back</span> Kembali</button>
     <div class="card">
       <div class="card-title"><span class="material-icons">account_circle</span> Profil Aplikasi</div>
-      <div class="form-group"><label>Nama Institusi / Sekolah</label>
-        <input type="text" class="form-control" id="setInstitusi" placeholder="Contoh: SMKN 2 Dompu"></div>
-      <div class="form-group"><label>Nama Guru</label>
-        <input type="text" class="form-control" id="setGuru" placeholder="Contoh: Budi Santoso, S.Pd"></div>
+      <div class="form-group"><label>Nama Institusi / Sekolah</label><input type="text" class="form-control" id="setInstitusi" placeholder="Contoh: SMKN 2 Dompu"></div>
+      <div class="form-group"><label>Nama Guru</label><input type="text" class="form-control" id="setGuru" placeholder="Contoh: Budi Santoso, S.Pd"></div>
       <button class="btn btn-block btn-primary" onclick="saveProfil()">💾 Simpan Profil</button>
     </div>
     <div class="card">
@@ -336,7 +256,6 @@
   </div>
 </div>
 
-<!-- HALAMAN SISWA -->
 <div id="siswaContainer" style="display:none">
   <div class="header" style="background:linear-gradient(135deg,#11998e,#38ef7d)">
     <h1><span class="material-icons">school</span> <span id="siswaInstitusiHeader">SISGA</span></h1>
@@ -349,16 +268,8 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ============ DATABASE ============
 const DB_KEY = 'SISGA_V6_FINAL';
-let db = { 
-  kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], 
-  pengaturan:{
-    namaInstitusi: 'SMKN 2 Dompu', 
-    namaGuru: 'Guru',
-    kkm:75, bobotTugas:30, bobotKuis:30
-  } 
-};
+let db = { kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], pengaturan:{ namaInstitusi:'SMKN 2 Dompu', namaGuru:'Guru', kkm:75, bobotTugas:30, bobotKuis:30 } };
 
 function loadDB() { try { const s = localStorage.getItem(DB_KEY); if (s) db = JSON.parse(s); } catch(e) {} }
 function saveDB() { try { localStorage.setItem(DB_KEY, JSON.stringify(db)); } catch(e) { toast('Storage penuh!', 'error'); } }
@@ -368,14 +279,12 @@ function today() { return new Date().toISOString().split('T')[0]; }
 function now() { return new Date().toLocaleString('id-ID'); }
 function esc(s) { if (s===null||s===undefined) return ''; return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-// ============ VARIABEL GLOBAL ============
 let currentTugas = null;
 let currentKuis = null;
 let currentFoto = null;
 let jawabanKuis = {};
 let absenState = {};
 
-// ============ NAVIGASI & INIT ============
 function updateUIProfil() {
   const inst = db.pengaturan.namaInstitusi || 'SISGA';
   const guru = db.pengaturan.namaGuru || 'Guru';
@@ -399,19 +308,12 @@ function showPage(id) {
 }
 
 function toast(msg, type='') { 
-  const t = document.getElementById('toast'); 
-  t.textContent = msg; 
-  t.className = 'toast show ' + type; 
-  setTimeout(() => t.className = 'toast', 2500); 
+  const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast show ' + type; setTimeout(() => t.className = 'toast', 2500); 
 }
-function showModal(html) { 
-  document.getElementById('modalBox').innerHTML = html; 
-  document.getElementById('modalBg').classList.add('active'); 
-}
+function showModal(html) { document.getElementById('modalBox').innerHTML = html; document.getElementById('modalBg').classList.add('active'); }
 function closeModal() { document.getElementById('modalBg').classList.remove('active'); }
 document.getElementById('modalBg').onclick = e => { if (e.target.id === 'modalBg') closeModal(); };
 
-// ============ DASHBOARD ============
 function loadDashboard() {
   document.getElementById('stMapel').textContent = db.mapel.length;
   document.getElementById('stSiswa').textContent = db.siswa.length;
@@ -419,7 +321,6 @@ function loadDashboard() {
   document.getElementById('stKuis').textContent = db.kuis.length;
 }
 
-// ============ DATA MASTER ============
 function loadData() {
   const fk = document.getElementById('fKelas');
   fk.innerHTML = '<option value="">-- Filter Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)}</option>`).join('');
@@ -472,34 +373,23 @@ function saveSiswa() {
 }
 function delSiswa(nis) { if (!confirm('Hapus?')) return; db.siswa = db.siswa.filter(s => s.nis !== nis); saveDB(); toast('Dihapus', 'success'); loadData(); }
 
-// IMPORT CSV
 function importCSV(type, input) {
-  const file = input.files[0];
-  if (!file) return;
+  const file = input.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = function(e) {
     const text = e.target.result;
     const lines = text.split('\n').filter(l => l.trim() !== '');
     let count = 0;
     lines.forEach((line, index) => {
-      if (index === 0 && line.toLowerCase().includes('nis')) return; // skip header
+      if (index === 0 && line.toLowerCase().includes('nis')) return;
       const cols = line.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
       if (type === 'siswa' && cols.length >= 3) {
-        if (!db.siswa.find(s => s.nis === cols[0])) {
-          db.siswa.push({nis: cols[0], nama: cols[1], kelasId: cols[2]});
-          count++;
-        }
+        if (!db.siswa.find(s => s.nis === cols[0])) { db.siswa.push({nis: cols[0], nama: cols[1], kelasId: cols[2]}); count++; }
       } else if (type === 'kelas' && cols.length >= 2) {
-        if (!db.kelas.find(k => k.id === cols[0])) {
-          db.kelas.push({id: cols[0], nama: cols[1], jurusan: cols[2]||'', tingkat: cols[3]||'X'});
-          count++;
-        }
+        if (!db.kelas.find(k => k.id === cols[0])) { db.kelas.push({id: cols[0], nama: cols[1], jurusan: cols[2]||'', tingkat: cols[3]||'X'}); count++; }
       }
     });
-    saveDB();
-    toast(`${count} data ${type} berhasil diimport`, 'success');
-    loadData();
-    input.value = ''; // reset
+    saveDB(); toast(`${count} data ${type} berhasil diimport`, 'success'); loadData(); input.value = '';
   };
   reader.readAsText(file);
 }
@@ -530,7 +420,6 @@ function saveMapel() {
 }
 function delMapel(id) { if (!confirm('Hapus?')) return; db.mapel = db.mapel.filter(m => m.id !== id); saveDB(); toast('Dihapus', 'success'); loadData(); }
 
-// ============ ABSEN ============
 function initAbsen() {
   const selKelas = document.getElementById('aKelas');
   selKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
@@ -541,20 +430,13 @@ function initAbsen() {
 function onAbsenKelasChange() {
   const kelasId = document.getElementById('aKelas').value;
   const selMapel = document.getElementById('aMapel');
-  if (!kelasId) {
-    selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>';
-    document.getElementById('absenBox').innerHTML = '';
-    return;
-  }
+  if (!kelasId) { selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>'; document.getElementById('absenBox').innerHTML = ''; return; }
   const mapelKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId));
   selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>' + mapelKelas.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
   document.getElementById('absenBox').innerHTML = '';
 }
 function loadAbsen() {
-  const kelasId = document.getElementById('aKelas').value;
-  const mapelId = document.getElementById('aMapel').value;
-  const tgl = document.getElementById('aTgl').value;
-  const el = document.getElementById('absenBox');
+  const kelasId = document.getElementById('aKelas').value, mapelId = document.getElementById('aMapel').value, tgl = document.getElementById('aTgl').value, el = document.getElementById('absenBox');
   if (!kelasId || !mapelId || !tgl) { el.innerHTML = '<div class="info-box">ℹ️ Pilih Kelas, Mapel, dan Tanggal.</div>'; return; }
   const mapel = db.mapel.find(m => m.id === mapelId);
   if (!mapel.kelasIds.includes(kelasId)) { el.innerHTML = '<div class="warning-box">⚠️ Mapel ini tidak diajarkan di kelas yang dipilih.</div>'; return; }
@@ -576,7 +458,6 @@ function saveAbsen() {
   saveDB(); toast(`Absensi tersimpan (${Object.keys(absenState).length} siswa)`, 'success');
 }
 
-// ============ REKAP ABSEN ============
 function initRekapAbsen() {
   const selKelas = document.getElementById('raKelas');
   selKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
@@ -588,31 +469,20 @@ function initRekapAbsen() {
 function onRekapAbsenKelasChange() {
   const kelasId = document.getElementById('raKelas').value;
   const selMapel = document.getElementById('raMapel');
-  if (!kelasId) {
-    selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>';
-    document.getElementById('rekapAbsenBox').innerHTML = '';
-    return;
-  }
+  if (!kelasId) { selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>'; document.getElementById('rekapAbsenBox').innerHTML = ''; return; }
   const mapelKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId));
   selMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>' + mapelKelas.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
   document.getElementById('rekapAbsenBox').innerHTML = '';
 }
 function loadRekapAbsen() {
-  const kelasId = document.getElementById('raKelas').value;
-  const mapelId = document.getElementById('raMapel').value;
-  const tglMulai = document.getElementById('raTglMulai').value;
-  const tglAkhir = document.getElementById('raTglAkhir').value;
-  const el = document.getElementById('rekapAbsenBox');
+  const kelasId = document.getElementById('raKelas').value, mapelId = document.getElementById('raMapel').value, tglMulai = document.getElementById('raTglMulai').value, tglAkhir = document.getElementById('raTglAkhir').value, el = document.getElementById('rekapAbsenBox');
   if (!kelasId || !mapelId || !tglMulai || !tglAkhir) { el.innerHTML = '<div class="info-box">ℹ️ Lengkapi semua filter.</div>'; return; }
   const mapel = db.mapel.find(m => m.id === mapelId);
   const siswaList = db.siswa.filter(s => s.kelasId === kelasId);
   if (siswaList.length === 0) { el.innerHTML = '<div class="empty"><div>Tidak ada siswa di kelas ini</div></div>'; return; }
   const rekap = siswaList.map(s => {
     const absenSiswa = db.absen.filter(a => a.siswaNis === s.nis && a.mapelId === mapelId && a.kelasId === kelasId && a.tanggal >= tglMulai && a.tanggal <= tglAkhir);
-    const H = absenSiswa.filter(a => a.status === 'H').length;
-    const S = absenSiswa.filter(a => a.status === 'S').length;
-    const I = absenSiswa.filter(a => a.status === 'I').length;
-    const A = absenSiswa.filter(a => a.status === 'A').length;
+    const H = absenSiswa.filter(a => a.status === 'H').length, S = absenSiswa.filter(a => a.status === 'S').length, I = absenSiswa.filter(a => a.status === 'I').length, A = absenSiswa.filter(a => a.status === 'A').length;
     const total = H + S + I + A;
     const kehadiran = total > 0 ? ((H + 0.5*S + 0.5*I) / total * 100) : 0;
     return { nis:s.nis, nama:s.nama, H, S, I, A, total, kehadiran:Math.round(kehadiran*10)/10 };
@@ -627,34 +497,21 @@ function loadRekapAbsen() {
       }).join('')}</tbody></table></div>`;
 }
 
-// ============ TUGAS ============
 function initTugas() {
-  const selKelas = document.getElementById('tKelas');
-  selKelas.innerHTML = '<option value="">-- Semua Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
-  const selMapel = document.getElementById('tMapel');
-  selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
+  document.getElementById('tKelas').innerHTML = '<option value="">-- Semua Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
+  document.getElementById('tMapel').innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
   loadTugas();
 }
 function onTugasKelasChange() {
-  const kelasId = document.getElementById('tKelas').value;
-  const selMapel = document.getElementById('tMapel');
-  if (!kelasId) {
-    selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
-  } else {
-    const mapelKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId));
-    selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + mapelKelas.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
-  }
+  const kelasId = document.getElementById('tKelas').value, selMapel = document.getElementById('tMapel');
+  if (!kelasId) { selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join(''); } 
+  else { const mapelKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId)); selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + mapelKelas.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join(''); }
   loadTugas();
 }
 function loadTugas() {
-  const kelasId = document.getElementById('tKelas').value;
-  const mapelId = document.getElementById('tMapel').value;
-  const el = document.getElementById('listTugas');
+  const kelasId = document.getElementById('tKelas').value, mapelId = document.getElementById('tMapel').value, el = document.getElementById('listTugas');
   let list = db.tugas;
-  if (kelasId) {
-    const mapelIdsKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId)).map(m => m.id);
-    list = list.filter(t => mapelIdsKelas.includes(t.mapelId));
-  }
+  if (kelasId) { const mapelIdsKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId)).map(m => m.id); list = list.filter(t => mapelIdsKelas.includes(t.mapelId)); }
   if (mapelId) list = list.filter(t => t.mapelId === mapelId);
   if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="material-icons">assignment</span><div>Belum ada tugas</div></div>'; return; }
   const km = {}; db.kelas.forEach(k => km[k.id] = k.nama);
@@ -664,18 +521,13 @@ function loadTugas() {
     const jmlNilai = db.nilaiTugas.filter(n => n.tugasId === t.id).length;
     return `<div class="list-item" style="flex-direction:column;align-items:stretch">
       <div style="display:flex;justify-content:space-between;width:100%">
-        <div class="info">
-          <div class="title">${esc(t.judul)}</div>
-          <div class="desc">📚 ${esc(m?.nama||'')} • 📅 ${esc(t.deadline||'-')} • Bobot: ${esc(t.bobot)}%</div>
-          <div class="desc">🏫 ${esc(kelasDiajar)} • 📝 ${jmlNilai} dinilai</div>
-        </div>
+        <div class="info"><div class="title">${esc(t.judul)}</div><div class="desc">📚 ${esc(m?.nama||'')} • 📅 ${esc(t.deadline||'-')} • Bobot: ${esc(t.bobot)}%</div><div class="desc">🏫 ${esc(kelasDiajar)} • 📝 ${jmlNilai} dinilai</div></div>
         <div class="actions">
           <button class="btn-icon" onclick="showModalTugas('${t.id}')" title="Link & WA"><span class="material-icons" style="font-size:16px;color:#667eea">link</span></button>
           <button class="btn-icon" onclick="showNilaiTugas('${t.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#11998e">grading</span></button>
           <button class="btn-icon" onclick="delTugas('${t.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button>
         </div>
-      </div>
-    </div>`;
+      </div></div>`;
   }).join('');
 }
 function showTugas() {
@@ -697,13 +549,11 @@ function saveTugas() {
 function delTugas(id) { if (!confirm('Hapus?')) return; db.tugas = db.tugas.filter(t => t.id !== id); db.nilaiTugas = db.nilaiTugas.filter(n => n.tugasId !== id); saveDB(); toast('Dihapus', 'success'); loadTugas(); }
 
 function showModalTugas(tugasId) {
-  const t = db.tugas.find(x => x.id === tugasId);
-  if (!t) return;
+  const t = db.tugas.find(x => x.id === tugasId); if (!t) return;
   const m = db.mapel.find(x => x.id === t.mapelId);
   const data = { id:t.id, judul:t.judul, deskripsi:t.deskripsi, deadline:t.deadline, bobot:t.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'' };
   const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
   const link = window.location.origin + window.location.pathname + '?tugas=' + encoded;
-  
   showModal(`<div class="modal-title">🔗 Link Tugas</div>
     <div class="success-box">✅ Link berhasil dibuat! Copy dan share ke siswa via WhatsApp.</div>
     <div class="form-group"><label>Nama Tugas</label><div style="font-weight:700">${esc(t.judul)}</div></div>
@@ -714,36 +564,27 @@ function showModalTugas(tugasId) {
     </div>
     <button class="btn btn-block btn-secondary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
 }
-
-function copyText(text) { 
-  navigator.clipboard.writeText(text).then(() => toast('Disalin!', 'success')).catch(() => { 
-    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Disalin!', 'success'); 
-  }); 
-}
-
+function copyText(text) { navigator.clipboard.writeText(text).then(() => toast('Disalin!', 'success')).catch(() => { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Disalin!', 'success'); }); }
 function copyWAMessage(type, id) {
   let msg = '';
   if (type === 'tugas') {
-    const t = db.tugas.find(x => x.id === id);
-    const m = db.mapel.find(x => x.id === t.mapelId);
+    const t = db.tugas.find(x => x.id === id), m = db.mapel.find(x => x.id === t.mapelId);
     const data = { id:t.id, judul:t.judul, deskripsi:t.deskripsi, deadline:t.deadline, bobot:t.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'' };
     const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
     const link = window.location.origin + window.location.pathname + '?tugas=' + encoded;
     msg = `Assalamualaikum anak-anak,\n\nSilakan kerjakan tugas berikut:\n\n📚 *${t.judul}*\n📅 Deadline: ${t.deadline||'Tidak ada'}\n\n🔗 Link:\n${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Upload foto jawaban\n4. Klik "Kirim Tugas"\n5. Screenshot halaman bukti\n6. Kirim screenshot ke Bapak/Ibu ${db.pengaturan.namaGuru}\n\nSelamat mengerjakan! 📝`;
   } else if (type === 'kuis') {
-    const k = db.kuis.find(x => x.id === id);
-    const m = db.mapel.find(x => x.id === k.mapelId);
+    const k = db.kuis.find(x => x.id === id), m = db.mapel.find(x => x.id === k.mapelId);
     const data = { id:k.id, judul:k.judul, durasi:k.durasi, bobot:k.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'', soal:k.soal };
     const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
     const link = window.location.origin + window.location.pathname + '?kuis=' + encoded;
-    msg = `Assalamualaikum anak-anak,\n\nSilakan kerjakan kuis berikut:\n\n📚 *${k.judul}*\n⏱️ Durasi: ${k.durasi} menit\n📝 Jumlah Soal: ${k.soal.length} soal (PG + Esai)\n\n🔗 Link:\n${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Jawab semua soal\n4. Klik "Kirim Jawaban"\n5. Screenshot halaman hasil nilai\n6. Kirim screenshot ke Bapak/Ibu ${db.pengaturan.namaGuru}\n\nSelamat mengerjakan! 📝`;
+    msg = `Assalamualaikum anak-anak,\n\nSilakan kerjakan kuis berikut:\n\n📚 *${k.judul}*\n⏱️ Durasi: ${k.durasi} menit\n📝 Jumlah Soal: ${k.soal.length} soal (PG + Esai)\n\n🔗 Link:\n${link}\n\nCara mengerjakan:\n1. Buka link di atas\n2. Isi NIS, Nama, Kelas\n3. Jawab semua soal\n4. Klik "Kirim Jawaban"\n5. Screenshot halaman hasil nilai (termasuk jawaban esai)\n6. Kirim screenshot ke Bapak/Ibu ${db.pengaturan.namaGuru}\n\nSelamat mengerjakan! 📝`;
   }
   copyText(msg);
 }
 
 function showNilaiTugas(tugasId) {
-  const tugas = db.tugas.find(t => t.id === tugasId);
-  const mapel = db.mapel.find(m => m.id === tugas.mapelId);
+  const tugas = db.tugas.find(t => t.id === tugasId), mapel = db.mapel.find(m => m.id === tugas.mapelId);
   const siswaList = db.siswa.filter(s => mapel.kelasIds.includes(s.kelasId));
   const nm = {}; db.nilaiTugas.filter(n => n.tugasId === tugasId).forEach(n => nm[n.siswaNis] = n);
   showModal(`<div class="modal-title">Penilaian: ${esc(tugas.judul)}</div>
@@ -766,54 +607,34 @@ function saveNilaiTugas(tugasId, nis) {
   saveDB(); toast('Nilai tersimpan', 'success');
 }
 
-// ============ KUIS (PG + ESAI) ============
 let kuisSoal = [];
 function initKuis() {
-  const selKelas = document.getElementById('kKelas');
-  selKelas.innerHTML = '<option value="">-- Semua Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
-  const selMapel = document.getElementById('kMapel');
-  selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
+  document.getElementById('kKelas').innerHTML = '<option value="">-- Semua Kelas --</option>' + db.kelas.map(k => `<option value="${k.id}">${esc(k.nama)} (${esc(k.jurusan)})</option>`).join('');
+  document.getElementById('kMapel').innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
   loadKuis();
 }
 function onKuisKelasChange() {
-  const kelasId = document.getElementById('kKelas').value;
-  const selMapel = document.getElementById('kMapel');
-  if (!kelasId) {
-    selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
-  } else {
-    const mapelKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId));
-    selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + mapelKelas.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
-  }
+  const kelasId = document.getElementById('kKelas').value, selMapel = document.getElementById('kMapel');
+  if (!kelasId) { selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join(''); } 
+  else { const mapelKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId)); selMapel.innerHTML = '<option value="">-- Semua Mapel --</option>' + mapelKelas.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join(''); }
   loadKuis();
 }
 function loadKuis() {
-  const kelasId = document.getElementById('kKelas').value;
-  const mapelId = document.getElementById('kMapel').value;
-  const el = document.getElementById('listKuis');
+  const kelasId = document.getElementById('kKelas').value, mapelId = document.getElementById('kMapel').value, el = document.getElementById('listKuis');
   let list = db.kuis;
-  if (kelasId) {
-    const mapelIdsKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId)).map(m => m.id);
-    list = list.filter(k => mapelIdsKelas.includes(k.mapelId));
-  }
+  if (kelasId) { const mapelIdsKelas = db.mapel.filter(m => m.kelasIds.includes(kelasId)).map(m => m.id); list = list.filter(k => mapelIdsKelas.includes(k.mapelId)); }
   if (mapelId) list = list.filter(k => k.mapelId === mapelId);
   if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="material-icons">quiz</span><div>Belum ada kuis</div></div>'; return; }
   el.innerHTML = list.map(k => {
     const m = db.mapel.find(x => x.id === k.mapelId);
-    const jmlPG = k.soal.filter(s => s.tipe === 'pg').length;
-    const jmlEsai = k.soal.filter(s => s.tipe === 'esai').length;
-    const jmlNilai = db.nilaiKuis.filter(n => n.kuisId === k.id).length;
+    const jmlPG = k.soal.filter(s => s.tipe === 'pg').length, jmlEsai = k.soal.filter(s => s.tipe === 'esai').length, jmlNilai = db.nilaiKuis.filter(n => n.kuisId === k.id).length;
     return `<div class="list-item">
-      <div class="info">
-        <div class="title">${esc(k.judul)} <span class="badge badge-info">${k.soal.length} soal</span></div>
-        <div class="desc">📚 ${esc(m?.nama||'')} • ⏱️ ${esc(k.durasi)} mnt • Bobot: ${esc(k.bobot)}%</div>
-        <div class="desc">📝 PG: ${jmlPG} • ✍️ Esai: ${jmlEsai} • 📊 ${jmlNilai} dinilai</div>
-      </div>
+      <div class="info"><div class="title">${esc(k.judul)} <span class="badge badge-info">${k.soal.length} soal</span></div><div class="desc">📚 ${esc(m?.nama||'')} • ⏱️ ${esc(k.durasi)} mnt • Bobot: ${esc(k.bobot)}%</div><div class="desc">📝 PG: ${jmlPG} • ✍️ Esai: ${jmlEsai} • 📊 ${jmlNilai} dinilai</div></div>
       <div class="actions">
         <button class="btn-icon" onclick="showModalKuis('${k.id}')" title="Link & WA"><span class="material-icons" style="font-size:16px;color:#667eea">link</span></button>
         <button class="btn-icon" onclick="showHasilKuis('${k.id}')" title="Nilai"><span class="material-icons" style="font-size:16px;color:#11998e">grading</span></button>
         <button class="btn-icon" onclick="delKuis('${k.id}')" title="Hapus"><span class="material-icons" style="font-size:16px;color:#eb3349">delete</span></button>
-      </div>
-    </div>`;
+      </div></div>`;
   }).join('');
 }
 function showKuis() {
@@ -854,8 +675,7 @@ function saveKuis() {
 function delKuis(id) { if (!confirm('Hapus?')) return; db.kuis = db.kuis.filter(k => k.id !== id); db.nilaiKuis = db.nilaiKuis.filter(n => n.kuisId !== id); saveDB(); toast('Dihapus', 'success'); loadKuis(); }
 
 function showModalKuis(kuisId) {
-  const k = db.kuis.find(x => x.id === kuisId);
-  if (!k) return;
+  const k = db.kuis.find(x => x.id === kuisId); if (!k) return;
   showModal(`<div class="modal-title">🔗 Link Kuis</div>
     <div class="success-box">✅ Link berhasil dibuat! Copy dan share ke siswa via WhatsApp.</div>
     <div class="form-group"><label>Nama Kuis</label><div style="font-weight:700">${esc(k.judul)}</div></div>
@@ -865,7 +685,6 @@ function showModalKuis(kuisId) {
       <button class="btn btn-block btn-success" onclick="copyWAMessage('kuis', '${k.id}')"><span class="material-icons" style="font-size:14px">share</span> Copy Pesan WA</button>
     </div>
     <button class="btn btn-block btn-secondary" onclick="closeModal()" style="margin-top:8px">Tutup</button>`);
-  
   const m = db.mapel.find(x => x.id === k.mapelId);
   const data = { id:k.id, judul:k.judul, durasi:k.durasi, bobot:k.bobot, mapelNama:m?.nama||'', mapelKode:m?.kode||'', soal:k.soal };
   const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
@@ -874,16 +693,12 @@ function showModalKuis(kuisId) {
 }
 
 function showHasilKuis(kuisId) {
-  const kuis = db.kuis.find(k => k.id === kuisId);
-  const mapel = db.mapel.find(m => m.id === kuis.mapelId);
+  const kuis = db.kuis.find(k => k.id === kuisId), mapel = db.mapel.find(m => m.id === kuis.mapelId);
   const siswaList = db.siswa.filter(s => mapel.kelasIds.includes(s.kelasId));
   const nm = {}; db.nilaiKuis.filter(n => n.kuisId === kuisId).forEach(n => nm[n.siswaNis] = n);
-  
-  const jmlPG = kuis.soal.filter(s => s.tipe === 'pg').length;
-  const jmlEsai = kuis.soal.filter(s => s.tipe === 'esai').length;
-  
+  const jmlPG = kuis.soal.filter(s => s.tipe === 'pg').length, jmlEsai = kuis.soal.filter(s => s.tipe === 'esai').length;
   showModal(`<div class="modal-title">Hasil: ${esc(kuis.judul)}</div>
-    <div class="warning-box">⚠️ <b>Penting:</b> Karena aplikasi berjalan di browser (tanpa server), nilai PG otomatis hanya muncul di layar siswa. <br>Silakan input <b>Nilai PG</b> sesuai screenshot yang dikirim siswa, dan aplikasi akan otomatis menghitung Nilai Akhir.</div>
+    <div class="warning-box">⚠️ <b>Penting:</b> Nilai PG otomatis hanya muncul di layar siswa. Silakan input <b>Nilai PG</b> sesuai screenshot yang dikirim siswa, dan aplikasi akan otomatis menghitung Nilai Akhir.</div>
     <div style="max-height:60vh;overflow-y:auto"><div style="overflow-x:auto"><table><thead><tr><th>Nama</th><th>Nilai PG<br><small>(dari screenshot)</small></th><th>Nilai Esai</th><th>Nilai Akhir</th><th>Aksi</th></tr></thead><tbody>${siswaList.map(s => { 
       const n = nm[s.nis];
       return `<tr><td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td>
@@ -896,37 +711,20 @@ function showHasilKuis(kuisId) {
 }
 
 function saveNilaiKuis(kuisId, nis) {
-  const nilaiPGInput = document.getElementById('npg_'+nis).value;
-  const nilaiEsaiInput = document.getElementById('ne_'+nis).value;
-  const kuis = db.kuis.find(k => k.id === kuisId);
-  const idx = db.nilaiKuis.findIndex(n => n.kuisId === kuisId && n.siswaNis === nis);
-  
-  const nilaiPG = parseFloat(nilaiPGInput) || 0;
-  const nilaiEsai = parseFloat(nilaiEsaiInput) || 0;
-  const jmlPG = kuis.soal.filter(s => s.tipe === 'pg').length;
-  const jmlEsai = kuis.soal.filter(s => s.tipe === 'esai').length;
-  
+  const nilaiPGInput = document.getElementById('npg_'+nis).value, nilaiEsaiInput = document.getElementById('ne_'+nis).value;
+  const kuis = db.kuis.find(k => k.id === kuisId), idx = db.nilaiKuis.findIndex(n => n.kuisId === kuisId && n.siswaNis === nis);
+  const nilaiPG = parseFloat(nilaiPGInput) || 0, nilaiEsai = parseFloat(nilaiEsaiInput) || 0;
+  const jmlPG = kuis.soal.filter(s => s.tipe === 'pg').length, jmlEsai = kuis.soal.filter(s => s.tipe === 'esai').length;
   let nilaiAkhir;
-  if (jmlPG > 0 && jmlEsai > 0) {
-    nilaiAkhir = Math.round((nilaiPG + nilaiEsai) / 2);
-  } else if (jmlPG > 0) {
-    nilaiAkhir = nilaiPG;
-  } else {
-    nilaiAkhir = nilaiEsai;
-  }
+  if (jmlPG > 0 && jmlEsai > 0) nilaiAkhir = Math.round((nilaiPG + nilaiEsai) / 2);
+  else if (jmlPG > 0) nilaiAkhir = nilaiPG;
+  else nilaiAkhir = nilaiEsai;
   
-  if (idx >= 0) {
-    db.nilaiKuis[idx].nilaiPG = nilaiPGInput;
-    db.nilaiKuis[idx].nilaiEsai = nilaiEsaiInput;
-    db.nilaiKuis[idx].nilai = nilaiAkhir;
-  } else {
-    db.nilaiKuis.push({id:genId('NK'), kuisId, siswaNis:nis, nilaiPG:nilaiPGInput, nilaiEsai:nilaiEsaiInput, nilai:nilaiAkhir, tglSubmit:today(), kodeBukti:'-'});
-  }
-  saveDB(); toast('Nilai tersimpan', 'success');
-  showHasilKuis(kuisId); // Refresh modal
+  if (idx >= 0) { db.nilaiKuis[idx].nilaiPG = nilaiPGInput; db.nilaiKuis[idx].nilaiEsai = nilaiEsaiInput; db.nilaiKuis[idx].nilai = nilaiAkhir; } 
+  else { db.nilaiKuis.push({id:genId('NK'), kuisId, siswaNis:nis, nilaiPG:nilaiPGInput, nilaiEsai:nilaiEsaiInput, nilai:nilaiAkhir, tglSubmit:today(), kodeBukti:'-'}); }
+  saveDB(); toast('Nilai tersimpan', 'success'); showHasilKuis(kuisId);
 }
 
-// ============ REKAP NILAI (DENGAN KEHADIRAN) ============
 function initRekap() {
   document.getElementById('rMapel').innerHTML = '<option value="">-- Pilih Mapel --</option>' + db.mapel.map(m => `<option value="${m.id}">${esc(m.nama)}</option>`).join('');
   loadRekap();
@@ -936,43 +734,24 @@ function loadRekap() {
   if (!mapelId) { el.innerHTML = ''; return; }
   const mapel = db.mapel.find(m => m.id === mapelId);
   const siswaList = db.siswa.filter(s => mapel.kelasIds.includes(s.kelasId));
-  const tugasList = db.tugas.filter(t => t.mapelId === mapelId);
-  const kuisList = db.kuis.filter(k => k.mapelId === mapelId);
-  
+  const tugasList = db.tugas.filter(t => t.mapelId === mapelId), kuisList = db.kuis.filter(k => k.mapelId === mapelId);
   const rekap = siswaList.map(s => {
     const ntSiswa = db.nilaiTugas.filter(n => { const t = tugasList.find(tt => tt.id === n.tugasId); return t && n.siswaNis === s.nis && n.nilai !== '' && n.nilai != null; });
     const avgTugas = ntSiswa.length > 0 ? ntSiswa.reduce((a,b) => a + (parseFloat(b.nilai)||0), 0) / ntSiswa.length : 0;
-    
     const nkSiswa = db.nilaiKuis.filter(n => { const k = kuisList.find(kk => kk.id === n.kuisId); return k && n.siswaNis === s.nis; });
     const avgKuis = nkSiswa.length > 0 ? nkSiswa.reduce((a,b) => a + (parseFloat(b.nilai)||0), 0) / nkSiswa.length : 0;
-    
     const absenSiswa = db.absen.filter(a => a.siswaNis === s.nis && a.mapelId === mapelId);
-    const H = absenSiswa.filter(a => a.status === 'H').length;
-    const S = absenSiswa.filter(a => a.status === 'S').length;
-    const I = absenSiswa.filter(a => a.status === 'I').length;
-    const A = absenSiswa.filter(a => a.status === 'A').length;
+    const H = absenSiswa.filter(a => a.status === 'H').length, S = absenSiswa.filter(a => a.status === 'S').length, I = absenSiswa.filter(a => a.status === 'I').length, A = absenSiswa.filter(a => a.status === 'A').length;
     const totalAbsen = H + S + I + A;
     const kehadiran = totalAbsen > 0 ? ((H + 0.5*S + 0.5*I) / totalAbsen * 100) : 0;
-    
     const bTugas = parseFloat(db.pengaturan.bobotTugas) || 0, bKuis = parseFloat(db.pengaturan.bobotKuis) || 0, totalBobot = bTugas + bKuis;
     const nilaiAkhir = totalBobot > 0 ? ((avgTugas * bTugas + avgKuis * bKuis) / totalBobot) : 0;
-    
-    return { 
-      nis:s.nis, nama:s.nama, 
-      avgTugas:Math.round(avgTugas*10)/10, avgKuis:Math.round(avgKuis*10)/10, 
-      nilaiAkhir:Math.round(nilaiAkhir*10)/10, 
-      kehadiran:Math.round(kehadiran*10)/10,
-      H, S, I, A, totalAbsen,
-      status: nilaiAkhir >= parseFloat(db.pengaturan.kkm) ? 'LULUS' : 'REMEDI' 
-    };
+    return { nis:s.nis, nama:s.nama, avgTugas:Math.round(avgTugas*10)/10, avgKuis:Math.round(avgKuis*10)/10, nilaiAkhir:Math.round(nilaiAkhir*10)/10, kehadiran:Math.round(kehadiran*10)/10, H, S, I, A, totalAbsen, status: nilaiAkhir >= parseFloat(db.pengaturan.kkm) ? 'LULUS' : 'REMEDI' };
   });
-  
   const lulus = rekap.filter(s => s.status === 'LULUS').length, remed = rekap.filter(s => s.status === 'REMEDI').length;
   const avg = rekap.length > 0 ? rekap.reduce((a,b) => a + b.nilaiAkhir, 0) / rekap.length : 0;
   const avgKehadiran = rekap.length > 0 ? rekap.reduce((a,b) => a + b.kehadiran, 0) / rekap.length : 0;
-  
-  el.innerHTML = `
-    <div class="stats-row" style="margin-bottom:10px">
+  el.innerHTML = `<div class="stats-row" style="margin-bottom:10px">
       <div class="stat-box" style="--c1:#11998e;--c2:#38ef7d"><div class="val">${lulus}</div><div class="lbl">LULUS</div></div>
       <div class="stat-box" style="--c1:#eb3349;--c2:#f45c43"><div class="val">${remed}</div><div class="lbl">REMEDI</div></div>
       <div class="stat-box" style="--c1:#667eea;--c2:#764ba2"><div class="val">${avg.toFixed(1)}</div><div class="lbl">RATA NILAI</div></div>
@@ -982,22 +761,10 @@ function loadRekap() {
       <thead><tr><th>Nama</th><th>Tugas</th><th>Kuis</th><th>Akhir</th><th>H</th><th>S</th><th>I</th><th>A</th><th>% Hadir</th><th>Status</th></tr></thead>
       <tbody>${rekap.map(s => {
         const kelasKehadiran = s.kehadiran >= 80 ? 'kehadiran-high' : s.kehadiran >= 60 ? 'kehadiran-mid' : 'kehadiran-low';
-        return `<tr>
-          <td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td>
-          <td>${s.avgTugas}</td><td>${s.avgKuis}</td><td><b>${s.nilaiAkhir}</b></td>
-          <td style="color:#11998e;font-weight:700">${s.H}</td>
-          <td style="color:#f09819;font-weight:700">${s.S}</td>
-          <td style="color:#2193b0;font-weight:700">${s.I}</td>
-          <td style="color:#eb3349;font-weight:700">${s.A}</td>
-          <td class="${kelasKehadiran}">${s.kehadiran}%</td>
-          <td><span class="badge ${s.status==='LULUS'?'badge-success':'badge-danger'}">${s.status}</span></td>
-        </tr>`;
-      }).join('')}</tbody>
-    </table></div>
-  `;
+        return `<tr><td><b>${esc(s.nama)}</b><div style="font-size:9px;color:#64748b">${esc(s.nis)}</div></td><td>${s.avgTugas}</td><td>${s.avgKuis}</td><td><b>${s.nilaiAkhir}</b></td><td style="color:#11998e;font-weight:700">${s.H}</td><td style="color:#f09819;font-weight:700">${s.S}</td><td style="color:#2193b0;font-weight:700">${s.I}</td><td style="color:#eb3349;font-weight:700">${s.A}</td><td class="${kelasKehadiran}">${s.kehadiran}%</td><td><span class="badge ${s.status==='LULUS'?'badge-success':'badge-danger'}">${s.status}</span></td></tr>`;
+      }).join('')}</tbody></table></div>`;
 }
 
-// ============ SETTING ============
 function loadSetting() { 
   document.getElementById('setInstitusi').value = db.pengaturan.namaInstitusi || 'SMKN 2 Dompu'; 
   document.getElementById('setGuru').value = db.pengaturan.namaGuru || 'Guru';
@@ -1020,38 +787,27 @@ function exportData() { const data = JSON.stringify(db, null, 2); const blob = n
 function importData(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { try { if (!confirm('Import akan MENIMPA data saat ini. Lanjutkan?')) return; db = JSON.parse(ev.target.result); saveDB(); updateUIProfil(); toast('Data diimport', 'success'); showPage('g-dash'); } catch(err) { toast('File tidak valid', 'error'); } }; reader.readAsText(file); }
 function resetData() { if (!confirm('Yakin hapus SEMUA data?')) return; if (!confirm('Data tidak bisa dikembalikan!')) return; localStorage.removeItem(DB_KEY); db = { kelas:[], siswa:[], mapel:[], tugas:[], nilaiTugas:[], kuis:[], nilaiKuis:[], absen:[], pengaturan:{namaInstitusi:'SMKN 2 Dompu', namaGuru:'Guru', kkm:75,bobotTugas:30,bobotKuis:30} }; updateUIProfil(); toast('Data direset', 'success'); showPage('g-dash'); }
 
-// ============ HALAMAN SISWA: TUGAS ============
 function showSiswaPage() {
   document.getElementById('appContainer').style.display = 'none';
   document.getElementById('siswaContainer').style.display = 'block';
   document.getElementById('portalSub').textContent = 'Portal Tugas';
   updateUIProfil();
-  
-  if (!currentTugas) {
-    document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link tugas tidak valid.</div></div></div>`;
-    return;
-  }
-  
-  const t = currentTugas;
-  const isExpired = t.deadline && t.deadline < today();
-  
+  if (!currentTugas) { document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link tugas tidak valid.</div></div></div>`; return; }
+  const t = currentTugas, isExpired = t.deadline && t.deadline < today();
   document.getElementById('siswaContent').innerHTML = `
-    <div class="card">
-      <div class="card-title"><span class="material-icons">assignment</span> Detail Tugas</div>
+    <div class="card"><div class="card-title"><span class="material-icons">assignment</span> Detail Tugas</div>
       <div style="margin-bottom:10px"><span class="badge badge-info">${esc(t.mapelKode||t.mapelNama)}</span></div>
       <h2 style="font-size:18px;margin-bottom:8px">${esc(t.judul)}</h2>
       <div style="font-size:12px;color:#64748b;margin-bottom:12px">📅 Deadline: ${esc(t.deadline||'Tidak ada')} • Bobot: ${esc(t.bobot)}% ${isExpired?'<span class="badge badge-danger">LEWAT</span>':''}</div>
       ${t.deskripsi ? `<div style="background:#f8fafc;padding:12px;border-radius:10px;line-height:1.6;font-size:13px;white-space:pre-wrap">${esc(t.deskripsi)}</div>` : ''}
     </div>
     ${isExpired ? '<div class="warning-box">⚠️ Deadline tugas sudah lewat. Hubungi guru Anda.</div>' : `
-    <div class="card">
-      <div class="card-title"><span class="material-icons">person</span> Data Siswa</div>
+    <div class="card"><div class="card-title"><span class="material-icons">person</span> Data Siswa</div>
       <div class="form-group"><label>NIS</label><input class="form-control" id="sNis" placeholder="Masukkan NIS Anda"></div>
       <div class="form-group"><label>Nama Lengkap</label><input class="form-control" id="sNama" placeholder="Masukkan nama lengkap"></div>
       <div class="form-group"><label>Kelas</label><input class="form-control" id="sKelas" placeholder="Contoh: X TKJ 1"></div>
     </div>
-    <div class="card">
-      <div class="card-title"><span class="material-icons">upload_file</span> Upload Jawaban</div>
+    <div class="card"><div class="card-title"><span class="material-icons">upload_file</span> Upload Jawaban</div>
       <div class="form-group"><label>Foto Jawaban (Maks 2MB)</label>
         <div class="upload-area" id="upArea" onclick="document.getElementById('upFile').click()">
           <span class="material-icons" style="font-size:35px;color:#64748b">camera_alt</span>
@@ -1062,8 +818,7 @@ function showSiswaPage() {
       </div>
       <div class="form-group"><label>Catatan (Opsional)</label><textarea class="form-control" id="sCatatan" placeholder="Catatan untuk guru..." rows="2"></textarea></div>
       <button class="btn btn-block btn-success" onclick="submitTugasSiswa()"><span class="material-icons">send</span> Kirim Tugas</button>
-    </div>`}
-  `;
+    </div>`}`;
 }
 
 function compressImage(file, callback) {
@@ -1072,10 +827,8 @@ function compressImage(file, callback) {
     const img = new Image();
     img.onload = function() {
       const canvas = document.createElement('canvas');
-      const maxWidth = 800;
-      const scale = Math.min(1, maxWidth / img.width);
-      canvas.width = img.width * scale;
-      canvas.height = img.height * scale;
+      const maxWidth = 800, scale = Math.min(1, maxWidth / img.width);
+      canvas.width = img.width * scale; canvas.height = img.height * scale;
       canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
       callback(canvas.toDataURL('image/jpeg', 0.7));
     };
@@ -1089,23 +842,16 @@ function previewJawaban(input) {
   if (file.size > 2000000) { toast('File terlalu besar! Maksimal 2MB', 'error'); input.value = ''; return; }
   compressImage(file, function(base64) {
     currentFoto = base64;
-    const p = document.getElementById('upPreview');
-    p.src = base64; p.style.display = 'block';
+    const p = document.getElementById('upPreview'); p.src = base64; p.style.display = 'block';
     document.getElementById('upArea').classList.add('has-file');
   });
 }
 
 function submitTugasSiswa() {
-  const nis = document.getElementById('sNis').value.trim();
-  const nama = document.getElementById('sNama').value.trim();
-  const kelas = document.getElementById('sKelas').value.trim();
-  const catatan = document.getElementById('sCatatan').value.trim();
-  
+  const nis = document.getElementById('sNis').value.trim(), nama = document.getElementById('sNama').value.trim(), kelas = document.getElementById('sKelas').value.trim(), catatan = document.getElementById('sCatatan').value.trim();
   if (!nis || !nama || !kelas) return toast('Lengkapi NIS, Nama, dan Kelas', 'error');
   if (!currentFoto) return toast('Upload foto jawaban dulu!', 'error');
-  
-  const kodeBukti = genKode();
-  const tglSubmit = now();
+  const kodeBukti = genKode(), tglSubmit = now();
   const submission = { kodeBukti, nis, nama, kelas, tugasId:currentTugas.id, tugasJudul:currentTugas.judul, tglSubmit, catatan, fotoUrl:currentFoto };
   try { localStorage.setItem('sisga_submission_' + kodeBukti, JSON.stringify(submission)); } catch(e) {}
   showBuktiPage(submission);
@@ -1126,106 +872,85 @@ function showBuktiPage(sub) {
       <div style="margin:15px 0"><div class="lbl" style="font-size:11px;color:#64748b;font-weight:600;margin-bottom:5px">FOTO JAWABAN</div><img src="${sub.fotoUrl}" style="width:100%;border-radius:10px;border:2px solid #e2e8f0"></div>
       <div class="warning-box" style="margin-top:15px"><b>📱 Instruksi:</b><br>1. Screenshot halaman ini<br>2. Kirim screenshot ke guru via WhatsApp<br>3. Tunggu konfirmasi & nilai dari guru<br><br><b>⚠️ Penting:</b> Tanpa screenshot ini, guru tidak dapat melihat jawaban Anda!</div>
       <button class="btn btn-block btn-primary" onclick="window.print()" style="margin-top:10px"><span class="material-icons" style="font-size:14px">print</span> Cetak / Simpan PDF</button>
-    </div>
-  `;
+    </div>`;
   window.scrollTo(0, 0);
 }
 
-// ============ HALAMAN SISWA: KUIS (PG + ESAI) ============
 function showKuisPage() {
   document.getElementById('appContainer').style.display = 'none';
   document.getElementById('siswaContainer').style.display = 'block';
   document.getElementById('portalSub').textContent = 'Portal Kuis';
   updateUIProfil();
-  
-  if (!currentKuis) {
-    document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link kuis tidak valid.</div></div></div>`;
-    return;
-  }
-  
+  if (!currentKuis) { document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link kuis tidak valid.</div></div></div>`; return; }
   const k = currentKuis;
-  
   document.getElementById('siswaContent').innerHTML = `
-    <div class="card">
-      <div class="card-title"><span class="material-icons">quiz</span> Detail Kuis</div>
+    <div class="card"><div class="card-title"><span class="material-icons">quiz</span> Detail Kuis</div>
       <div style="margin-bottom:10px"><span class="badge badge-info">${esc(k.mapelKode||k.mapelNama)}</span></div>
       <h2 style="font-size:18px;margin-bottom:8px">${esc(k.judul)}</h2>
       <div style="font-size:12px;color:#64748b">⏱️ Durasi: ${esc(k.durasi)} menit • 📝 ${k.soal.length} soal • Bobot: ${esc(k.bobot)}%</div>
     </div>
-    <div class="card">
-      <div class="card-title"><span class="material-icons">person</span> Data Siswa</div>
+    <div class="card"><div class="card-title"><span class="material-icons">person</span> Data Siswa</div>
       <div class="form-group"><label>NIS</label><input class="form-control" id="kNis" placeholder="Masukkan NIS Anda"></div>
       <div class="form-group"><label>Nama Lengkap</label><input class="form-control" id="kNama" placeholder="Masukkan nama lengkap"></div>
       <div class="form-group"><label>Kelas</label><input class="form-control" id="kKelasSiswa" placeholder="Contoh: X TKJ 1"></div>
     </div>
-    <div class="card">
-      <div class="card-title"><span class="material-icons">help</span> Soal Kuis</div>
+    <div class="card"><div class="card-title"><span class="material-icons">help</span> Soal Kuis</div>
       <div id="daftarSoalKuis">
         ${k.soal.map((s, i) => {
           if (s.tipe === 'pg') {
-            return `<div class="soal-item">
-              <div style="font-weight:700;margin-bottom:8px">Soal ${i+1} (PG): ${esc(s.pertanyaan)}</div>
-              ${s.opsi.map((o, j) => `
-                <label style="display:flex;align-items:center;gap:8px;padding:7px;margin:3px 0;cursor:pointer;background:white;border-radius:8px;border:1px solid #e2e8f0">
-                  <input type="radio" name="soal_${i}" value="${j}" onchange="pilihJawaban(${i},${j})" style="cursor:pointer">
-                  <span><b>${String.fromCharCode(65+j)}.</b> ${esc(o)}</span>
-                </label>
-              `).join('')}
-            </div>`;
+            return `<div class="soal-item"><div style="font-weight:700;margin-bottom:8px">Soal ${i+1} (PG): ${esc(s.pertanyaan)}</div>
+              ${s.opsi.map((o, j) => `<label style="display:flex;align-items:center;gap:8px;padding:7px;margin:3px 0;cursor:pointer;background:white;border-radius:8px;border:1px solid #e2e8f0"><input type="radio" name="soal_${i}" value="${j}" onchange="pilihJawaban(${i},${j})" style="cursor:pointer"><span><b>${String.fromCharCode(65+j)}.</b> ${esc(o)}</span></label>`).join('')}</div>`;
           } else {
-            return `<div class="soal-item" style="border-left-color:#f09819">
-              <div style="font-weight:700;margin-bottom:8px">Soal ${i+1} (Esai): ${esc(s.pertanyaan)}</div>
-              <textarea class="form-control" id="esai_${i}" placeholder="Tulis jawaban esai Anda di sini..." rows="4"></textarea>
-            </div>`;
+            return `<div class="soal-item" style="border-left-color:#f09819"><div style="font-weight:700;margin-bottom:8px">Soal ${i+1} (Esai): ${esc(s.pertanyaan)}</div><textarea class="form-control" id="esai_${i}" placeholder="Tulis jawaban esai Anda di sini..." rows="4"></textarea></div>`;
           }
         }).join('')}
       </div>
       <button class="btn btn-block btn-success" onclick="submitKuisSiswa()" style="margin-top:10px"><span class="material-icons">send</span> Kirim Jawaban</button>
-    </div>
-  `;
-  
-  jawabanKuis = {};
-  window.scrollTo(0, 0);
+    </div>`;
+  jawabanKuis = {}; window.scrollTo(0, 0);
 }
 
 function pilihJawaban(noSoal, indeksOpsi) { jawabanKuis[noSoal] = { tipe:'pg', nilai:indeksOpsi }; }
 
 function submitKuisSiswa() {
-  const nis = document.getElementById('kNis').value.trim();
-  const nama = document.getElementById('kNama').value.trim();
-  const kelas = document.getElementById('kKelasSiswa').value.trim();
-  
+  const nis = document.getElementById('kNis').value.trim(), nama = document.getElementById('kNama').value.trim(), kelas = document.getElementById('kKelasSiswa').value.trim();
   if (!nis || !nama || !kelas) return toast('Lengkapi NIS, Nama, dan Kelas', 'error');
-  
   const soalPG = currentKuis.soal.map((s,i) => ({s,i})).filter(x => x.s.tipe === 'pg');
-  for (const {i} of soalPG) {
-    if (jawabanKuis[i] === undefined) return toast(`Jawab semua soal PG! (Soal ${i+1} belum dijawab)`, 'error');
-  }
-  
+  for (const {i} of soalPG) { if (jawabanKuis[i] === undefined) return toast(`Jawab semua soal PG! (Soal ${i+1} belum dijawab)`, 'error'); }
   const soalEsai = currentKuis.soal.map((s,i) => ({s,i})).filter(x => x.s.tipe === 'esai');
   for (const {i} of soalEsai) {
     const val = document.getElementById('esai_'+i)?.value.trim();
     if (!val) return toast(`Jawab semua soal Esai! (Soal ${i+1} belum dijawab)`, 'error');
     jawabanKuis[i] = { tipe:'esai', nilai:val };
   }
-  
   let benarPG = 0;
   soalPG.forEach(({s,i}) => { if (jawabanKuis[i].nilai === s.kunci) benarPG++; });
-  const totalPG = soalPG.length;
-  const nilaiPG = totalPG > 0 ? Math.round((benarPG / totalPG) * 100) : 0;
-  
-  const kodeBukti = genKode();
-  const tglSubmit = now();
-  
+  const totalPG = soalPG.length, nilaiPG = totalPG > 0 ? Math.round((benarPG / totalPG) * 100) : 0;
+  const kodeBukti = genKode(), tglSubmit = now();
   showBuktiKuis({ kodeBukti, nis, nama, kelas, kuisId:currentKuis.id, kuisJudul:currentKuis.judul, tglSubmit, nilaiPG, benarPG, totalPG, totalEsai:soalEsai.length, jawaban: jawabanKuis });
 }
 
 function showBuktiKuis(sub) {
   const hasEsai = sub.totalEsai > 0;
+  let esaiHtml = '';
+  if (hasEsai && currentKuis && currentKuis.soal && sub.jawaban) {
+    esaiHtml = `<div style="margin-top:15px; border-top:2px dashed #e2e8f0; padding-top:15px;">
+      <div class="lbl" style="font-size:12px; color:#64748b; font-weight:700; margin-bottom:10px;">📝 JAWABAN ESAI ANDA:</div>`;
+    currentKuis.soal.forEach((s, i) => {
+      if (s.tipe === 'esai' && sub.jawaban[i]) {
+        esaiHtml += `<div style="background:#f8fafc; padding:10px; border-radius:8px; margin-bottom:10px; border-left:3px solid #f09819;">
+          <div style="font-size:12px; font-weight:700; color:#1e293b; margin-bottom:5px;">Soal ${i+1}: ${esc(s.pertanyaan)}</div>
+          <div style="font-size:12px; color:#475569; line-height:1.5; white-space:pre-wrap; background:white; padding:8px; border-radius:6px; border:1px solid #e2e8f0;">${esc(sub.jawaban[i].nilai)}</div>
+        </div>`;
+      }
+    });
+    esaiHtml += `</div>`;
+  }
+
   document.getElementById('siswaContent').innerHTML = `
     <div class="bukti-card">
       <h2>✅ KUIS BERHASIL DIKUMPULKAN!</h2>
-      <div class="success-box" style="text-align:center"><b>📸 LANGKAH PENTING:</b><br>Screenshot halaman ini dan kirim ke guru Anda via WhatsApp!</div>
+      <div class="success-box" style="text-align:center"><b>📸 LANGKAH PENTING:</b><br>Scroll ke bawah dan screenshot <b>seluruh halaman</b> (termasuk jawaban esai) untuk dikirim ke guru!</div>
       <div class="bukti-info"><div class="lbl">Nama Siswa</div><div class="val">${esc(sub.nama)}</div></div>
       <div class="bukti-info"><div class="lbl">NIS</div><div class="val">${esc(sub.nis)}</div></div>
       <div class="bukti-info"><div class="lbl">Kelas</div><div class="val">${esc(sub.kelas)}</div></div>
@@ -1236,43 +961,26 @@ function showBuktiKuis(sub) {
         <div style="font-size:12px;opacity:0.9">NILAI PILIHAN GANDA (AUTO)</div>
         <div style="font-size:48px;font-weight:800;margin:5px 0">${sub.nilaiPG}</div>
         <div style="font-size:13px">Benar ${sub.benarPG} dari ${sub.totalPG} soal PG</div>
-        ${hasEsai ? `<div style="font-size:11px;opacity:0.8;margin-top:8px">✍️ Soal Esai akan dinilai manual oleh guru</div>` : ''}
+        ${hasEsai ? `<div style="font-size:11px;opacity:0.8;margin-top:8px; background:rgba(255,255,255,0.2); padding:5px; border-radius:6px;">✍️ Jawaban esai terlampir di bawah, akan dinilai manual oleh guru</div>` : ''}
       </div>
-      <div class="warning-box" style="margin-top:15px"><b>📱 Instruksi:</b><br>1. Screenshot halaman ini<br>2. Kirim screenshot ke guru via WhatsApp<br>3. Tunggu konfirmasi & nilai esai dari guru<br><br><b>⚠️ Penting:</b> Tanpa screenshot ini, guru tidak dapat melihat nilai Anda!</div>
+      ${esaiHtml}
+      <div class="warning-box" style="margin-top:15px"><b>📱 Instruksi:</b><br>1. <b>Scroll ke bawah</b> untuk memastikan jawaban esai terlihat.<br>2. Screenshot <b>seluruh halaman</b> ini.<br>3. Kirim screenshot ke guru via WhatsApp.<br><br><b>⚠️ Penting:</b> Guru membutuhkan screenshot jawaban esai ini untuk memberi nilai!</div>
       <button class="btn btn-block btn-primary" onclick="window.print()" style="margin-top:10px"><span class="material-icons" style="font-size:14px">print</span> Cetak / Simpan PDF</button>
-    </div>
-  `;
+    </div>`;
   window.scrollTo(0, 0);
 }
 
-// ============ DETEKSI URL SAAT LOAD ============
-loadDB();
-updateUIProfil();
+loadDB(); updateUIProfil();
 const urlParams = new URLSearchParams(window.location.search);
-const tugasEncoded = urlParams.get('tugas');
-const kuisEncoded = urlParams.get('kuis');
+const tugasEncoded = urlParams.get('tugas'), kuisEncoded = urlParams.get('kuis');
 
 if (tugasEncoded) {
-  try {
-    currentTugas = JSON.parse(decodeURIComponent(escape(atob(tugasEncoded))));
-    showSiswaPage();
-  } catch(e) {
-    document.getElementById('siswaContainer').style.display = 'block';
-    document.getElementById('appContainer').style.display = 'none';
-    document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link tidak valid.</div></div></div>`;
-  }
+  try { currentTugas = JSON.parse(decodeURIComponent(escape(atob(tugasEncoded)))); showSiswaPage(); } 
+  catch(e) { document.getElementById('siswaContainer').style.display = 'block'; document.getElementById('appContainer').style.display = 'none'; document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link tidak valid.</div></div></div>`; }
 } else if (kuisEncoded) {
-  try {
-    currentKuis = JSON.parse(decodeURIComponent(escape(atob(kuisEncoded))));
-    showKuisPage();
-  } catch(e) {
-    document.getElementById('siswaContainer').style.display = 'block';
-    document.getElementById('appContainer').style.display = 'none';
-    document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link kuis tidak valid.</div></div></div>`;
-  }
-} else {
-  loadDashboard();
-}
+  try { currentKuis = JSON.parse(decodeURIComponent(escape(atob(kuisEncoded)))); showKuisPage(); } 
+  catch(e) { document.getElementById('siswaContainer').style.display = 'block'; document.getElementById('appContainer').style.display = 'none'; document.getElementById('siswaContent').innerHTML = `<div class="card"><div class="empty"><span class="material-icons">error_outline</span><div>Link kuis tidak valid.</div></div></div>`; }
+} else { loadDashboard(); }
 </script>
 </body>
 </html>
